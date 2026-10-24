@@ -1,0 +1,25 @@
+{
+  "variables": [
+    {"name": "设定值", "type": "number", "initial": "25", "unit": "℃"},
+    {"name": "允许", "type": "boolean", "initial": "1"},
+    {"name": "说明", "type": "string", "initial": "离线示例"}
+  ],
+  "pages": [
+    {
+      "name": "主页",
+      "controls": [
+        {"type": "label", "name": "标题", "bounds": [30, 20, 740, 65], "text": "离线生成工程示例"},
+        {"type": "rectangle", "name": "参数区域", "bounds": [25, 90, 500, 250]},
+        {"type": "label", "name": "参数说明", "bounds": [40, 105, 230, 145], "text": "温度设定值（℃）"},
+        {"type": "numeric-input", "name": "温度输入", "bounds": [250, 105, 450, 150], "binding": "设定值", "minimum": 0, "maximum": 100},
+        {"type": "line", "name": "分隔线", "bounds": [35, 270, 750, 272]}
+      ]
+    },
+    {
+      "name": "说明页",
+      "controls": [
+        {"type": "label", "name": "说明标题", "bounds": [30, 30, 740, 90], "text": "此工程由JSON直接写入MCP文件"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+[
+ {"caption": "设备", "windows": [2], "layer": 1},
+ {"caption": "数据", "windows": [4, 40, 41, 42], "layer": 1},
+ {"caption": "当前报警", "windows": [33]}
+]

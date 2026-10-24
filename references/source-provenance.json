@@ -1,0 +1,356 @@
+{
+  "schema": 1,
+  "vendor_binaries_included": false,
+  "current_project_account_values_included": false,
+  "original_pro_template_password_fields_all_empty": true,
+  "files": [
+    {
+      "file": "scripts/native/mcs_window_archive.py",
+      "source": "<原项目>/离线改写工具/窗口与控件/mcs_window_archive.py",
+      "source_sha256": "2ae15141920b3488230deaab12d090cf81ce9a71c9bee09e613281c06da7e3cc",
+      "packaged_sha256": "551222ad4a871ec493082eb354ff5b8c10ac61a36f01a642c3c0663330437ed7",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": [
+        "audit_exports"
+      ]
+    },
+    {
+      "file": "scripts/native/mcs_plugin_controls.py",
+      "source": "<原项目>/离线改写工具/窗口与控件/mcs_plugin_controls.py",
+      "source_sha256": "dec9bdecc8d19781d5f1a21a035584b539b2d2b10f4c9aeff2d0b01a97b0596b",
+      "packaged_sha256": "40a473268e85f6ec7dbf3f73b7ffc294df14faad42812d35c1e3cfcb63bccbec",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": [
+        "recipe_template",
+        "xy_template",
+        "create_recipe",
+        "create_xy",
+        "create_editable_recipe",
+        "create_combined_xy",
+        "audit_xy",
+        "audit_recipe"
+      ]
+    },
+    {
+      "file": "scripts/native/mcs_recipe_association.py",
+      "source": "<原项目>/离线改写工具/窗口与控件/mcs_recipe_association.py",
+      "source_sha256": "bc0258bde1b4b34fa7ab5319ef500d337d689b6d810cdbd1463c7908b51e6a74",
+      "packaged_sha256": "639d522252590610fbef33170133fa2d8e3a97b9891b2ad68251e56b5cd73304",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": [
+        "load_recipe_definition"
+      ]
+    },
+    {
+      "file": "scripts/native/窗口事件归档.py",
+      "source": "<原项目>/离线改写工具/窗口与控件/窗口事件归档.py",
+      "source_sha256": "c5f23874a6310e419468277978bfde361eda1e8d2e1d47d3aa454bf0773d07c9",
+      "packaged_sha256": "d5f06843ef4c1a42bdc703fd75870f53f8ff8d751ca78f289eae6e4e507b7241",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": [
+        "核对样本"
+      ]
+    },
+    {
+      "file": "scripts/native/可见动画归档.py",
+      "source": "<原项目>/离线改写工具/窗口与控件/可见动画归档.py",
+      "source_sha256": "faba79753968b50dbb4e804e33483053e81e98303c9455a7568dbd68f53f7a03",
+      "packaged_sha256": "fbc3b09cd99d8110be7a85f8966fd13d897a7158b173cf55a1f4019b479108e0",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": [
+        "audit"
+      ]
+    },
+    {
+      "file": "scripts/native/mcgs_recipe_strategy.py",
+      "source": "<原项目>/离线改写工具/配方与策略/mcgs_recipe_strategy.py",
+      "source_sha256": "76006a31160fd287833397915339f2028effdafedaed8292dfd809ed3b2fc2ba",
+      "packaged_sha256": "76006a31160fd287833397915339f2028effdafedaed8292dfd809ed3b2fc2ba",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": []
+    },
+    {
+      "file": "scripts/native/mcgs_native_zip.py",
+      "source": "<原项目>/离线改写工具/配方与策略/mcgs_native_zip.py",
+      "source_sha256": "eee3a4c5cce9deed8a5f00f783fabcf7598c1dad7f398d58dba555af87ce3b73",
+      "packaged_sha256": "eee3a4c5cce9deed8a5f00f783fabcf7598c1dad7f398d58dba555af87ce3b73",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": []
+    },
+    {
+      "file": "scripts/native/mcs_button_control.py",
+      "source": "<原项目>/离线改写工具/配方与策略/mcs_button_control.py",
+      "source_sha256": "ef94f663d530f018f808eff340dc970b69665ba7f238936781a1c4d062bb5f92",
+      "packaged_sha256": "dd256aa5e965e2e17ecbce33fd9aee327a692cb838b971dad831757e97a1b844",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": [
+        "_template",
+        "create_button",
+        "audit_native_buttons"
+      ]
+    },
+    {
+      "file": "scripts/native/mcs_input_text.py",
+      "source": "<原项目>/离线改写工具/数据对象/mcs_input_text.py",
+      "source_sha256": "11749e53bd5e44a04b10ecdd2fbfbcd375f28e2c9b8eb3d1d127edbb52804a7f",
+      "packaged_sha256": "760a8d68b1ec5d71e98acab8d75fe42c996cf073f7ca105cff9f5b79c90a4cf9",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": [
+        "original_control",
+        "schema_info",
+        "create_input",
+        "create_label"
+      ]
+    },
+    {
+      "file": "scripts/native/对象归档.py",
+      "source": "<原项目>/离线改写工具/数据对象/对象归档.py",
+      "source_sha256": "c327c64f06b841fbbec27c53b2f10221514775e3216855e75f53492298d77e87",
+      "packaged_sha256": "c327c64f06b841fbbec27c53b2f10221514775e3216855e75f53492298d77e87",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": []
+    },
+    {
+      "file": "scripts/native/原生界面样式.py",
+      "source": "<原项目>/20261021_全工程界面优化/原生界面样式.py",
+      "source_sha256": "6b919d6fb3858964b6642b0dd24e6e70994e566ae1f127709432c076ada773ef",
+      "packaged_sha256": "d529c7d1ee7dec4d01ec16042adab9a5b79b2a8adaeee3846c1708f47c536f77",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": [
+        "audit"
+      ]
+    },
+    {
+      "file": "scripts/native/原生趋势样式.py",
+      "source": "<原项目>/20261021_全工程界面优化/原生趋势样式.py",
+      "source_sha256": "a63763a88475ef51491474326c3ab9e0c7a2c95609346be14b0a74f09cf50459",
+      "packaged_sha256": "a63763a88475ef51491474326c3ab9e0c7a2c95609346be14b0a74f09cf50459",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": []
+    },
+    {
+      "file": "scripts/native/报警表原生样式.py",
+      "source": "<原项目>/20261021_全工程界面优化/报警表原生样式.py",
+      "source_sha256": "25919f6cf5b84eb67968fa4f8f90a183e025667389ba0f36c4b0eeb708227ed6",
+      "packaged_sha256": "70da34ab996aed2cebe12edfb842797fcf49bdd9192190aea1d9f26ab09e434d",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": []
+    },
+    {
+      "file": "scripts/native/旧下拉框与历史表样式.py",
+      "source": "<原项目>/20261021_全工程界面优化/独立审查/旧下拉框与历史表样式.py",
+      "source_sha256": "cd137ffe57660c4e4f9b98b7e87b92ff209f5899a4b31e1e46240cdec1bb2386",
+      "packaged_sha256": "bd6bbea4f818abec3840d5d00151d9d7cf00cb64f61149ac94b8c94bcf81f047",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": []
+    },
+    {
+      "file": "scripts/native/当前存盘浏览样式.py",
+      "source": "<原项目>/20261021_全页可读性与存盘导出/当前存盘浏览样式.py",
+      "source_sha256": "d9707d1c2bac05cbb2e0b1186bf9db1c7d12c62ef826de80e21b2b8e8e048a69",
+      "packaged_sha256": "37eb1065d04fd9bf77e68230284bebae3ed520e02875482a1e19e4ec5d1dbef2",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": []
+    },
+    {
+      "file": "scripts/native/mcs_file_browser.py",
+      "source": "<原项目>/曲线读数与文件选择/mcs_file_browser.py",
+      "source_sha256": "37d2acc9ecfd9a218c87ad2bf72a0d5d6fb94de37a1eb5166d01a8db33c2d84c",
+      "packaged_sha256": "dccc4ac50da58442f80322609dea81427517b9bc4c427427720e694a4e7103a3",
+      "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
+      "removed_functions": [
+        "current_template",
+        "make_file_browser",
+        "evidence"
+      ]
+    },
+    {
+      "file": "assets/pro-3.5-cli/agents/openai.yaml",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/agents/openai.yaml",
+      "source_sha256": "34b97b940fd1de5ab1c30550459a9e73a32c8ceb5c6e0bb39cd7965226cefbdb",
+      "packaged_sha256": "34b97b940fd1de5ab1c30550459a9e73a32c8ceb5c6e0bb39cd7965226cefbdb",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/assets/blank-project.json",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/assets/blank-project.json",
+      "source_sha256": "edac9a5489eefc952ce9720ae593b083b1e03482dff5556b441a65fd54fd8ffa",
+      "packaged_sha256": "edac9a5489eefc952ce9720ae593b083b1e03482dff5556b441a65fd54fd8ffa",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/assets/primitives.json",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/assets/primitives.json",
+      "source_sha256": "21f9c832322fae823817067c6cd5d332e89e315c7e442ce60a9d5ec2b790bb4b",
+      "packaged_sha256": "21f9c832322fae823817067c6cd5d332e89e315c7e442ce60a9d5ec2b790bb4b",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/examples/create.json",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/examples/create.json",
+      "source_sha256": "93f2c995a7448a8e8bff9e1f16aa2963c47336ad45679b04a6ae90cca656e58c",
+      "packaged_sha256": "93f2c995a7448a8e8bff9e1f16aa2963c47336ad45679b04a6ae90cca656e58c",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/references/acceptance.md",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/references/acceptance.md",
+      "source_sha256": "083b534583e66d343c3fc40d0def08af4b1f6d21833dd5f1e2761f4f6b471dcf",
+      "packaged_sha256": "083b534583e66d343c3fc40d0def08af4b1f6d21833dd5f1e2761f4f6b471dcf",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/references/editing.md",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/references/editing.md",
+      "source_sha256": "4cd09a36f9b64a0503208d738589bd03570ba87d63f4dc01968d146191d8ac22",
+      "packaged_sha256": "4cd09a36f9b64a0503208d738589bd03570ba87d63f4dc01968d146191d8ac22",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/references/runtime.md",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/references/runtime.md",
+      "source_sha256": "3b11f9f7281db087dab407cd33ddc18d55ff6534b7959fc3002c93aa98f6d3eb",
+      "packaged_sha256": "3b11f9f7281db087dab407cd33ddc18d55ff6534b7959fc3002c93aa98f6d3eb",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/requirements.txt",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/requirements.txt",
+      "source_sha256": "150f1e36840234437268717295eefa1bcacc90b8f48d85d8de25f2f9236de9f2",
+      "packaged_sha256": "150f1e36840234437268717295eefa1bcacc90b8f48d85d8de25f2f9236de9f2",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/run.cmd",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/run.cmd",
+      "source_sha256": "b92f86d45d0bf0aced529e816459920b46f9d4a3fba2f7e567dde4311e5ae8fd",
+      "packaged_sha256": "b92f86d45d0bf0aced529e816459920b46f9d4a3fba2f7e567dde4311e5ae8fd",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/scripts/database.ps1",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/scripts/database.ps1",
+      "source_sha256": "5f491c34d5210206dfd0736fdb0f09ca1e9546f1ebc928f611317a99b0108e4b",
+      "packaged_sha256": "5f491c34d5210206dfd0736fdb0f09ca1e9546f1ebc928f611317a99b0108e4b",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/scripts/mcgs_file.py",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/scripts/mcgs_file.py",
+      "source_sha256": "7c3190b204bd0b8a446373beccf709620e4d176f8002e5c9ca1b8d4ffa5f2622",
+      "packaged_sha256": "7c3190b204bd0b8a446373beccf709620e4d176f8002e5c9ca1b8d4ffa5f2622",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/scripts/native_format.py",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/scripts/native_format.py",
+      "source_sha256": "23172d903ca677dab1c0d4301d089597ae6f4434d5eebb134571fd3e7e2abb18",
+      "packaged_sha256": "23172d903ca677dab1c0d4301d089597ae6f4434d5eebb134571fd3e7e2abb18",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/setup.ps1",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/setup.ps1",
+      "source_sha256": "04227848553e5d03f6bb5a4ce82724c44195782cf013c92755bb7f8fe851d15a",
+      "packaged_sha256": "04227848553e5d03f6bb5a4ce82724c44195782cf013c92755bb7f8fe851d15a",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/SKILL.md",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/SKILL.md",
+      "source_sha256": "d6db94059f6e7233bb4d18a70ec4a3f88a72ab777697079697fac0b4e998784e",
+      "packaged_sha256": "d6db94059f6e7233bb4d18a70ec4a3f88a72ab777697079697fac0b4e998784e",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "assets/pro-3.5-cli/THIRD_PARTY_LICENSE.txt",
+      "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/THIRD_PARTY_LICENSE.txt",
+      "source_sha256": "7bfe03fb9b14e598b46acf609996e5d04411af1ff6a2d62270e080dcb4f812a6",
+      "packaged_sha256": "7bfe03fb9b14e598b46acf609996e5d04411af1ff6a2d62270e080dcb4f812a6",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+    },
+    {
+      "file": "tools/mcgs_ui.py",
+      "sources": [
+        {
+          "source": "<原项目>/20261022_现代化界面重排/准备现代化界面增量.py",
+          "source_sha256": "50cba61981234898633572371e8b798fb9915b117618ea0eca40d01e1709ce36"
+        },
+        {
+          "source": "<原项目>/20261023_设备页优化/准备设备页副本.py",
+          "source_sha256": "7ead420c088740207e0a501df72e033be2a96a482ae21d496dbca956705df407"
+        },
+        {
+          "source": "<原项目>/20261022_最小仿真副本/诊断/准备单段诊断副本.py",
+          "source_sha256": "887e9d72c939c514a472c23652bec086a0fc5b0ca4e551e6f289838055e04923"
+        },
+        {
+          "source": "<原项目>/20261022_最小仿真副本/通讯指示/准备通讯指示副本.py",
+          "source_sha256": "890126285cc8b620a463ce53f484f42bf5094f4c57ec533845bf62ca86a6a5e9"
+        }
+      ],
+      "adaptation": "取通用部分：色板与样式种类、控件编辑函数、业务字节不变检查、Page 页面构建类、set_decimals、显示框绑定；去掉具体工程的窗口规格和对齐表；新增 Export/Templates/new_window/Candidate。导航边线与设备页两张卡片的生成结果与原脚本逐字节相同。",
+      "packaged_sha256": "16ce31de22f1b77c947a80a084a806d007458d9a9bb0edc6ec3f5e0a72575b61"
+    },
+    {
+      "file": "tools/样式规格应用.py",
+      "sources": [
+        {
+          "source": "<原项目>/20261022_现代化界面重排/准备现代化界面增量.py",
+          "source_sha256": "50cba61981234898633572371e8b798fb9915b117618ea0eca40d01e1709ce36"
+        }
+      ],
+      "adaptation": "原 main 流程改为读规格文件；去掉固定底稿 SHA 与目标指纹比对，改用导出自带的前指纹。用原工程 v4 规格跑出的 18 个窗口 BLOB 与原候选逐字节相同。",
+      "packaged_sha256": "5bddd0a2172851b08a27913f05e37f03734690a5651d444b58eb08110fa1b427"
+    },
+    {
+      "file": "tools/离线预览.py",
+      "sources": [
+        {
+          "source": "<原项目>/20261022_现代化界面重排/离线预览_按原厂对齐.py",
+          "source_sha256": "b5b3f0582355b61d59da125f8cbed573e6ddbcce359e510642db6ee3f0d76196"
+        },
+        {
+          "source": "<原项目>/布局与曲线优化/解析用户布局.py",
+          "source_sha256": "5b68414fae6f68654ef8dab99178317a8d5b9d37d5a7aa7a5c0f53697b8951f3"
+        }
+      ],
+      "adaptation": "依赖改为 scripts/native；字体目录取 WINDIR；SVG 转换改用 MCGS_NODE/MCGS_SHARP；去掉设计叠加分支与写死的导航激活表（改为 --active-map）；接受 index.json，--full-dir 可选；0x5028 common 画笔不画。仅改路径时 39 个窗口与原版逐像素相同；最终版与原版的差异只在 0x5028 边线和底部说明文字。",
+      "packaged_sha256": "fe4602f58e6fd3096a8e1b1d9ff6bff5c200b3ea6d03dddb690bbb2464f36684"
+    },
+    {
+      "file": "tools/文字容纳检查.py",
+      "sources": [
+        {
+          "source": "<原项目>/20261022_现代化界面重排/文字容纳检查.py",
+          "source_sha256": "71ef8a9232176fdc041ba4dc38a4e588f0d7093472ed19d81a2e6fb463d03739"
+        }
+      ],
+      "adaptation": "改用 mcgs_ui；画面边界默认取窗口自身宽高（--screen 可指定）；共用边线的窗口改为 --segment-ok 参数。同参数下输出与原版逐字节相同。",
+      "packaged_sha256": "e1874ed760da109975fe4de577d2f4014547ee252776249c8e889b4927c32b1a"
+    },
+    {
+      "file": "tools/新增窗口事务.ps1",
+      "sources": [
+        {
+          "source": "<原项目>/20261023_IO监视/执行IO监视受限事务.ps1",
+          "source_sha256": "9c1efab29ea9ecf0c7ea1683e06f07b00e03322d5163a69ea4fcd57a549a6d47"
+        }
+      ],
+      "adaptation": "技能脚本改为相对路径；更新白名单改为与 run.ps1 apply 相同的规则；新增行限 WndUser、窗口号和窗口名不重复；输出不限目录但必须是新文件；加 -Commit 预检模式。",
+      "packaged_sha256": "522d335439a3e213b6646335ef36316c1e4bc7b7d59d77b46a22f9609d576b07"
+    },
+    {
+      "file": "scripts/stu_project.ps1",
+      "sources": [
+        {
+          "source": "mcgs-stu-offline-edit 原包 scripts/stu_project.ps1",
+          "source_sha256": "8f9837f2b1afbb6944ac6a0500857bccc63493c5dcd2a20b1f88906d7bd9bbda"
+        }
+      ],
+      "adaptation": "SafeSystemRow 白名单加 MCGSLINGUIST（界面多语言字符表），供离线预览解析文字 token；其余未改。",
+      "packaged_sha256": "456e07007d214a7d3662bd2a3abfb1b4f5b680f32a2b6f596db348fa2cc1588f"
+    }
+  ],
+  "project_specific_content_included": false
+}

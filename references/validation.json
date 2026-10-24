@@ -1,0 +1,143 @@
+{
+  "schema": 1,
+  "skill": "mcgs-stu-offline-edit",
+  "edition": "分享版",
+  "date": "2026-10-24",
+  "base_package_validation": {
+    "date": "2026-10-22",
+    "powershell_tested": "7.6.6 x64",
+    "ace_tested": "Microsoft.ACE.OLEDB.16.0; 12.0 also enumerated",
+    "python_tested": "3.12.14",
+    "isolated_behavior_checks": [
+      {
+        "name": "default_apply_is_read_only",
+        "passed": true,
+        "expected_success": true
+      },
+      {
+        "name": "wrong_input_sha256",
+        "passed": true,
+        "expected_success": false
+      },
+      {
+        "name": "wrong_field_before_fingerprint",
+        "passed": true,
+        "expected_success": false
+      },
+      {
+        "name": "wrong_blob_sha256",
+        "passed": true,
+        "expected_success": false
+      },
+      {
+        "name": "account_table_write_rejected",
+        "passed": true,
+        "expected_success": false
+      },
+      {
+        "name": "single_strategy_container_rejected",
+        "passed": true,
+        "expected_success": false
+      },
+      {
+        "name": "blob_path_escape_rejected",
+        "passed": true,
+        "expected_success": false
+      },
+      {
+        "name": "copy_commit_two_blob_transaction",
+        "passed": true,
+        "expected_success": true
+      },
+      {
+        "name": "after_fingerprints",
+        "passed": true,
+        "expected_success": true
+      },
+      {
+        "name": "compare_reports_exactly_two_changed_fields",
+        "passed": true,
+        "expected_success": true
+      },
+      {
+        "name": "in_place_backs_up_before_transaction",
+        "passed": true,
+        "expected_success": true
+      },
+      {
+        "name": "stable_snapshot_with_recipe_files",
+        "passed": true,
+        "expected_success": true
+      },
+      {
+        "name": "existing_report_refused_before_mutation",
+        "passed": true,
+        "expected_success": false
+      },
+      {
+        "name": "mcp_extension_rejected_with_Pro_route",
+        "passed": true,
+        "expected_success": false
+      }
+    ],
+    "codec_checks": {
+      "unsupported": [],
+      "all_attempted_roundtrips_pass": true
+    },
+    "pro_original_cli_doctor_passed": true,
+    "pro_create_edit_inspect_reverification": false,
+    "note": "原包在一个实际 McgsStu 3.5.3 工程上做的隔离验证；该工程不随包提供"
+  },
+  "share_edition_checks": [
+    {
+      "name": "preview_path_port_pixel_identical",
+      "passed": true,
+      "scope": "39 个窗口与缩略总览，与原工具逐像素相同"
+    },
+    {
+      "name": "preview_final_differs_only_in_5028_pen_and_footer",
+      "passed": true
+    },
+    {
+      "name": "text_fit_port_output_identical",
+      "passed": true
+    },
+    {
+      "name": "style_spec_tool_reproduces_original_18_window_blobs",
+      "passed": true
+    },
+    {
+      "name": "ui_library_reproduces_original_blobs",
+      "passed": true,
+      "scope": "导航边线窗口；设备页两张卡片 133 个控件"
+    },
+    {
+      "name": "inspect_exports_MCGSLINGUIST",
+      "passed": true
+    },
+    {
+      "name": "new_window_transaction_commit_on_copy",
+      "passed": true,
+      "scope": "新增 1 个窗口并改 1 个窗口；复读一致；native audit 通过；输入快照未变"
+    },
+    {
+      "name": "new_window_transaction_rejects",
+      "passed": true,
+      "scope": "清单哈希不符、底稿 SHA 不符、输出已存在、前指纹不符、BLOB 哈希不符、BLOB 路径越界、System 行越界、策略容器不成对、插入已有窗口号/重名/非 WndUser/缺列/flag 非 0；均未生成输出"
+    },
+    {
+      "name": "examples_run",
+      "passed": true
+    },
+    {
+      "name": "relocated_package_smoke",
+      "passed": true,
+      "scope": "复制到新目录、在其他工作目录下运行：doctor、snapshot、inspect、native audit、离线预览（含 --active-map）、文字检查、两个示例、新增窗口事务 -Commit、run.ps1 apply -Commit；底稿快照未变"
+    }
+  ],
+  "native_compile_verified": false,
+  "native_runtime_verified": false,
+  "physically_tested": false,
+  "test_inputs_or_project_data_bundled": false,
+  "vendor_binaries_bundled": false
+}

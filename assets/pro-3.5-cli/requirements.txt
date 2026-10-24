@@ -1,0 +1,3 @@
+# Python 3.11 or newer, standard library only. No pip packages to install.
+# Windows PowerShell 5.1 (32-bit), ADOX and Microsoft.Jet.OLEDB.4.0 required.
+# Run scripts/mcgs_file.py doctor to test actual database creation and BLOB readback.

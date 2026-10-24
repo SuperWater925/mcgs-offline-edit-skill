@@ -1,0 +1,917 @@
+{
+  "Alarm": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iAlarmID",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iDataObjID",
+        "type": 3
+      },
+      {
+        "size": 536870910,
+        "name": "strNote",
+        "type": 203
+      },
+      {
+        "size": 4,
+        "name": "iPriority",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iRepeateNum",
+        "type": 3
+      },
+      {
+        "size": 2,
+        "name": "bAlarmSave",
+        "type": 11
+      },
+      {
+        "size": 4,
+        "name": "iRelatePointID",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iAlmBit",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "fLL",
+        "type": 4
+      },
+      {
+        "size": 4,
+        "name": "fL",
+        "type": 4
+      },
+      {
+        "size": 4,
+        "name": "fH",
+        "type": 4
+      },
+      {
+        "size": 4,
+        "name": "fHH",
+        "type": 4
+      },
+      {
+        "size": 4,
+        "name": "fValue",
+        "type": 4
+      },
+      {
+        "size": 4,
+        "name": "fVH",
+        "type": 4
+      },
+      {
+        "size": 4,
+        "name": "fVL",
+        "type": 4
+      },
+      {
+        "size": 4,
+        "name": "fVV",
+        "type": 4
+      },
+      {
+        "size": 4,
+        "name": "iSavePre",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iSaveLast",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iDeleteFlag",
+        "type": 3
+      }
+    ],
+    "rows": []
+  },
+  "Data": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iDataID",
+        "type": 3
+      },
+      {
+        "size": 32,
+        "name": "strName",
+        "type": 202
+      },
+      {
+        "size": 536870910,
+        "name": "strNote",
+        "type": 203
+      },
+      {
+        "size": 536870910,
+        "name": "strUnit",
+        "type": 203
+      },
+      {
+        "size": 4,
+        "name": "iDataType",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "bAutoSave",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "SaveSpan",
+        "type": 4
+      },
+      {
+        "size": 4,
+        "name": "iSaveSpanTime",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "AlarmObjID",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "ArgvObjID",
+        "type": 3
+      },
+      {
+        "size": 536870910,
+        "name": "strInitValue",
+        "type": 203
+      },
+      {
+        "size": 4,
+        "name": "fMaxValue",
+        "type": 4
+      },
+      {
+        "size": 4,
+        "name": "fMinValue",
+        "type": 4
+      },
+      {
+        "size": 4,
+        "name": "iPoint",
+        "type": 3
+      },
+      {
+        "size": 1073741823,
+        "name": "IDs",
+        "type": 205
+      },
+      {
+        "size": 4,
+        "name": "iPosition",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iUserNum",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iDeleteFlag",
+        "type": 3
+      }
+    ],
+    "rows": []
+  },
+  "DDEConnection": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iID",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iDataID",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iDDEOut",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iDDEIn",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iDDEConnectionPoint",
+        "type": 3
+      },
+      {
+        "size": 64,
+        "name": "strDDEItem",
+        "type": 202
+      },
+      {
+        "size": 4,
+        "name": "iTemp1",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iTemp2",
+        "type": 3
+      }
+    ],
+    "rows": []
+  },
+  "DDEConnectionPoint": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iID",
+        "type": 3
+      },
+      {
+        "size": 32,
+        "name": "strName",
+        "type": 202
+      },
+      {
+        "size": 4,
+        "name": "lType",
+        "type": 3
+      },
+      {
+        "size": 1073741823,
+        "name": "lbContext",
+        "type": 205
+      },
+      {
+        "size": 4,
+        "name": "iTemp1",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iTemp2",
+        "type": 3
+      }
+    ],
+    "rows": []
+  },
+  "SecurityGroup": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iID",
+        "type": 3
+      },
+      {
+        "size": 32,
+        "name": "strName",
+        "type": 202
+      },
+      {
+        "size": 536870910,
+        "name": "strNote",
+        "type": 203
+      },
+      {
+        "size": 4,
+        "name": "iTemp1",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iTemp2",
+        "type": 3
+      }
+    ],
+    "rows": [
+      {
+        "iID": 0,
+        "strName": "管理员组",
+        "strNote": "成员可以管理所有的权限分配",
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 1,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 2,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 3,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 4,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 5,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 6,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 7,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 8,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 9,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 10,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 11,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 12,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 13,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 14,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 15,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 16,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 17,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 18,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 19,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 20,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 21,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 22,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 23,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 24,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 25,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 26,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 27,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 28,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      },
+      {
+        "iID": 29,
+        "strName": null,
+        "strNote": null,
+        "iTemp1": 0,
+        "iTemp2": 0
+      }
+    ]
+  },
+  "SecurityUser": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iID",
+        "type": 3
+      },
+      {
+        "size": 32,
+        "name": "strName",
+        "type": 202
+      },
+      {
+        "size": 32,
+        "name": "strPassword",
+        "type": 202
+      },
+      {
+        "size": 536870910,
+        "name": "strNote",
+        "type": 203
+      },
+      {
+        "size": 4,
+        "name": "iTemp1",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iTemp2",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iAccessRight",
+        "type": 3
+      }
+    ],
+    "rows": [
+      {
+        "iID": 0,
+        "strName": "负责人",
+        "strPassword": null,
+        "strNote": "属于管理员组，可以管理权限分配",
+        "iTemp1": 0,
+        "iTemp2": 0,
+        "iAccessRight": 1
+      }
+    ]
+  },
+  "Stgy": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iStgyID",
+        "type": 3
+      },
+      {
+        "size": 32,
+        "name": "strStgyName",
+        "type": 202
+      },
+      {
+        "size": 536870910,
+        "name": "strStgyComment",
+        "type": 203
+      },
+      {
+        "size": 1073741823,
+        "name": "lbObjects",
+        "type": 205
+      },
+      {
+        "size": 4,
+        "name": "iDeleteFlag",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iCompileFlag",
+        "type": 3
+      }
+    ],
+    "rows": [
+      {
+        "iStgyID": 0,
+        "strStgyName": null,
+        "strStgyComment": null,
+        "lbObjects": {
+          "binary": "AwD//wAADgBDU3RyYXRlZ3lCbG9jawAANAAAAAAAAAD//v8EL1SoUlZ7ZXX//v8IU1/7fN9+L1SoUvZl0I9MiAAAAAAAAAAAAAAAAAEAAAAAAAAAAYAAADQAAAAAAAAA//7/BA5U8FP7TqFS//7/CA5U8FMJY/Zlql+vc2diTIgCAAAAAAAAAAEAAAABAAAAAAAAAAGAAAA0AAAAAAAAAP/+/wQAkPpRVntldf/+/whTX/t8334AkPpRTVLQj0yIAAAAAAAAAAACAAAAAQAAAAAAAAA="
+        },
+        "iDeleteFlag": null,
+        "iCompileFlag": 1
+      }
+    ]
+  },
+  "System": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iID",
+        "type": 3
+      },
+      {
+        "size": 32,
+        "name": "strName",
+        "type": 202
+      },
+      {
+        "size": 1073741823,
+        "name": "lbContext",
+        "type": 205
+      }
+    ],
+    "rows": [
+      {
+        "iID": 1,
+        "strName": "MCGSVER",
+        "lbContext": {
+          "binary": "TQBjAGcAcwBQAHIAbwAgADMALgA1AC4AMQAuADYAOQA2ADMAAAA="
+        }
+      },
+      {
+        "iID": 2,
+        "strName": "TPCInfo",
+        "lbContext": {
+          "binary": "VABQAEMANwAwADcAMgBHAGkALwBHAHQAOgA4ADAAMAA6ADQAOAAwADoAMAA6ADIAMAA6ADIAMAA6ADoAOgCAe1NPLU6HZToAbABpAG4AdQB4ADoAMQA6ADAAOgAxADAAOgAwADoAMQAwADoAMQA2ADcANwA3ADQANwAxADoAMgA1ADUAOgAxADoAMAAAAA=="
+        }
+      },
+      {
+        "iID": 3,
+        "strName": "MCGSTPCSize",
+        "lbContext": {
+          "binary": "NwAwAAAA"
+        }
+      },
+      {
+        "iID": 4,
+        "strName": "ProWndBGColor",
+        "lbContext": {
+          "binary": "MQAyADYAMwAyADIANQA2AAAA"
+        }
+      },
+      {
+        "iID": 5,
+        "strName": "MCGSLINGUIST",
+        "lbContext": {
+          "binary": "AACAPwAAAAAAAAAAAQAAAAAAAAAMAAAAAAAAAP/+/wItTodl//7/AotbU09kAAAA///////+/wKLW1NPZAAAAP////8BAAAA//7/AvGC7Yv//v8Ci1tTT2QAAAD///////7/AotbU09kAAAA/////+kDAAD//v8CQX5TT//+/wKLW1NPZAAAAP///////v8Ci1tTT2QAAAD/////6gMAAP/+/wLlZe2L//7/CU0AUwAgAEcAbwB0AGgAaQBjAGQAAAD///////7/CU0AUwAgAEcAbwB0AGgAaQBjAGQAAAD/////6wMAAP/+/wLpl+2L//7/DU0AYQBsAGcAdQBuACAARwBvAHQAaABpAGMAZAAAAP///////v8NTQBhAGwAZwB1AG4AIABHAG8AdABoAGkAYwBkAAAA/////+wDAAD//v8Ct1/ti//+/wVBAHIAaQBhAGwAZAAAAP///////v8FQQByAGkAYQBsAGQAAAD/////7QMAAP/+/wR/ie1zWXLti//+/wVBAHIAaQBhAGwAZAAAAP///////v8FQQByAGkAYQBsAGQAAAD/////7gMAAP/+/wLET+2L//7/BUEAcgBpAGEAbABkAAAA///////+/wVBAHIAaQBhAGwAZAAAAP/////vAwAA//7/AtVs7Yv//v8FQQByAGkAYQBsAGQAAAD///////7/BUEAcgBpAGEAbABkAAAA//////ADAAD//v8EYYQEhFly7Yv//v8FQQByAGkAYQBsAGQAAAD///////7/BUEAcgBpAGEAbABkAAAA//////EDAAD//v8ED2EnWSlS7Yv//v8FQQByAGkAYQBsAGQAAAD///////7/BUEAcgBpAGEAbABkAAAA//////IDAAD//v8C8Gzti//+/wtBAG4AZwBzAGEAbgBhACAATgBlAHcAlgAAAP///////v8LQQBuAGcAcwBhAG4AYQAgAE4AZQB3AJYAAAD/////AAAAAAIAAAA="
+        }
+      },
+      {
+        "iID": 6,
+        "strName": "StgyAndTrigger",
+        "lbContext": {
+          "binary": "AACAP7ABAAADAP//AAAOAENTdHJhdGVneUJsb2NrAAA0AAAAAAAAAP/+/wQvVKhSVntldf/+/whTX/t8334vVKhS9mXQj0yIAAAAAAAAAAAAAAAAAQAAAAAAAAABgAAANAAAAAAAAAD//v8EDlTwU/tOoVL//v8IDlTwUwlj9mWqX69zZ2JMiAIAAAAAAAAAAQAAAAEAAAAAAAAAAYAAADQAAAAAAAAA//7/BACQ+lFWe2V1//7/CFNf+3zffgCQ+lFNUtCPTIgAAAAAAAAAAAIAAAABAAAAAAAAAAMA//8AAA0AQ1RyaWdnZXJTdGFydAEAAAAAAAAAAAAAAP/+/whTX/t8334vVKhS9mXQj0yIAAAAAAAAAAAAAAAA//8AAAwAQ1RyaWdnZXJMb29wAgAAAAEAAAACAAAA//7/CA5U8FMJY/Zlql+vc2diTIgAAAAAAAAAAAAAAAAAAAMAYOoAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAP//AAALAENUcmlnZ2VyRW5kAwAAAAIAAAABAAAA//7/CFNf+3zffgCQ+lFNUtCPTIgAAAAAAAAAAAAAAAA="
+        }
+      },
+      {
+        "iID": 7,
+        "strName": "ObjData",
+        "lbContext": {
+          "binary": "AABAQYwCAAAEAAAA//7/CkkAbgBwAHUAdABTAFQAaQBtAGUA//7/CPt8336FUfpecGVuY/lbYYz//v8AAwAAAAAAgD9kAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAA//7/AAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAD//v8BMAD5AhVQ+QIV0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//v8A//7/CkkAbgBwAHUAdABFAFQAaQBtAGUA//7/CPt8336FUfpecGVuY/lbYYz//v8AAwAAAAAAgD9kAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAA//7/AAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAD//v8BMAD5AhVQ+QIV0AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//v8A//7/CkkAbgBwAHUAdABVAHMAZQByADEA//7/CPt8336FUfpecGVuY/lbYYz//v8AAwAAAAAAgD9kAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAA//7/AAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAD//v8BMAD5AhVQ+QIV0AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//v8A//7/CkkAbgBwAHUAdABVAHMAZQByADIA//7/CPt8336FUfpecGVuY/lbYYz//v8AAwAAAAAAgD9kAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAA//7/AAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAD//v8BMAD5AhVQ+QIV0AAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//v8A"
+        }
+      },
+      {
+        "iID": 9,
+        "strName": "MCGS_RECIPE_DATA",
+        "lbContext": {
+          "binary": "AAAAAA=="
+        }
+      },
+      {
+        "iID": 10,
+        "strName": "MCGS_DATABASECONNECT_DATA",
+        "lbContext": {
+          "binary": "AAAAAA=="
+        }
+      },
+      {
+        "iID": 11,
+        "strName": "COMM_CFG",
+        "lbContext": {
+          "binary": "AAAAAP/+/wkxADIANwAuADAALgAwAC4AMQArmQAAAQAAACkCAAAAAAAAAQAAAP/+/xZFAG0AdQBsAGEAdABvAHIAXABCAFoATQBjAGcAcwA0ADgAMAAuAGkAbgBpAP/+/wwHaMZRIAA4ADAAMAAgACoAIAA0ADgAMAABAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA="
+        }
+      }
+    ]
+  },
+  "Trigger": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iID",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "lStgyID",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "lType",
+        "type": 3
+      },
+      {
+        "size": 1073741823,
+        "name": "lbContext",
+        "type": 205
+      },
+      {
+        "size": 536870910,
+        "name": "strNote",
+        "type": 203
+      },
+      {
+        "size": 4,
+        "name": "iTemp1",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iTemp2",
+        "type": 3
+      }
+    ],
+    "rows": [
+      {
+        "iID": 1,
+        "lStgyID": 0,
+        "lType": 0,
+        "lbContext": {
+          "binary": "AQAAAAAAAAAAAAAA//7/CFNf+3zffi9UqFL2ZdCPTIgAAAAAAAAAAAAAAAA="
+        },
+        "strNote": "当系统启动时运行",
+        "iTemp1": null,
+        "iTemp2": null
+      },
+      {
+        "iID": 2,
+        "lStgyID": 1,
+        "lType": 2,
+        "lbContext": {
+          "binary": "AgAAAAEAAAACAAAA//7/CA5U8FMJY/Zlql+vc2diTIgAAAAAAAAAAAAAAAAAAAMAYOoAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+        },
+        "strNote": "后台按时循环执行",
+        "iTemp1": null,
+        "iTemp2": null
+      },
+      {
+        "iID": 3,
+        "lStgyID": 2,
+        "lType": 1,
+        "lbContext": {
+          "binary": "AwAAAAIAAAABAAAA//7/CFNf+3zffgCQ+lFNUtCPTIgAAAAAAAAAAAAAAAA="
+        },
+        "strNote": "当系统退出前运行",
+        "iTemp1": null,
+        "iTemp2": null
+      }
+    ]
+  },
+  "WndControl": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iID",
+        "type": 3
+      },
+      {
+        "size": 32,
+        "name": "strName",
+        "type": 202
+      },
+      {
+        "size": 536870910,
+        "name": "strNote",
+        "type": 203
+      },
+      {
+        "size": 1073741823,
+        "name": "lbObjects",
+        "type": 205
+      },
+      {
+        "size": 4,
+        "name": "iDeleteFlag",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iCompileFlag",
+        "type": 3
+      }
+    ],
+    "rows": [
+      {
+        "iID": 1,
+        "strName": "主控窗口",
+        "strNote": null,
+        "lbObjects": {
+          "binary": "AAAAAM3MzMzMHMhA//7/H00AQwBHAFMALQBTAEUAVAAgAEQATwBDAFUATQBFAE4AVAA7AFYARQBSAFMASQBPAE4AIAAwADEALgAwADAAAQAIAP//////////////////////////////////////////AQAIAP//////////////////////////////////////////AwAIAP//////////////////////////////////////////AAAIAP/+/wD//v8A//7/AP/+/wD//v8A//7/AP/+/wD//v8ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAD//v8BQQACAAAAAAAAAAAAAAD//v8A//7/DCEAUwB5AHMAVwBpAG4AZABvAHcAKAApAAAACAD//////////////////////////////////////////wAACAD//v8A//7/AP/+/wD//v8A//7/AP/+/wD//v8A//7/AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAA//7/AUEAAAAAAAAAAAAAAAAA//7/AP/+/wAAAAgA//////////////////////////////////////////8AAAgA//7/AP/+/wD//v8A//7/AP/+/wD//v8A//7/BgCQ+lHQj0yIr3ODWP/+/wAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAABAAAAP/+/wFBAAIAAAAAAAAAAAAAAP/+/wD//v8AAAAIAP/+/wD//v8A//7/AP/+/wD//v8A//7/AP/+/wD//v8ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAD//v8BQQABAAAAAAAAAAAAAAD//v8A//7/AAAACAD//v8A//7/AP/+/wD//v8A//7/AP/+/wD//v8A//7/AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//7/AUEAAwAAAAAAAAAAAAAA//7/AP/+/wAAAAEA//7/A5d641MwAAEAAQAAAAAAAAAZAAMAAAAAAAgACAAAADtOp2OXeuNTCAAAAAAACAAIAAAAxH4BYOVdC3oIAAIAAAAwAAgAAAAAAAMAAAAAAAMAAAAAAAMAAAAAAAMA/////wMA/////wMA/////wMAWAIAAAMA6AMAAAMAeAMAAAMA/////wMA/////wMA/////wMAAgAAAAMAAQAAAAMA/////wMA/////wMAAwAAAAMAAAAAAAMAAAAAAAAA"
+        },
+        "iDeleteFlag": null,
+        "iCompileFlag": 1
+      }
+    ]
+  },
+  "WndDevice": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iWndDevID",
+        "type": 3
+      },
+      {
+        "size": 32,
+        "name": "strWndDevName",
+        "type": 202
+      },
+      {
+        "size": 536870910,
+        "name": "strWndDevComment",
+        "type": 203
+      },
+      {
+        "size": 1073741823,
+        "name": "lbObjects",
+        "type": 205
+      },
+      {
+        "size": 4,
+        "name": "iDeleteFlag",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iCompileFlag",
+        "type": 3
+      }
+    ],
+    "rows": [
+      {
+        "iWndDevID": 1,
+        "strWndDevName": "设备窗口",
+        "strWndDevComment": null,
+        "lbObjects": {
+          "binary": "AQAAAADNzMzMzBzIQP/+/x9NAEMARwBTAC0AUwBFAFQAIABEAE8AQwBVAE0ARQBOAFQAOwBWAEUAUgBTAEkATwBOACAAMAAxAC4AMAAwAAAA"
+        },
+        "iDeleteFlag": null,
+        "iCompileFlag": 1
+      }
+    ]
+  },
+  "WndUser": {
+    "fields": [
+      {
+        "size": 4,
+        "name": "iID",
+        "type": 3
+      },
+      {
+        "size": 32,
+        "name": "strName",
+        "type": 202
+      },
+      {
+        "size": 536870910,
+        "name": "strNote",
+        "type": 203
+      },
+      {
+        "size": 1073741823,
+        "name": "lbObjects",
+        "type": 205
+      },
+      {
+        "size": 4,
+        "name": "iDeleteFlag",
+        "type": 3
+      },
+      {
+        "size": 4,
+        "name": "iCompileFlag",
+        "type": 3
+      }
+    ],
+    "rows": [
+      {
+        "iID": 1,
+        "strName": "窗口0",
+        "strNote": "自定义窗口，运行时可见",
+        "lbObjects": {
+          "binary": "AAAAAM3MzMzMHMhA//7/H00AQwBHAFMALQBTAEUAVAAgAEQATwBDAFUATQBFAE4AVAA7AFYARQBSAFMASQBPAE4AIAAwADEALgAwADAAAAAAAAsBAAACAAAAAMIVAAMAAQAAAAgABgAAAJd641MwAAgAFgAAAOqBmltJTpd641MM/9CPTIj2Ze9TwYkIAAoAAADqgZpbSU6XeuNTAwAAAAAAAwAAAAAAAwAgAwAAAwDgAQAAAwAAAAAAAwABAAAAAwAFAAAAAwAAAAAAAwAAAAAAAwAAAQAAAwABAAAAAwDAwMAAAwAAAAAAAwABAAAAAwAAAAAAAwAAAAAAAwAAAAAA//7/AP/+/wDoAwAA//7/AAAAAAAAAAAAAAAAAP/+/wD//v8A//7/AA0AAAAAAAAAAAAAAAAAAQ0AAAAAAAAAAAAAAAAAAQ0AAAAAAAAAAAAAAAAAAQQAAAAAAAYA/////wAAAAA="
+        },
+        "iDeleteFlag": 0,
+        "iCompileFlag": 1
+      }
+    ]
+  }
+}

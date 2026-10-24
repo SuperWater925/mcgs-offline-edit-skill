@@ -1,0 +1,303 @@
+{
+  "schema": 1,
+  "self_excluded": true,
+  "file_count": 59,
+  "descriptor_sha256": "c761ee1c58ae479b88277ee1052863db17c11382d9d11f6c7e51eb038fd5795c",
+  "files": [
+    {
+      "file": ".gitattributes",
+      "bytes": 117,
+      "sha256": "38793394608522901b1905c41759097db5332ebfcc8ed58d1fcd9c8b1bc6044f"
+    },
+    {
+      "file": ".gitignore",
+      "bytes": 19,
+      "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793"
+    },
+    {
+      "file": "agents/openai.yaml",
+      "bytes": 292,
+      "sha256": "d714715abdf5226efe5a804c8af1cdd0b1acbecb37d075a93e3697c5bd54fd83"
+    },
+    {
+      "file": "assets/pro-3.5-cli/agents/openai.yaml",
+      "bytes": 335,
+      "sha256": "34b97b940fd1de5ab1c30550459a9e73a32c8ceb5c6e0bb39cd7965226cefbdb"
+    },
+    {
+      "file": "assets/pro-3.5-cli/assets/blank-project.json",
+      "bytes": 22103,
+      "sha256": "edac9a5489eefc952ce9720ae593b083b1e03482dff5556b441a65fd54fd8ffa"
+    },
+    {
+      "file": "assets/pro-3.5-cli/assets/primitives.json",
+      "bytes": 3149,
+      "sha256": "21f9c832322fae823817067c6cd5d332e89e315c7e442ce60a9d5ec2b790bb4b"
+    },
+    {
+      "file": "assets/pro-3.5-cli/examples/create.json",
+      "bytes": 1042,
+      "sha256": "93f2c995a7448a8e8bff9e1f16aa2963c47336ad45679b04a6ae90cca656e58c"
+    },
+    {
+      "file": "assets/pro-3.5-cli/references/acceptance.md",
+      "bytes": 2201,
+      "sha256": "083b534583e66d343c3fc40d0def08af4b1f6d21833dd5f1e2761f4f6b471dcf"
+    },
+    {
+      "file": "assets/pro-3.5-cli/references/editing.md",
+      "bytes": 2779,
+      "sha256": "4cd09a36f9b64a0503208d738589bd03570ba87d63f4dc01968d146191d8ac22"
+    },
+    {
+      "file": "assets/pro-3.5-cli/references/runtime.md",
+      "bytes": 3478,
+      "sha256": "3b11f9f7281db087dab407cd33ddc18d55ff6534b7959fc3002c93aa98f6d3eb"
+    },
+    {
+      "file": "assets/pro-3.5-cli/requirements.txt",
+      "bytes": 240,
+      "sha256": "150f1e36840234437268717295eefa1bcacc90b8f48d85d8de25f2f9236de9f2"
+    },
+    {
+      "file": "assets/pro-3.5-cli/run.cmd",
+      "bytes": 582,
+      "sha256": "b92f86d45d0bf0aced529e816459920b46f9d4a3fba2f7e567dde4311e5ae8fd"
+    },
+    {
+      "file": "assets/pro-3.5-cli/scripts/database.ps1",
+      "bytes": 6531,
+      "sha256": "5f491c34d5210206dfd0736fdb0f09ca1e9546f1ebc928f611317a99b0108e4b"
+    },
+    {
+      "file": "assets/pro-3.5-cli/scripts/mcgs_file.py",
+      "bytes": 15444,
+      "sha256": "7c3190b204bd0b8a446373beccf709620e4d176f8002e5c9ca1b8d4ffa5f2622"
+    },
+    {
+      "file": "assets/pro-3.5-cli/scripts/native_format.py",
+      "bytes": 9307,
+      "sha256": "23172d903ca677dab1c0d4301d089597ae6f4434d5eebb134571fd3e7e2abb18"
+    },
+    {
+      "file": "assets/pro-3.5-cli/setup.ps1",
+      "bytes": 647,
+      "sha256": "04227848553e5d03f6bb5a4ce82724c44195782cf013c92755bb7f8fe851d15a"
+    },
+    {
+      "file": "assets/pro-3.5-cli/SKILL.md",
+      "bytes": 2962,
+      "sha256": "d6db94059f6e7233bb4d18a70ec4a3f88a72ab777697079697fac0b4e998784e"
+    },
+    {
+      "file": "assets/pro-3.5-cli/THIRD_PARTY_LICENSE.txt",
+      "bytes": 1085,
+      "sha256": "7bfe03fb9b14e598b46acf609996e5d04411af1ff6a2d62270e080dcb4f812a6"
+    },
+    {
+      "file": "README.md",
+      "bytes": 2232,
+      "sha256": "4442a1080787d2588a564d37ab31e4b6cc41053f293b302a7bc0b3a9ab033ab2"
+    },
+    {
+      "file": "references/database-and-transactions.md",
+      "bytes": 6304,
+      "sha256": "2d6ea939da6ceb02abb351b23410a355949e83fe0665079c547821f7a2cd9d30"
+    },
+    {
+      "file": "references/environment-and-tools.md",
+      "bytes": 4626,
+      "sha256": "ae0d43d9ebdb712bc2d522da49d32c1ef46596a341b9f8f7e210b7eb61118be0"
+    },
+    {
+      "file": "references/native-ui.md",
+      "bytes": 8723,
+      "sha256": "e3fe262345ef689b8b5b5d5667348ae218cab982a4119cf09256fd6fa594c5c1"
+    },
+    {
+      "file": "references/pitfalls-and-validation.md",
+      "bytes": 4518,
+      "sha256": "14ceb96b9a59e9e2352d5e4da2637c40d46f1f948d66c5fe562d9af202292a2c"
+    },
+    {
+      "file": "references/plc-handoff.md",
+      "bytes": 2875,
+      "sha256": "8f1b30f4212ff4c48162801118581185d6b15a6c778ce3e1aa240917a998c7b7"
+    },
+    {
+      "file": "references/project-profile.md",
+      "bytes": 2210,
+      "sha256": "1ced655355507cb27989fad23f21265fb0f0f05a130c717730f3edb5f71454e0"
+    },
+    {
+      "file": "references/recipes-and-preview.md",
+      "bytes": 3736,
+      "sha256": "76193ee1c94efb514b13c747007d5ff837bb09c3fff1af06f35052ca24cf1d7f"
+    },
+    {
+      "file": "references/source-provenance.json",
+      "bytes": 22284,
+      "sha256": "ce636a13d7064c267f672b6de676b082cf909efb1b02118e5f6ebbfa1fa59b23"
+    },
+    {
+      "file": "references/statistics-and-export.md",
+      "bytes": 3881,
+      "sha256": "0dc13fe568ae82843f89920f7583097a54dbffa062d4e156bdc771f398caf749"
+    },
+    {
+      "file": "references/ui-tools.md",
+      "bytes": 7357,
+      "sha256": "762eb8839ef63d70cea6f4d30f6906b074749af9246f2ee33f640ffdb6a0d901"
+    },
+    {
+      "file": "references/validation.json",
+      "bytes": 4371,
+      "sha256": "79f9972c80c436cea7a78c87e0a0c24504a2755b6f767513a1183c6ded5125b7"
+    },
+    {
+      "file": "run.ps1",
+      "bytes": 119,
+      "sha256": "ee62361336fe8d836baba0dde5adb7cbabd2819b37b012754f22fd34ef4c2c7f"
+    },
+    {
+      "file": "scripts/native/mcgs_native_zip.py",
+      "bytes": 1221,
+      "sha256": "eee3a4c5cce9deed8a5f00f783fabcf7598c1dad7f398d58dba555af87ce3b73"
+    },
+    {
+      "file": "scripts/native/mcgs_recipe_strategy.py",
+      "bytes": 15850,
+      "sha256": "76006a31160fd287833397915339f2028effdafedaed8292dfd809ed3b2fc2ba"
+    },
+    {
+      "file": "scripts/native/mcs_button_control.py",
+      "bytes": 13894,
+      "sha256": "dd256aa5e965e2e17ecbce33fd9aee327a692cb838b971dad831757e97a1b844"
+    },
+    {
+      "file": "scripts/native/mcs_file_browser.py",
+      "bytes": 2394,
+      "sha256": "dccc4ac50da58442f80322609dea81427517b9bc4c427427720e694a4e7103a3"
+    },
+    {
+      "file": "scripts/native/mcs_input_text.py",
+      "bytes": 8657,
+      "sha256": "760a8d68b1ec5d71e98acab8d75fe42c996cf073f7ca105cff9f5b79c90a4cf9"
+    },
+    {
+      "file": "scripts/native/mcs_plugin_controls.py",
+      "bytes": 5468,
+      "sha256": "40a473268e85f6ec7dbf3f73b7ffc294df14faad42812d35c1e3cfcb63bccbec"
+    },
+    {
+      "file": "scripts/native/mcs_recipe_association.py",
+      "bytes": 3730,
+      "sha256": "639d522252590610fbef33170133fa2d8e3a97b9891b2ad68251e56b5cd73304"
+    },
+    {
+      "file": "scripts/native/mcs_window_archive.py",
+      "bytes": 7445,
+      "sha256": "551222ad4a871ec493082eb354ff5b8c10ac61a36f01a642c3c0663330437ed7"
+    },
+    {
+      "file": "scripts/native/原生界面样式.py",
+      "bytes": 14056,
+      "sha256": "d529c7d1ee7dec4d01ec16042adab9a5b79b2a8adaeee3846c1708f47c536f77"
+    },
+    {
+      "file": "scripts/native/原生趋势样式.py",
+      "bytes": 3243,
+      "sha256": "a63763a88475ef51491474326c3ab9e0c7a2c95609346be14b0a74f09cf50459"
+    },
+    {
+      "file": "scripts/native/可见动画归档.py",
+      "bytes": 7334,
+      "sha256": "fbc3b09cd99d8110be7a85f8966fd13d897a7158b173cf55a1f4019b479108e0"
+    },
+    {
+      "file": "scripts/native/对象归档.py",
+      "bytes": 6214,
+      "sha256": "c327c64f06b841fbbec27c53b2f10221514775e3216855e75f53492298d77e87"
+    },
+    {
+      "file": "scripts/native/当前存盘浏览样式.py",
+      "bytes": 3107,
+      "sha256": "37eb1065d04fd9bf77e68230284bebae3ed520e02875482a1e19e4ec5d1dbef2"
+    },
+    {
+      "file": "scripts/native/报警表原生样式.py",
+      "bytes": 5410,
+      "sha256": "70da34ab996aed2cebe12edfb842797fcf49bdd9192190aea1d9f26ab09e434d"
+    },
+    {
+      "file": "scripts/native/旧下拉框与历史表样式.py",
+      "bytes": 7845,
+      "sha256": "bd6bbea4f818abec3840d5d00151d9d7cf00cb64f61149ac94b8c94bcf81f047"
+    },
+    {
+      "file": "scripts/native/窗口事件归档.py",
+      "bytes": 3767,
+      "sha256": "d5f06843ef4c1a42bdc703fd75870f53f8ff8d751ca78f289eae6e4e507b7241"
+    },
+    {
+      "file": "scripts/native_tool.py",
+      "bytes": 9416,
+      "sha256": "2b598cdce6ce6daa398f633a4727ee3bf36b879ed2c6c08b8c205500910a1c46"
+    },
+    {
+      "file": "scripts/stu_project.ps1",
+      "bytes": 19491,
+      "sha256": "456e07007d214a7d3662bd2a3abfb1b4f5b680f32a2b6f596db348fa2cc1588f"
+    },
+    {
+      "file": "SKILL.md",
+      "bytes": 5089,
+      "sha256": "a50135e91ee948f361014119bfe25f9c0727e186b705cfce117f91ab9b873b9f"
+    },
+    {
+      "file": "tools/mcgs_ui.py",
+      "bytes": 44638,
+      "sha256": "3d7374962fe22e765657c56330f95afe836d2f76d9e4ccbe566e3b273308f817"
+    },
+    {
+      "file": "tools/文字容纳检查.py",
+      "bytes": 5404,
+      "sha256": "e1874ed760da109975fe4de577d2f4014547ee252776249c8e889b4927c32b1a"
+    },
+    {
+      "file": "tools/新增窗口事务.ps1",
+      "bytes": 10665,
+      "sha256": "522d335439a3e213b6646335ef36316c1e4bc7b7d59d77b46a22f9609d576b07"
+    },
+    {
+      "file": "tools/样式规格应用.py",
+      "bytes": 10212,
+      "sha256": "5bddd0a2172851b08a27913f05e37f03734690a5651d444b58eb08110fa1b427"
+    },
+    {
+      "file": "tools/示例/导航激活规则示例.json",
+      "bytes": 166,
+      "sha256": "f87fe38c63d022f4376befb962f9e7ee7db0df4a11543193332cd90fe45d74ba"
+    },
+    {
+      "file": "tools/示例/示例_在窗口上叠矩形.py",
+      "bytes": 1339,
+      "sha256": "3127f6a8303103a5e16d6639f30b368c4da9eade4c3413074cd4e2ba10681324"
+    },
+    {
+      "file": "tools/示例/示例_新建页面.py",
+      "bytes": 2507,
+      "sha256": "36080ce2e01c04821b1d0d6ca2ff9f7f6cc2faf07b3a63d3494c8d6fcab0fad5"
+    },
+    {
+      "file": "tools/示例/示例_样式规格.py",
+      "bytes": 2053,
+      "sha256": "631f0cfba91a70a9311923fd13bf06b03c145023180e9116d80f561e98528446"
+    },
+    {
+      "file": "tools/离线预览.py",
+      "bytes": 45223,
+      "sha256": "fe4602f58e6fd3096a8e1b1d9ff6bff5c200b3ea6d03dddb690bbb2464f36684"
+    }
+  ]
+}

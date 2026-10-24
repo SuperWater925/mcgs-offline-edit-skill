@@ -1,0 +1,4 @@
+interface:
+  display_name: "昆仑通态离线工程文件编写"
+  short_description: "直接离线创建和修改McgsPro原生工程文件，随包脚本与模板可独立运行"
+  default_prompt: "使用 $mcgs-offline-engineering 直接离线编写McgsPro 3.5.1.6963工程文件，然后进行文件回读和本机原厂验证。"
