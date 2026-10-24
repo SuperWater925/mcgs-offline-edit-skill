@@ -37,3 +37,7 @@ Codex 放到 `%USERPROFILE%\.codex\skills\mcgs-stu-offline-edit`。装好后在 
 - 这不是昆仑通态官方工具。格式结论来自实际工程的逆向验证；只改已验证的结构，未知内容原样保留。
 - 离线检查通过不等于原厂编译或运行通过。写入后请用 McgsStu 打开、组态检查、编译，再做运行验证。
 - 包里不含厂商程序、任何具体工程或账号。
+
+## 许可
+
+MIT，见 [LICENSE](LICENSE)。`assets/pro-3.5-cli/` 是第三方代码，按其自带的 MIT 许可文件发布。

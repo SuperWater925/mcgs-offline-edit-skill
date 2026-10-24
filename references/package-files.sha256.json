@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "self_excluded": true,
-  "file_count": 59,
-  "descriptor_sha256": "c761ee1c58ae479b88277ee1052863db17c11382d9d11f6c7e51eb038fd5795c",
+  "file_count": 60,
+  "descriptor_sha256": "7860930a9759371a72a39df38a2a5b69bbcc524c5cd190d98c12d39bc248995a",
   "files": [
     {
       "file": ".gitattributes",
@@ -95,9 +95,14 @@
       "sha256": "7bfe03fb9b14e598b46acf609996e5d04411af1ff6a2d62270e080dcb4f812a6"
     },
     {
+      "file": "LICENSE",
+      "bytes": 1070,
+      "sha256": "652b8451bd6834a50eade351c59217c1c21932b56db8d0f587a0e11c27044f26"
+    },
+    {
       "file": "README.md",
-      "bytes": 2232,
-      "sha256": "4442a1080787d2588a564d37ab31e4b6cc41053f293b302a7bc0b3a9ab033ab2"
+      "bytes": 2360,
+      "sha256": "c41550d322cdd1c739a5db5c20faf6030313a2388ad916f6928426c671f227ca"
     },
     {
       "file": "references/database-and-transactions.md",
