@@ -1,16 +1,16 @@
 ---
-name: mcgs-stu-offline-edit
-description: 离线检查、修改McgsStu原生MCS工程中的策略、配方、数据对象和已验证的原生界面归档（含控件生成、样式批量修改、离线预览、文字检查、新建窗口），并保全工程与运行配方。用于Stu工程复读、界面调整及脚本修复；McgsPro的mcp工程须走单独版本工具。
+name: mcgs-offline-edit
+description: 离线检查、修改昆仑通态MCGS工程，分Stu与Pro两条路线。McgsStu的原生MCS工程：策略、配方、数据对象和已验证的原生界面归档（含控件生成、样式批量修改、离线预览、文字检查、新建窗口），并保全工程与运行配方。McgsPro 3.5的mcp工程：新建工程、页面、基础控件与变量的生成和修改，功能持续补充。用于工程复读、界面调整及脚本修复。
 ---
 
-# McgsStu 离线工程编辑
+# 昆仑通态MCGS离线工程编辑（Stu / Pro）
 
 把需求落实成可编辑原生工程、有限变更清单和可回读的证据。此技能来自McgsStu 3.5项目中实际使用的离线工具；随包没有厂商DLL、当前用户工程或账号。支持中文变量和中文交付。
 
 ## 先选正确路线
 
 - `.MCS`且确认是McgsStu原生Access/Jet数据库：使用本包`run.ps1`及`scripts/native/`。先记录软件完整版本、目标屏、分辨率和当前输入SHA，检查归档标记与schema。不要把扩展名当成兼容性证明。
-- McgsPro 3.5.1.6963的`.mcp`：使用独立的[Pro路线](references/environment-and-tools.md#pro路线)。随包原始CLI在`assets/pro-3.5-cli`；它的Jet32位数据库路径与Stu的ACE路径不同。不要拿它处理Stu的MCS。
+- McgsPro 3.5.1.6963的`.mcp`：使用[Pro路线](references/environment-and-tools.md#pro路线)，工具在`assets/pro-3.5-cli`，入口见其中的`SKILL.md`。目前支持新建工程、页面、标签/线/矩形/数值输入和变量的生成与修改，其余功能陆续补充；没有证据的能力不要假称已支持。它走32位Jet数据库，与Stu的ACE路径不同；不要拿它处理Stu的MCS，也不要拿Stu的工具处理mcp。
 - 其他版本或未知格式：先只读识别，保留未知内容；不要改扩展名套格式，不宣称支持任意控件。
 
 工程扩展名`.mcp`与模型上下文协议MCP无关。此工程离线改写不需要项目专用MCP服务；可用接口及本地替代见[工具链](references/environment-and-tools.md)。

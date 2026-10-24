@@ -8,7 +8,7 @@ Python3.11+用于纯字节归档解码、候选准备和Pro CLI；Stu数据库�
 
 原厂McgsStu及相匹配的控件、驱动、字体用于最终检查与模拟，由接收者安装；本技能不分发它们。不要下载未知DLL补齐依赖。
 
-将整个`mcgs-stu-offline-edit`文件夹放到目标电脑的`%USERPROFILE%\.codex\skills\`（Codex，调用`$mcgs-stu-offline-edit`）或`%USERPROFILE%\.claude\skills\`（Claude Code），也可用PowerShell7直接运行该文件夹内的`run.ps1`。保留`assets/`、`scripts/`、`references/`的相对结构。若同名技能已有本地改动，先比较再合并，不盲目覆盖。
+将整个`mcgs-offline-edit`文件夹放到目标电脑的`%USERPROFILE%\.codex\skills\`（Codex，调用`$mcgs-offline-edit`）或`%USERPROFILE%\.claude\skills\`（Claude Code），也可用PowerShell7直接运行该文件夹内的`run.ps1`。保留`assets/`、`scripts/`、`references/`的相对结构。若同名技能已有本地改动，先比较再合并，不盲目覆盖。
 
 同一台电脑同时给Codex和Claude Code用时两处各放一份；改技能时两份一起改，改完用`diff -r`确认一致，并重算`references/package-files.sha256.json`：
 - 按路径不区分大小写排序，列出除它自身外的全部文件，记字节数和SHA256；

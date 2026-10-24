@@ -344,7 +344,7 @@
       "file": "scripts/stu_project.ps1",
       "sources": [
         {
-          "source": "mcgs-stu-offline-edit 原包 scripts/stu_project.ps1",
+          "source": "原 mcgs-stu-offline-edit 包 scripts/stu_project.ps1",
           "source_sha256": "8f9837f2b1afbb6944ac6a0500857bccc63493c5dcd2a20b1f88906d7bd9bbda"
         }
       ],

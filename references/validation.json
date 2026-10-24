@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "skill": "mcgs-stu-offline-edit",
+  "skill": "mcgs-offline-edit",
   "edition": "分享版",
   "date": "2026-10-24",
   "base_package_validation": {
@@ -139,5 +139,6 @@
   "native_runtime_verified": false,
   "physically_tested": false,
   "test_inputs_or_project_data_bundled": false,
-  "vendor_binaries_bundled": false
+  "vendor_binaries_bundled": false,
+  "former_name": "mcgs-stu-offline-edit"
 }

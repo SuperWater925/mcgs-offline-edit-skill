@@ -2,7 +2,7 @@
   "schema": 1,
   "self_excluded": true,
   "file_count": 60,
-  "descriptor_sha256": "7860930a9759371a72a39df38a2a5b69bbcc524c5cd190d98c12d39bc248995a",
+  "descriptor_sha256": "789faa008c99e12e7db46460ba0560a90c37e629d8ed5f80837993b97455de70",
   "files": [
     {
       "file": ".gitattributes",
@@ -16,8 +16,8 @@
     },
     {
       "file": "agents/openai.yaml",
-      "bytes": 292,
-      "sha256": "d714715abdf5226efe5a804c8af1cdd0b1acbecb37d075a93e3697c5bd54fd83"
+      "bytes": 304,
+      "sha256": "5245f4118f5e185c392c3372e9b72538a09f6523871e6bd685b52081674d2e94"
     },
     {
       "file": "assets/pro-3.5-cli/agents/openai.yaml",
@@ -101,8 +101,8 @@
     },
     {
       "file": "README.md",
-      "bytes": 2360,
-      "sha256": "c41550d322cdd1c739a5db5c20faf6030313a2388ad916f6928426c671f227ca"
+      "bytes": 2811,
+      "sha256": "23b0bc5889012a3448368ece29b73af577c7d95e5264e69f4c7926dbb1cc9212"
     },
     {
       "file": "references/database-and-transactions.md",
@@ -111,8 +111,8 @@
     },
     {
       "file": "references/environment-and-tools.md",
-      "bytes": 4626,
-      "sha256": "ae0d43d9ebdb712bc2d522da49d32c1ef46596a341b9f8f7e210b7eb61118be0"
+      "bytes": 4618,
+      "sha256": "dc97c06c387e898a1d1cd52e06c5cb7d3df89c04485939f2f2a1277b5c784d14"
     },
     {
       "file": "references/native-ui.md",
@@ -141,8 +141,8 @@
     },
     {
       "file": "references/source-provenance.json",
-      "bytes": 22284,
-      "sha256": "ce636a13d7064c267f672b6de676b082cf909efb1b02118e5f6ebbfa1fa59b23"
+      "bytes": 21929,
+      "sha256": "e3653457a0e335a84f0e5efc517664f920555ea7cd81eb66f830e1b27cb1bd39"
     },
     {
       "file": "references/statistics-and-export.md",
@@ -156,8 +156,8 @@
     },
     {
       "file": "references/validation.json",
-      "bytes": 4371,
-      "sha256": "79f9972c80c436cea7a78c87e0a0c24504a2755b6f767513a1183c6ded5125b7"
+      "bytes": 4410,
+      "sha256": "e1bfe5cbb65b3e0deacb71e1641b3fb2e1732cb0f4377ee6848d6ec132de5dfb"
     },
     {
       "file": "run.ps1",
@@ -256,8 +256,8 @@
     },
     {
       "file": "SKILL.md",
-      "bytes": 5089,
-      "sha256": "a50135e91ee948f361014119bfe25f9c0727e186b705cfce117f91ab9b873b9f"
+      "bytes": 5438,
+      "sha256": "e6d1e0481185f2138a642a2016e8fbff79aad8a256cdc6670262f90981b9428b"
     },
     {
       "file": "tools/mcgs_ui.py",
