@@ -10,9 +10,9 @@ Python3.11+用于纯字节归档解码、候选准备和Pro CLI；Stu数据库�
 
 将整个`mcgs-offline-edit`文件夹放到目标电脑的`%USERPROFILE%\.codex\skills\`（Codex，调用`$mcgs-offline-edit`）或`%USERPROFILE%\.claude\skills\`（Claude Code），也可用PowerShell7直接运行该文件夹内的`run.ps1`。保留`assets/`、`scripts/`、`references/`的相对结构。若同名技能已有本地改动，先比较再合并，不盲目覆盖。
 
-同一台电脑同时给Codex和Claude Code用时两处各放一份；改技能时两份一起改，改完用`diff -r`确认一致，并重算`references/package-files.sha256.json`：
-- 按路径不区分大小写排序，列出除它自身外的全部文件，记字节数和SHA256；
-- `descriptor_sha256`是各行`路径\0sha256\n`拼接后的SHA256。
+参与开发时以独立仓库为准，不自动覆盖Codex和Claude Code已经安装的技能副本。审核后的版本再按需安装；安装目录有本地修改时先比较保全。
+
+修改后运行`python scripts/check_repository.py --update-manifest`重算`references/package-files.sha256.json`，再运行不带参数的检查确认一致。清单按路径不区分大小写排序，记录文件字节数和SHA256；排除清单自身、Git元数据、Python缓存、本地虚拟环境和`local-artifacts/`。`descriptor_sha256`是各行`路径\0sha256\n`拼接后的SHA256。详细提交流程见[贡献指南](../CONTRIBUTING.md)。
 
 ```powershell
 pwsh -NoProfile -File .\run.ps1 doctor

@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "self_excluded": true,
-  "file_count": 60,
-  "descriptor_sha256": "789faa008c99e12e7db46460ba0560a90c37e629d8ed5f80837993b97455de70",
+  "file_count": 71,
+  "descriptor_sha256": "6efabb5a1e72b0c0b3266ca6524cf0bb1d1b2150c50c9117753427a705256e04",
   "files": [
     {
       "file": ".gitattributes",
@@ -10,9 +10,44 @@
       "sha256": "38793394608522901b1905c41759097db5332ebfcc8ed58d1fcd9c8b1bc6044f"
     },
     {
+      "file": ".github/CODEOWNERS",
+      "bytes": 91,
+      "sha256": "d4cb89336891c925c3303b3fce72d1061eeb0e0b81f5c2a441287970cfca9dda"
+    },
+    {
+      "file": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "bytes": 985,
+      "sha256": "3c28b033c28766db23eabad4ee32b8faaf869def654610d3de7d1b80915f91cb"
+    },
+    {
+      "file": ".github/ISSUE_TEMPLATE/task_or_feature.md",
+      "bytes": 777,
+      "sha256": "f847aec5b68f40eb0c5afec5bde37869f14d53e30810c9d16b0cef0d3fd237a0"
+    },
+    {
+      "file": ".github/ISSUE_TEMPLATE/version_validation.md",
+      "bytes": 882,
+      "sha256": "0759d2c317c4d45b1cdedf66ea7b67f7894470e169fbee6201c0b6406984eabd"
+    },
+    {
+      "file": ".github/pull_request_template.md",
+      "bytes": 1040,
+      "sha256": "4113b498c9691d4755d1f4b9f78e9475c731f58a4460a324ff4ee38adc81c70e"
+    },
+    {
+      "file": ".github/workflows/offline-checks.yml",
+      "bytes": 654,
+      "sha256": "4c35a9c98c409fc90b760e008b68f58ba347d844098356397f25925ff3d8ba0b"
+    },
+    {
       "file": ".gitignore",
-      "bytes": 19,
-      "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793"
+      "bytes": 43,
+      "sha256": "95b6bd22fc9350dbdd2e1695b0a320df274bf030d88878d64d316e17382e1164"
+    },
+    {
+      "file": "AGENTS.md",
+      "bytes": 1327,
+      "sha256": "726f4a2419c89fbe9d3ca34aa123dfab00fbaaa985cfa65102631390affd0da5"
     },
     {
       "file": "agents/openai.yaml",
@@ -95,14 +130,19 @@
       "sha256": "7bfe03fb9b14e598b46acf609996e5d04411af1ff6a2d62270e080dcb4f812a6"
     },
     {
+      "file": "CONTRIBUTING.md",
+      "bytes": 5243,
+      "sha256": "555c3fc07a249de70271b7f0069e6960ed8269ffd2c4eb35314bf8f330e678e3"
+    },
+    {
       "file": "LICENSE",
       "bytes": 1070,
       "sha256": "652b8451bd6834a50eade351c59217c1c21932b56db8d0f587a0e11c27044f26"
     },
     {
       "file": "README.md",
-      "bytes": 2811,
-      "sha256": "23b0bc5889012a3448368ece29b73af577c7d95e5264e69f4c7926dbb1cc9212"
+      "bytes": 5004,
+      "sha256": "36a8e4be885167e2eb12186feb8bae4486cf7028c48f45ee95766c39e71dc602"
     },
     {
       "file": "references/database-and-transactions.md",
@@ -110,34 +150,34 @@
       "sha256": "2d6ea939da6ceb02abb351b23410a355949e83fe0665079c547821f7a2cd9d30"
     },
     {
+      "file": "references/device-variables.md",
+      "bytes": 1876,
+      "sha256": "826acc6b21162f8f11457f932f581d1ccf48d5f4199264d225ae48d60866cfe6"
+    },
+    {
       "file": "references/environment-and-tools.md",
-      "bytes": 4618,
-      "sha256": "dc97c06c387e898a1d1cd52e06c5cb7d3df89c04485939f2f2a1277b5c784d14"
+      "bytes": 4906,
+      "sha256": "afb6bb2d6aa93151a832c773894e4dd7f6a1c27d40e619490ee1142a7289e404"
     },
     {
       "file": "references/native-ui.md",
-      "bytes": 8723,
-      "sha256": "e3fe262345ef689b8b5b5d5667348ae218cab982a4119cf09256fd6fa594c5c1"
+      "bytes": 8729,
+      "sha256": "68b3bd4311b366d51648cba76ec77fadac793da1af4d65711c4a3c14c754687f"
     },
     {
       "file": "references/pitfalls-and-validation.md",
-      "bytes": 4518,
-      "sha256": "14ceb96b9a59e9e2352d5e4da2637c40d46f1f948d66c5fe562d9af202292a2c"
-    },
-    {
-      "file": "references/plc-handoff.md",
-      "bytes": 2875,
-      "sha256": "8f1b30f4212ff4c48162801118581185d6b15a6c778ce3e1aa240917a998c7b7"
+      "bytes": 4384,
+      "sha256": "669c9d4f5b6383a3236b3fab8bf6809a049975c4c76b7cdbe028e7359853deeb"
     },
     {
       "file": "references/project-profile.md",
-      "bytes": 2210,
-      "sha256": "1ced655355507cb27989fad23f21265fb0f0f05a130c717730f3edb5f71454e0"
+      "bytes": 2223,
+      "sha256": "1970c6e8ce33f2cfd05558a0fef5cfab4c0754ceb85c797b3a34ac900899b488"
     },
     {
       "file": "references/recipes-and-preview.md",
-      "bytes": 3736,
-      "sha256": "76193ee1c94efb514b13c747007d5ff837bb09c3fff1af06f35052ca24cf1d7f"
+      "bytes": 3703,
+      "sha256": "af034bfea128f880845a15b0a197da1684827826a8e4510192b267e300065886"
     },
     {
       "file": "references/source-provenance.json",
@@ -160,9 +200,24 @@
       "sha256": "e1bfe5cbb65b3e0deacb71e1641b3fb2e1732cb0f4377ee6848d6ec132de5dfb"
     },
     {
+      "file": "ROADMAP.md",
+      "bytes": 3173,
+      "sha256": "2438d07ef62f764efdf89852d9ac7274cc5d0d847de03a797023c5ed0f01fa9c"
+    },
+    {
       "file": "run.ps1",
       "bytes": 119,
       "sha256": "ee62361336fe8d836baba0dde5adb7cbabd2819b37b012754f22fd34ef4c2c7f"
+    },
+    {
+      "file": "scripts/check_powershell.ps1",
+      "bytes": 944,
+      "sha256": "7af8351027a23cf0c9a935d4db4f9c8b93429c61c526601018d4b5f1cc15cdce"
+    },
+    {
+      "file": "scripts/check_repository.py",
+      "bytes": 6160,
+      "sha256": "c5587f36e8ac32f52291bc5723a82ff8e529d410e77f585286cba9d0d6dd6599"
     },
     {
       "file": "scripts/native/mcgs_native_zip.py",
@@ -256,8 +311,8 @@
     },
     {
       "file": "SKILL.md",
-      "bytes": 5438,
-      "sha256": "e6d1e0481185f2138a642a2016e8fbff79aad8a256cdc6670262f90981b9428b"
+      "bytes": 5717,
+      "sha256": "70516f912c600ce30e5b2d37af1ae9336b68997bacd297293008ea3d8a002339"
     },
     {
       "file": "tools/mcgs_ui.py",

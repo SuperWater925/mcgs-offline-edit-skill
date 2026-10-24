@@ -7,6 +7,8 @@ description: 离线检查、修改昆仑通态MCGS工程，分Stu与Pro两条路
 
 把需求落实成可编辑原生工程、有限变更清单和可回读的证据。此技能来自McgsStu 3.5项目中实际使用的离线工具；随包没有厂商DLL、当前用户工程或账号。支持中文变量和中文交付。
 
+本技能只处理昆仑通态触摸屏工程的离线格式、页面、控件、数据对象、配方和脚本。触摸屏侧设备变量及驱动配置按已证格式读取和保全；PLC程序编写、控制器工程修改及整机控制逻辑不属于本技能范围。
+
 ## 先选正确路线
 
 - `.MCS`且确认是McgsStu原生Access/Jet数据库：使用本包`run.ps1`及`scripts/native/`。先记录软件完整版本、目标屏、分辨率和当前输入SHA，检查归档标记与schema。不要把扩展名当成兼容性证明。
@@ -22,8 +24,8 @@ description: 离线检查、修改昆仑通态MCGS工程，分Stu与Pro两条路
    - 接手具体工程时，先在工程自己的文件夹里建一份项目约定（模板见[项目约定](references/project-profile.md)），以实际生产源码为准，旧变量注释可能已过期。
    - 窗口、按钮、输入、文字、原生样式与缓存，以及原厂运行时实测规律：[原生界面](references/native-ui.md)。
    - 改界面、新建窗口、离线预览、文字检查的工具和流程：[界面工具](references/ui-tools.md)。
-   - 配方注册、100组、别名、增减段和单框全秒阶梯：[配方与预览](references/recipes-and-preview.md)。
-   - HMI与PLC握手要点、EVOs驱动类型码与iFA接口：[PLC对接](references/plc-handoff.md)。
+   - 配方注册、别名、段列表编辑和曲线预览：[配方与预览](references/recipes-and-preview.md)。
+   - 触摸屏内的设备通道、数据类型和对象绑定：[设备变量与绑定](references/device-variables.md)。
    - 原生时间范围、原始CSV导出、可调存盘及真实完成：[统计与导出](references/statistics-and-export.md)。
 3. 生成明确BLOB和字段清单。现成`scripts/native_tool.py strategy-source`只替换已有单脚本策略源码，同时更新两份策略容器，清除该动作缓存，保留其他策略与触发器。复杂控件改动使用随包解析类，先字节回环再生成有限增量；没有模板/格式证据的能力不得假称已经实现。
 4. `apply`默认只校验。用户已授权修改时用`-Commit`，可输出新副本；用户已指定就地修改时用`-InPlace -Backup <新备份路径>`，不额外强制要求新工程副本。必须通过源SHA、字段前指纹、固定白名单、排他事务和全表后验。锁冲突或基线变动即停止该次写入，不强关用户编辑器，不绕守卫。
@@ -31,9 +33,9 @@ description: 离线检查、修改昆仑通态MCGS工程，分Stu与Pro两条路
 
 ## 可执行能力与边界
 
-`run.ps1`提供`doctor/inspect/snapshot/fingerprints/compare/apply`。Stu写入器只实现已有行的已验证BLOB字段更新，不实现任意SQL、建空白Stu工程、删除数据库行或PLC下载。新建窗口用`tools/新增窗口事务.ps1`（只多允许新增WndUser行）；以工程里同类控件为模板的控件生成、样式批量修改、离线预览和文字检查在`tools/`，见[界面工具](references/ui-tools.md)。指纹覆盖所有实际数据库表；账户值不导出，未知表仅输出哈希。完整命令和清单格式见[数据库与事务](references/database-and-transactions.md)。
+`run.ps1`提供`doctor/inspect/snapshot/fingerprints/compare/apply`。Stu写入器只实现已有行的已验证BLOB字段更新，不实现任意SQL、建空白Stu工程或删除数据库行。新建窗口用`tools/新增窗口事务.ps1`（只多允许新增WndUser行）；以工程里同类控件为模板的控件生成、样式批量修改、离线预览和文字检查在`tools/`，见[界面工具](references/ui-tools.md)。指纹覆盖所有实际数据库表；账户值不导出，未知表仅输出哈希。完整命令和清单格式见[数据库与事务](references/database-and-transactions.md)。
 
-离线编辑授权不自动包含现场下载、设备写入或运行配方改写。保持原变量ID、地址、权限、驱动、未知字节和未列字段；缺少PLC地址/协议依据时报告待配置，不编造可投运配置。若用户请求进一步能力，在明确格式证据与当前授权范围内实现，并验证新增能力。
+离线编辑授权不自动包含现场下载、设备写入或运行配方改写。保持原变量ID、地址、权限、驱动、未知字节和未列字段；缺少设备地址/协议依据时报告待配置，不编造可投运配置。新增触摸屏离线编辑能力应在明确格式证据和当前授权范围内实现，并验证实际输出。
 
 ## 包内来源
 

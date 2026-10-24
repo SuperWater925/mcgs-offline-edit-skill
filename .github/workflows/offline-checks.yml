@@ -1,0 +1,30 @@
+name: 仓库离线检查
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-checks:
+    name: 静态检查
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: 读取仓库
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: 准备 Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Python JSON 文档与文件指纹
+        run: python scripts/check_repository.py
+      - name: PowerShell 语法
+        shell: pwsh
+        run: ./scripts/check_powershell.ps1
