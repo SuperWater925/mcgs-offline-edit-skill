@@ -40,6 +40,8 @@ pwsh -NoProfile -File .\run.ps1 doctor -Project 'D:\工程\当前.MCS'
 
 两种工程使用 PowerShell 7 / ACE。`scripts/ace-runtime.ps1` 是共享连接层，优先 ACE16，再试 ACE12；不另启 32 位 Windows PowerShell 或 Jet OLEDB 宿主。
 
+重复修改优先使用[离线提速](offline-performance.md)的 `baseline`、`batch-edit`、`apply -ExportAfter`，减少重复读取和提交；命令输出分阶段耗时。两种工程仍共用环境，不需要驻留服务。
+
 Pro 新建另需同位数 ADOX.Catalog 创建 Jet 4 兼容数据库格式，这不等于使用 Jet OLEDB 提供程序。原始通用模板来自 McgsPro 3.5.1.6963、800×480，描述来源，不限制现有工程版本；目标屏或分辨率变更仍须真实模板依据。
 
 `MCGS_PYTHON` 可指定现有 Python，`MCGS_PWSH` 可指定 PowerShell 7。旧入口 `assets/pro-3.5-cli/run.cmd` 同样使用共用连接层；历史目录名不表示另一个环境，不再注册子技能。
@@ -57,4 +59,4 @@ pwsh -NoProfile -File .\run.ps1 edit --source 'D:\工程\当前.MCP' --spec 'D:\
 
 ## 打包
 
-`python scripts/build_release.py --version v2026.10.30 --out local-artifacts/release` 先验证清单，再输出 `mcgs-offline-edit/` 为唯一顶层目录的 ZIP 及独立 `SHA256SUMS.txt`。发布号与 MCGS 软件版本无关。输出必须是新目录。
+`python scripts/build_release.py --version v2026.10.30-offline-opt --out local-artifacts/release` 先验证清单，再输出 `mcgs-offline-edit/` 为唯一顶层目录的 ZIP 及独立 `SHA256SUMS.txt`。发布号与 MCGS 软件版本无关。输出必须是新目录。

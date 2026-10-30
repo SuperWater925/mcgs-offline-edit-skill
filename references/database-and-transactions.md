@@ -13,11 +13,11 @@ McgsStu MCS与McgsPro MCP使用原生Access/Jet数据库，以ACE只读/排他�
 在技能文件夹运行。参数中的盘符路径均是示例，请使用实际路径；每个输出必须是新路径。
 
 ```powershell
-pwsh -NoProfile -File .\run.ps1 snapshot -Project 'D:\工程\当前.MCS' -Out 'D:\验收\最新快照.MCS' -RecipeRoot 'C:\McgsStu\Program\data\recipe'
-pwsh -NoProfile -File .\run.ps1 inspect -Project 'D:\验收\最新快照.MCS' -Out 'D:\验收\基线'
-pwsh -NoProfile -File .\run.ps1 fingerprints -Project 'D:\验收\最新快照.MCS' -Out 'D:\验收\before.json'
-pwsh -NoProfile -File .\run.ps1 compare -Left 'D:\验收\before.json' -Right 'D:\验收\after.json'
-& 'C:\本机Python\python.exe' -X utf8 .\scripts\native_tool.py audit --export 'D:\验收\基线'
+pwsh -NoProfile -File .\run.ps1 baseline -Project 'D:\工程\当前.MCS' -Out 'D:\验收\基线目录' -RecipeRoot 'C:\McgsStu\Program\data\recipe'
+# 基线目录/project.MCS 是稳定快照；export/index.json 和 export/fingerprints.json 已完整生成
+pwsh -NoProfile -File .\run.ps1 fingerprints -Project 'D:\其他时点\工程.MCS' -Out 'D:\验收\after.json'
+pwsh -NoProfile -File .\run.ps1 compare -Left 'D:\验收\基线目录\export\fingerprints.json' -Right 'D:\验收\after.json'
+& 'C:\本机Python\python.exe' -X utf8 .\scripts\native_tool.py audit --export 'D:\验收\基线目录\export'
 ```
 
 `snapshot`使用`Open/Read/FileShare.ReadWrite|Delete`，校验复制前/后/副本SHA、大小和mtime。若附带配方根目录，逐文件保全并复核文件名集及最终哈希，产生`.snapshot.json`。这是稳定共享复制，跨工程与配方的原子事务快照并未保证；变化即报错，不能拿失败快照继续写。不要把正在被原厂改写的活文件当作固定基线。
@@ -72,7 +72,7 @@ JSON清单格式：
 
 BLOB路径必须相对清单目录且不越界；每个字段有前指纹；重复字段拒绝。基线SHA与字段指纹不匹配时重新取快照并重做补丁，不能删除校验。
 
-实际写入先保全副本/备份，再取得ACE排他连接，复核完整逻辑基线，事务内写入和全表对比，通过后提交，提交后复读。只允许清单所列字段变化，其余表/原行/字段必须精确保留。锁冲突、行数变化、字段越界、内容复读不符时报告失败；失败候选不作为成果。就地失败时保留备份，检查实际状态后再决定恢复，不自动覆盖用户可能已经保存的新内容。
+实际写入先保全副本/备份，再取得ACE排他连接，复核完整逻辑基线，事务内写入和全表对比，通过后提交。关闭写连接后，用新只读连接完整回读并核对读取前后文件 SHA。只允许清单所列字段变化，其余表/原行/字段必须精确保留。`-ExportAfter <新目录>` 复用这次回读输出安全导出和完整指纹，无需再独立 `inspect`；只用于 `-Commit`。锁冲突、行数变化、字段越界、内容复读不符时报告失败；失败候选不作为成果。就地失败时保留备份，检查实际状态后再决定恢复，不自动覆盖用户可能已经保存的新内容。批量修改及耗时字段见[离线提速](offline-performance.md)。
 
 ## 原生BLOB封套
 

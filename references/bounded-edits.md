@@ -2,6 +2,8 @@
 
 以下命令只准备候选 BLOB 和 `manifest.json`，不直接写工程；再交主入口 `apply` 预检及提交。输入均来自本次安全导出，输出必须是新目录。
 
+同一轮修改包含控件、策略、配方时，优先按[离线提速](offline-performance.md)用 `batch-edit` 合并准备和提交；下列独立命令仍可使用。
+
 ```powershell
 pwsh -NoProfile -File .\run.ps1 audit --export 'D:\验收\导出'
 pwsh -NoProfile -File .\run.ps1 controls --export 'D:\验收\导出' --spec 'D:\修改\控件.json' --out 'D:\验收\控件补丁'

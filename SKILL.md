@@ -16,10 +16,10 @@ description: 在同一环境中离线检查、修改昆仑通态 McgsStu 原生 
 
 ## 实施
 
-1. 读[数据库与事务](references/database-and-transactions.md)，对当前输入做共享快照和完整表指纹。用户重新保存后刷新基线，不能用历史 SHA 或旧交付覆盖新内容。
+1. 读[数据库与事务](references/database-and-transactions.md)，优先用 `baseline` 一次生成当前输入的共享快照、安全导出和完整表指纹；已有 `inspect` 导出通常无需再单独跑 `fingerprints`。用户重新保存后刷新基线，不能用历史 SHA 或旧交付覆盖新内容。
 2. 两种工程都使用 `run.ps1 doctor/inspect/snapshot/fingerprints/compare/apply`；安全导出后的归档检查都调用 `scripts/native_tool.py audit --export ...`。Pro 的有限 JSON 新建/编辑也从主入口调用 `create/edit/demo`，详见[Pro 格式适配](references/pro-adapter.md)。
 3. 使用当前样本证明解析、原字节回环、有限修改和逆向恢复。未修改的节点、动画、权限、驱动、变量 ID、地址、未知字节保持原样。Pro 本次的覆盖与缺口见[统一验证](references/unified-validation.md)。
-4. 生成明确字段和 BLOB 清单。`apply` 默认只校验；已授权写入时 `-Commit`，需要就地修改时 `-InPlace -Backup <新路径>`。源 SHA、字段前指纹、固定白名单、排他事务、全表后验和提交后复读都须通过；不强关编辑器或绕过锁。
+4. 同一基线上的控件、策略与配方修改优先用 `batch-edit` 合成一份字段/BLOB 清单，减少重复提交。`apply` 默认只校验；已授权写入时 `-Commit`，需要就地修改时 `-InPlace -Backup <新路径>`。需要修改后导出时加 `-ExportAfter <新目录>`，复用提交后的完整回读。源 SHA、字段前指纹、固定白名单、排他事务、全表后验和提交后复读都须通过；不强关编辑器或绕过锁。流程与批量规格见[离线提速](references/offline-performance.md)。
 5. 依[验收与已知坑](references/pitfalls-and-validation.md)分别记录文件回读、原厂打开/检查/保存重开/编译、本机模拟、现场通信。未执行的项目写 `false/pending`，结构通过不等于原厂编译或可投运。
 
 ## 当前能力

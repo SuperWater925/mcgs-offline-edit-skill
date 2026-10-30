@@ -12,6 +12,8 @@ import json
 from pathlib import Path
 import re
 import sys
+import tempfile
+import time
 
 sys.dont_write_bytecode = True
 NATIVE = Path(__file__).resolve().parent / 'native'
@@ -352,7 +354,7 @@ def controls_patch(export,spec,output):
         _,rows=objects.parse(raw)
         variables=[{'name':r.name.value,'kind':r.kind,'id':r.id} for r in rows]
     variables={v['name']:v for v in variables}
-    windows={};originals={};paths=[]
+    windows={};originals={};plain_originals={};paths=[];replacements={}
     for change in spec['controls']:
         if set(change)!={'window','path','sha256','edits'}:raise ValueError('Control operation requires window/path/sha256/edits')
         key=str(change['window']);path=change['path']
@@ -362,24 +364,116 @@ def controls_patch(export,spec,output):
         if key not in windows:
             original=export.blob('WndUser',key,'lbObjects');plain=unwrapped(original);w=WindowArchive.parse(plain)
             if w.to_bytes()!=plain:raise ValueError('Window original roundtrip differs')
-            windows[key]=w;originals[key]=original
+            windows[key]=w;originals[key]=original;plain_originals[key]=plain;replacements[key]=[]
         w=windows[key];record=cp.at_path(w.controls,path)
         if sha(record.payload)!=change['sha256']:raise ValueError('Control preimage SHA differs')
         replacement=cp.edit(record,change['edits'],variables)
         if replacement.payload==record.payload:raise ValueError('Control operation has no change')
-        before=w.to_bytes();cp.replace_path(w.controls,path,replacement);after=w.to_bytes()
-        cp.replace_path(w.controls,path,record)
-        if w.to_bytes()!=before:raise ValueError('Control inverse changed another record or window field')
         cp.replace_path(w.controls,path,replacement)
+        replacements[key].append((path,record,replacement))
+    serialized={}
+    for key,w in windows.items():
+        after=w.to_bytes()
         if WindowArchive.parse(after).to_bytes()!=after:raise ValueError('Changed window roundtrip differs')
+        for path,record,replacement in reversed(replacements[key]):cp.replace_path(w.controls,path,record)
+        if w.to_bytes()!=plain_originals[key]:raise ValueError('Control inverse changed another record or window field')
+        for path,record,replacement in replacements[key]:cp.replace_path(w.controls,path,replacement)
+        if w.to_bytes()!=after:raise ValueError('Control replacement replay differs')
+        serialized[key]=after
     out=Path(output).resolve();out.mkdir(parents=True,exist_ok=False);operations=[]
     for key,w in windows.items():
-        filename='window-'+key+'.bin';raw=wrapped_like(originals[key],w.to_bytes());(out/filename).write_bytes(raw)
+        filename='window-'+key+'.bin';raw=wrapped_like(originals[key],serialized[key]);(out/filename).write_bytes(raw)
         operations.append({'action':'update','table':'WndUser','key_column':'iID','key':int(key),'before':{'lbObjects':export.fp['fingerprints']['WndUser'][key]['lbObjects']},'values':{'lbObjects':{'blob':filename,'sha256':sha(raw)}}})
     save(out/'manifest.json',{'format':'mcgs-native-bounded-update-v1','input_sha256':export.index['sha256'],'operations':operations})
     proof={'control_count':len(paths),'window_count':len(windows),'outside_target_records_exact':True,'window_fields_and_events_exact':True,'animations_preserved':True,'inverse_replacement_exact':True,'source_written':False,'native_compile_verified':False,'native_runtime_verified':False}
     save(out/'preparation.json',proof)
     return {'manifest':str(out/'manifest.json'),**proof}
+
+class BatchExport(Export):
+    """One verified in-memory view per batch; the project baseline never changes."""
+    def __init__(self, export):
+        self.directory=export.directory
+        self.index=copy.deepcopy(export.index)
+        self.fp=copy.deepcopy(export.fp)
+        self.rows=export.rows
+        self.verified={}
+        self.changed={}
+
+    def blob(self,table,key,field):
+        ident=(table,str(key),field)
+        if ident in self.changed:return self.changed[ident]
+        if ident not in self.verified:self.verified[ident]=super().blob(table,key,field)
+        return self.verified[ident]
+
+    def accept(self,manifest):
+        data=load(manifest)
+        if data['input_sha256']!=self.index['sha256']:raise ValueError('Batch step baseline differs')
+        for op in data['operations']:
+            table,key=op['table'],str(op['key'])
+            for field,info in op['values'].items():
+                if op['before'][field]!=self.fp['fingerprints'][table][key][field]:
+                    raise ValueError('Batch step before fingerprint differs')
+                path=(manifest.parent/info['blob']).resolve()
+                if not path.is_relative_to(manifest.parent):raise ValueError('Batch step BLOB path escapes')
+                raw=path.read_bytes()
+                if sha(raw)!=info['sha256']:raise ValueError('Batch step BLOB SHA differs')
+                self.changed[table,key,field]=raw
+                self.fp['fingerprints'][table][key][field]=f'binary:{len(raw)}:{sha(raw)}'
+
+
+def batch_edit(export,plan_path,output):
+    """Compose proven bounded edits, including repeated rows, into one transaction."""
+    started=time.perf_counter()
+    plan_path=Path(plan_path).resolve();plan=load(plan_path)
+    if set(plan)!={'input_sha256','steps'} or plan['input_sha256']!=export.index['sha256']:
+        raise ValueError('Batch plan requires current input_sha256 and steps')
+    if not isinstance(plan['steps'],list) or not plan['steps']:raise ValueError('Empty batch steps')
+    out=Path(output).resolve()
+    if out.exists():raise ValueError('Batch output must be a new directory')
+    view=BatchExport(export);proofs=[]
+    with tempfile.TemporaryDirectory(prefix='mcgs-bounded-batch-') as temporary:
+        for index,step in enumerate(plan['steps']):
+            if not isinstance(step,dict):raise ValueError('Batch step must be an object')
+            command=step.get('command');step_out=Path(temporary)/str(index)
+            tick=time.perf_counter()
+            if command=='controls':
+                if set(step)!={'command','spec'}:raise ValueError('Controls batch step requires only spec')
+                proof=controls_patch(view,load((plan_path.parent/step['spec']).resolve()),step_out)
+            elif command=='strategy-source':
+                if set(step)-{'command','strategy_name','source','action_path'} or not {'strategy_name','source'}<=set(step):
+                    raise ValueError('Strategy batch step requires strategy_name/source and optional action_path')
+                proof=strategy_source(view,step['strategy_name'],(plan_path.parent/step['source']).resolve(),step_out,step.get('action_path'))
+            elif command=='recipe-cell':
+                if set(step)!={'command','group','row','column','value'} or type(step['row'])is not int or type(step['column'])is not int or not isinstance(step['value'],str):
+                    raise ValueError('Recipe batch step requires group/row/column/value')
+                proof=recipe_cell(view,step['group'],step['row'],step['column'],step['value'],step_out)
+            else:raise ValueError('Batch supports controls, strategy-source and recipe-cell only')
+            view.accept(step_out/'manifest.json')
+            proof.pop('manifest',None)
+            proofs.append({'command':command,'elapsed_ms':round((time.perf_counter()-tick)*1000,3),**proof})
+        blobs=[]
+        keys={'System':'strName','Stgy':'iStgyID','WndUser':'iID'}
+        for (table,key,field),raw in sorted(view.changed.items()):
+            fingerprint=f'binary:{len(raw)}:{sha(raw)}'
+            if fingerprint==export.fp['fingerprints'][table][key][field]:continue
+            filename=f'blob-{len(blobs):04d}.bin'
+            op={'action':'update','table':table,'key_column':keys[table],
+                'key':key if table=='System' else int(key),
+                'before':{field:export.fp['fingerprints'][table][key][field]},
+                'values':{field:{'blob':filename,'sha256':sha(raw)}}}
+            blobs.append((filename,raw,op))
+        if not blobs:raise ValueError('Batch has no net change')
+        out.mkdir(parents=True,exist_ok=False)
+        for filename,raw,_ in blobs:(out/filename).write_bytes(raw)
+        save(out/'manifest.json',{'format':'mcgs-native-bounded-update-v1','input_sha256':export.index['sha256'],
+                                 'operations':[op for _,_,op in blobs]})
+        proof={'step_count':len(proofs),'fields':len(blobs),'steps':proofs,
+               'elapsed_ms':round((time.perf_counter()-started)*1000,3),
+               'single_baseline':True,'source_written':False,'candidate_not_database_reread':True,
+               'native_compile_verified':False,'native_runtime_verified':False}
+        save(out/'preparation.json',proof)
+        return {'manifest':str(out/'manifest.json'),**proof}
+
 
 def normalize_inputs(export,output):
     import control_patch as cp
@@ -407,6 +501,10 @@ def main():
     commands = parser.add_subparsers(dest='command', required=True)
     check = commands.add_parser('audit')
     check.add_argument('--export', dest='export_dir', required=True)
+    batch=commands.add_parser('batch-edit')
+    batch.add_argument('--export',dest='export_dir',required=True)
+    batch.add_argument('--plan',required=True)
+    batch.add_argument('--out',required=True)
     patch = commands.add_parser('strategy-source')
     patch.add_argument('--export', dest='export_dir', required=True)
     patch.add_argument('--strategy-name', required=True)
@@ -430,6 +528,7 @@ def main():
     args = parser.parse_args()
     export = Export(args.export_dir)
     if args.command=='audit':result=audit(export)
+    elif args.command=='batch-edit':result=batch_edit(export,args.plan,args.out)
     elif args.command=='normalize-inputs':result=normalize_inputs(export,args.out)
     elif args.command=='controls':result=controls_patch(export,load(Path(args.spec)),args.out)
     elif args.command=='recipe-cell':result=recipe_cell(export,args.group,args.row,args.column,args.value,args.out)

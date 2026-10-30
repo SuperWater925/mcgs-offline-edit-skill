@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "self_excluded": true,
-  "file_count": 77,
-  "descriptor_sha256": "b100e76269ae6eaf88545caf1cf58df47184d7112ef5e1775935d39b71423f70",
+  "file_count": 79,
+  "descriptor_sha256": "10f6ac5a1ddc9b40a6c49768f14c982b47caa63522a0ec94cb714226f4978e24",
   "files": [
     {
       "file": ".gitattributes",
@@ -121,8 +121,8 @@
     },
     {
       "file": "CHANGELOG.md",
-      "bytes": 1097,
-      "sha256": "8cf62650c0b6e41186cb865dfc2d7a9ec5120ad284c5ec290022982e06bcb7b3"
+      "bytes": 2086,
+      "sha256": "64953f83e940967f854d1256a239bd109dc7ac17b7fc1024bbc6903bcb312de9"
     },
     {
       "file": "CONTRIBUTING.md",
@@ -136,18 +136,18 @@
     },
     {
       "file": "README.md",
-      "bytes": 6411,
-      "sha256": "c02f09a2d7cf69ae9435ec077119d574ec6844e03d9536351d0c4a18d363a9e5"
+      "bytes": 6966,
+      "sha256": "3b82bb79b4cbd43f97eb51a484534fd38286a307c434482ae1966ff7e0a4edbc"
     },
     {
       "file": "references/bounded-edits.md",
-      "bytes": 3505,
-      "sha256": "ec18e07f621614359b8d5b6f099821dc0846c2bc494cc798eda26de6f899b407"
+      "bytes": 3679,
+      "sha256": "3a589990f7019f119c4511f15aaa8c0ceb8462185957a3fc22a472ecaa529f8b"
     },
     {
       "file": "references/database-and-transactions.md",
-      "bytes": 6820,
-      "sha256": "50f1b2a5d48c90f7b172c13f4dda7ec97b98aaefe9280c50ee10401bf7b1c8f6"
+      "bytes": 7129,
+      "sha256": "0a05591ace5af1347f8d29a3b521f94238111663cabe2dee4ca26e3b39941414"
     },
     {
       "file": "references/device-variables.md",
@@ -161,13 +161,23 @@
     },
     {
       "file": "references/environment-and-tools.md",
-      "bytes": 5804,
-      "sha256": "2dd6ba9d218fa4e16ae76e796fa55bbaf88e9f93d110d25784e8a56119c92b80"
+      "bytes": 6049,
+      "sha256": "07d13858576f3e5266ca3f4f1e174daefcac69446c1cc961251353c48efb8920"
     },
     {
       "file": "references/native-ui.md",
       "bytes": 9257,
       "sha256": "259aed572b5de44de78dcb1b3525e3a1660bc73f13e61e76de8f051c5aca8610"
+    },
+    {
+      "file": "references/offline-performance.md",
+      "bytes": 6098,
+      "sha256": "dd794eb4692f948a345bbf4fd9b99d458935e5f0be87bd9dbe47d422ca098ce9"
+    },
+    {
+      "file": "references/performance-validation.json",
+      "bytes": 3960,
+      "sha256": "46b6ebf31c0f91182771b0df2584a54c6e74a26e51f97f4529b7e0aca6950368"
     },
     {
       "file": "references/pitfalls-and-validation.md",
@@ -201,8 +211,8 @@
     },
     {
       "file": "references/ui-tools.md",
-      "bytes": 7357,
-      "sha256": "762eb8839ef63d70cea6f4d30f6906b074749af9246f2ee33f640ffdb6a0d901"
+      "bytes": 7996,
+      "sha256": "3329ce53df415b652671fd242df23c4b955a9854412aff0281861850977e9794"
     },
     {
       "file": "references/unified-validation.md",
@@ -221,8 +231,8 @@
     },
     {
       "file": "run.ps1",
-      "bytes": 761,
-      "sha256": "ca11967c70df6e623d12aadd54ab369baaafd2af501758650b841d9e9011e28e"
+      "bytes": 774,
+      "sha256": "72ad55d8eeb5504656eaffe14ace851916d373d609802175aa8d4ed3b0daf794"
     },
     {
       "file": "scripts/ace-runtime.ps1",
@@ -331,18 +341,18 @@
     },
     {
       "file": "scripts/native_tool.py",
-      "bytes": 26891,
-      "sha256": "da5d01ce5555301275248f251d677539a4dc1610358686e4f2b34f3e890bf911"
+      "bytes": 32969,
+      "sha256": "f97442ef55cb68f69d321124099188e423eca8f700c3923f1d827d54ed643d75"
     },
     {
       "file": "scripts/stu_project.ps1",
-      "bytes": 19524,
-      "sha256": "353781188892d0da8b66f34c6ac6d3e70b0d2dcd9084c274aa651356c9f60844"
+      "bytes": 22948,
+      "sha256": "d940e197673194e872b088f3e89ddfa8f2c203e3a97373d2e39f6ea44813d5fd"
     },
     {
       "file": "SKILL.md",
-      "bytes": 5342,
-      "sha256": "7cc57e60e1484731129d76808ab7d8c10333a2bcc5a4823de961ce00b2cdc6a7"
+      "bytes": 5707,
+      "sha256": "87d7929f4cf9632cf4f9a3180fac961099c0632eb3cb8e10887e7f0fd8a542b1"
     },
     {
       "file": "tools/mcgs_ui.py",
@@ -386,8 +396,8 @@
     },
     {
       "file": "tools/离线预览.py",
-      "bytes": 45223,
-      "sha256": "fe4602f58e6fd3096a8e1b1d9ff6bff5c200b3ea6d03dddb690bbb2464f36684"
+      "bytes": 47570,
+      "sha256": "f3a8ffc6ea85ec1fa6d2515a8ea45f0265cfdcb5741eb705e04d9a2f57c28f2a"
     }
   ]
 }

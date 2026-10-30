@@ -10,15 +10,15 @@
 
 ## 一次完整的改页面流程
 
-1. 共享快照：`run.ps1 snapshot -Project <工程.MCS> -Out <快照.MCS>`。
-2. 导出：`run.ps1 inspect -Project <快照.MCS> -Out <导出>`。导出里含窗口、对象、策略、图片和多语言表（MCGSLINGUIST），不含账户和连接。
+1. 准备基线：`run.ps1 baseline -Project <工程.MCS> -Out <基线目录>`，一次保留稳定快照并导出。
+2. 使用 `<基线目录>/project.MCS` 和 `<基线目录>/export/`。导出里含窗口、对象、策略、图片、多语言表（MCGSLINGUIST）及完整字段指纹，不含账户和连接值。
 3. 看现状：`python tools/离线预览.py --export-dir <导出> --output <现状预览>`；`python tools/文字容纳检查.py <导出> <现状检查.json>`。
 4. 改：写脚本调用`tools/mcgs_ui.py`，或写规格文件交给`tools/样式规格应用.py`。两者都输出`<新目录>/manifest.json`和`<新目录>/候选导出`。
 5. 看候选：对`候选导出`再跑离线预览和文字检查，与第3步比较。
 6. 写入新文件：
    - 只改已有行：`run.ps1 apply -Project <快照.MCS> -Manifest <新目录>/manifest.json -Out <新工程.MCS>`先预检，确认后加`-Commit`。
    - 含新建窗口：`pwsh -File tools/新增窗口事务.ps1 -输入快照 <快照.MCS> -事务清单 <manifest.json> -预期清单哈希 <manifest的SHA256> -输出工程 <新工程.MCS> -报告路径 <报告.json>`先预检，确认后加`-Commit`。
-7. 复读：对新工程再`inspect`，跑`scripts/native_tool.py audit --export <新导出>`，再预览一次。
+7. 复读：已有行提交时加 `-ExportAfter <新导出>`，复用完整提交后回读；新增窗口事务仍对新工程独立 `inspect`。跑`scripts/native_tool.py audit --export <新导出>`，再预览本次修改页。
 8. 原厂McgsStu打开新工程、组态检查、编译；离线检查通过不等于原厂编译通过。
 
 ## tools/mcgs_ui.py（控件工厂）
@@ -54,6 +54,8 @@ python tools/离线预览.py --export-dir <导出或候选导出> --output <新�
 按原生字段画每个窗口，递归合成公共窗口（底板、侧栏），输出每窗PNG、缩略总览、`离线渲染报告.json`和`全工程预览索引.html`。动态值画成“—”占位。
 
 - `--active-map`：导航按钮激活态的模拟规则，格式见`tools/示例/导航激活规则示例.json`。`caption`是按钮文字，`windows`是哪些画面下画成激活态，`layer`（可选）限定只对属于该公共窗口的按钮生效。不给时全部画常态。
+- `--windows`：只解析指定页面及它们的递归公共层；报告中的 `parsed_window_count` / `total_window_count` 区分本次解析与全工程数量，另记加载和绘图耗时。图库仍完整解码，局部预览不等于全工程检查。
+- SVG 在一个 Node.js / sharp 进程内批量转换；坏图单独进入 `asset_decode_limits`，其余图片继续绘制。先配置已有的 `MCGS_NODE` / `MCGS_SHARP`，避免缺依赖时漏图。
 - `--full-dir`：旧导出不含多语言表时，指向一份含MCGSLINGUIST的导出。报告里`language_table_loaded`为false时，用多语言token的文字会画成“资源 N”。
 
 与原厂运行时已知不一致：

@@ -10,11 +10,12 @@ Std two-state selectors, Input frame and Multi primary ink match static evidence
 已知与原厂运行时不一致的地方见 references/ui-tools.md。
 """
 from pathlib import Path
-import argparse, copy, hashlib, importlib.util, io, json, math, re, struct, sys, subprocess, html
+import argparse, base64, copy, hashlib, importlib.util, io, json, math, re, struct, sys, subprocess, html
 from collections import Counter
 from PIL import Image,ImageDraw,ImageFont
 
 import os, shutil
+import time
 sys.dont_write_bytecode=True
 NATIVE=Path(__file__).resolve().parents[1]/'scripts'/'native'
 sys.path.insert(0,str(NATIVE))
@@ -153,8 +154,28 @@ def vector_asset(image,known_assets):
         else:limits.append(dict(type=hex(kind),limit='原生矢量子类型绘图未实现'))
     return im,limits
 
+def convert_svg_batch(items):
+    """Load sharp once per preview, preserving every input SVG byte string."""
+    if not items:return {},{}
+    node=os.environ.get('MCGS_NODE') or shutil.which('node')
+    if not node:return {},{key:'SVG 图片需要 Node.js（设置 MCGS_NODE）和 sharp（设置 MCGS_SHARP）' for key in items}
+    code="const chunks=[];process.stdin.on('data',c=>chunks.push(c));process.stdin.on('end',async()=>{try{const sharp=require("+json.dumps(os.environ.get('MCGS_SHARP','sharp'))+");const a=JSON.parse(Buffer.concat(chunks).toString('utf8'));const out=await Promise.all(a.map(async x=>{try{return {id:x.id,png:(await sharp(Buffer.from(x.svg,'base64')).png().toBuffer()).toString('base64')}}catch(e){return {id:x.id,error:String(e)}}}));process.stdout.write(JSON.stringify(out))}catch(e){process.stderr.write(String(e));process.exitCode=1}})"
+    payload=[{'id':key,'svg':base64.b64encode(value).decode('ascii')} for key,value in items.items()]
+    try:
+        result=subprocess.run([node,'-e',code],input=json.dumps(payload).encode('utf-8'),capture_output=True,timeout=120)
+        if result.returncode:raise RuntimeError(result.stderr.decode('utf-8',errors='replace')[:1200])
+        converted={};errors={}
+        for item in json.loads(result.stdout):
+            if 'error' in item:errors[item['id']]=item['error']
+            else:converted[item['id']]=base64.b64decode(item['png'],validate=True)
+        if set(converted)|set(errors)!=set(items):raise ValueError('SVG batch response is incomplete')
+        return converted,errors
+    except Exception as error:return {},{key:str(error) for key in items}
+
+
 class Project:
-    def __init__(self,export,full=None,active_rules=None):
+    def __init__(self,export,full=None,active_rules=None,window_ids=None):
+        started=time.perf_counter()
         self.export=Path(export);self.full=Path(full) if full else self.export
         self.active_rules=list(active_rules or [])
         for rule in self.active_rules:
@@ -163,8 +184,13 @@ class Project:
         if index_path is None:raise FileNotFoundError('导出目录里没有 index.json / 完整结构索引.json')
         self.index_sha=sha(index_path.read_bytes());ix=json.loads(index_path.read_text('utf-8-sig'))
         self.input_sha=ix['sha256'];self.is_candidate=ix.get('candidate_not_database_reread',False);self.windows={};self.read_errors=[]
-        for row in ix['rows']:
-            if row['table']!='WndUser':continue
+        window_rows={row['iID']:row for row in ix['rows'] if row['table']=='WndUser'}
+        self.total_window_count=len(window_rows)
+        self.requested_windows=None if window_ids is None else list(window_ids)
+        if window_ids is not None and set(window_ids)-set(window_rows):raise ValueError('请求的窗口号不存在')
+        def load_window(wid):
+            if wid in self.windows or wid not in window_rows:return
+            row=window_rows[wid]
             raw=(self.export/row['lbObjects']['file']).read_bytes()
             if sha(raw)!=row['lbObjects']['sha256']:raise ValueError('Export hash mismatch')
             plain=nativezip.unpack(raw) if raw.startswith(nativezip.MARKER) else raw
@@ -173,9 +199,12 @@ class Project:
             parents=list(struct.unpack_from('<3i',ev.扩展,8))
             w=dict(id=row['iID'],name=props[1],width=props[6],height=props[7],bg=props[15],parents=parents,controls=a.controls,source_sha=sha(raw))
             self.windows[w['id']]=w
+            for parent in parents:load_window(parent)
+        for wid in window_rows if window_ids is None else window_ids:load_window(wid)
         full_index=next((self.full/n for n in ('完整结构索引.json','结构索引.json','index.json') if (self.full/n).is_file()),None)
         idx=json.loads(full_index.read_text('utf-8-sig'))
         self.assets={};self.asset_errors=[];self.asset_render_limits=[];self.language=b'';self.strings={}
+        pictures=[]
         for row in idx['rows']:
             if row['table']!='System':continue
             name=row.get('strName','')
@@ -187,22 +216,25 @@ class Project:
             try:
                 r=Reader(b);nm=r.cstring()[0];r.cstring();kind=r.u32();width=r.u32();height=r.u32();n=r.u32();image=r.take(n)
                 assert r.pos==len(b)
+                pictures.append((name,nm,image))
+            except Exception as e:self.asset_errors.append(dict(name=name,error=str(e)))
+        svg_items={str(i):image[image.index(b'<?xml'):] for i,(_,_,image) in enumerate(pictures) if image.startswith(b'VS') and b'<?xml' in image}
+        converted,svg_errors=convert_svg_batch(svg_items)
+        self.svg_batch_count=1 if svg_items else 0
+        for i,(name,nm,image) in enumerate(pictures):
+            try:
                 vector,limits=vector_asset(image,self.assets) if image.startswith(b'BM') else (None,[])
                 if vector is not None:
                     self.assets[nm]=vector
                     if limits:self.asset_render_limits.append(dict(picture_name=nm,limits=limits))
                     continue
                 if image.startswith(b'VS') and b'<?xml' in image:
-                    xml=image[image.index(b'<?xml'):]
-                    # SVG 图片要用 Node.js 和 sharp 转 PNG：MCGS_NODE 指向 node.exe，MCGS_SHARP 指向 sharp 包；缺少时这张图记入 asset_decode_limits。
-                    node=os.environ.get('MCGS_NODE') or shutil.which('node')
-                    if not node:raise RuntimeError('SVG 图片需要 Node.js（设置 MCGS_NODE）和 sharp（设置 MCGS_SHARP）')
-                    code="const sharp=require("+json.dumps(os.environ.get('MCGS_SHARP','sharp'))+");const chunks=[];process.stdin.on('data',c=>chunks.push(c));process.stdin.on('end',async()=>{try{process.stdout.write(await sharp(Buffer.concat(chunks)).png().toBuffer())}catch(e){process.stderr.write(String(e));process.exitCode=1}})"
-                    result=subprocess.run([node,'-e',code],input=xml,capture_output=True,check=True)
-                    image=result.stdout
+                    if str(i) in svg_errors:raise RuntimeError(svg_errors[str(i)])
+                    image=converted[str(i)]
                 image=Image.open(io.BytesIO(image)).convert('RGBA')
                 self.assets[nm]=image
-            except Exception as e:self.asset_errors.append(dict(name=name,picture_name=locals().get('nm'),error=str(e)))
+            except Exception as e:self.asset_errors.append(dict(name=name,picture_name=nm,error=str(e)))
+        self.load_ms=round((time.perf_counter()-started)*1000,3)
     def translate(self,value):
         if not value or not value.startswith('\x07'):return value
         key=value[1:]
@@ -287,6 +319,7 @@ class Project:
         return d
 
 def render_project(project,out,window_ids=None):
+    started=time.perf_counter()
     out=Path(out);out.mkdir(parents=True,exist_ok=True);results=[];models=[]
     for wid,w in sorted(project.windows.items()):
         if window_ids and wid not in window_ids:continue
@@ -486,6 +519,9 @@ def render_project(project,out,window_ids=None):
                 control_type_counts=dict(Counter(hex(c.type_id) for w in project.windows.values() for c in w['controls'])),
                 dynamic_values='—占位，未执行事件或读取设备',gui=False,mcs_written=False,native_runtime_screenshot=False,
                 limits='已证原生颜色、字体、表格列宽及行高均读取实际字段；趋势轴精确像素定位、报警不透明列定义和系统滚动条外观采用明确标注的静态近似。无设备运行数据，不能证明实际GUI/运行表现。')
+    report.update(requested_windows=project.requested_windows,parsed_window_count=len(project.windows),total_window_count=project.total_window_count,
+                  svg_batch_count=project.svg_batch_count,
+                  timings_ms={'load':project.load_ms,'render':round((time.perf_counter()-started)*1000,3)})
     dump(out/'离线渲染报告.json',report)
     cards=[]
     for page in results:
@@ -507,5 +543,5 @@ if __name__=='__main__':
     a=p.parse_args()
     if a.output.exists() and any(a.output.iterdir()):raise SystemExit('输出目录必须是新目录或空目录')
     rules=json.loads(a.active_map.read_text('utf-8-sig')) if a.active_map else []
-    r=render_project(Project(a.export_dir,a.full_dir,rules),a.output,a.windows)
+    r=render_project(Project(a.export_dir,a.full_dir,rules,a.windows),a.output,a.windows)
     print(json.dumps(dict(windows=r['window_count'],contact_sheet=r['contact_sheet'],read_errors=r['read_errors'],assets=r['picture_assets_loaded'],language_table_loaded=r['language_table_loaded'],phase=r['phase']),ensure_ascii=False,indent=2))

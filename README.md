@@ -22,6 +22,10 @@
 
 文件读写阶段不启动厂商软件、不连接设备。`apply` 默认只预检；提交输出新文件，或在独立备份后就地修改。原厂打开、全工程检查、编译和相关交互另行验收。
 
+重复修改优先使用 `baseline`、`batch-edit` 和 `apply -ExportAfter`：一次准备基线、多项修改合成一次提交，并复用提交后完整回读生成导出。Stu 预览可只解析本次修改页及公共层；命令、规格和实测见[离线提速](references/offline-performance.md)。
+
+优化版 `v2026.10.30-offline-opt` 已完成 211 项离线/预览检查及安装后 9 项检查；六步混合修改本机耗时减少约 88.5%。本轮未重做原厂编译或实机验证，历史原厂验收范围单独保留。
+
 ## 安装
 
 从 [Releases](https://github.com/SuperWater925/mcgs-offline-edit-skill/releases/latest) 下载 ZIP，按同页 `SHA256SUMS.txt` 核对 SHA256。解压后的顶层目录是 `mcgs-offline-edit`，放入其中一处：
@@ -81,7 +85,7 @@ pwsh -NoProfile -File .\run.ps1 apply -Project 'D:\工程\当前.MCP' -Manifest 
 python scripts/check_repository.py --update-manifest
 python scripts/check_repository.py
 pwsh -NoProfile -File scripts/check_powershell.ps1
-python scripts/build_release.py --version v2026.10.30 --out local-artifacts/release
+python scripts/build_release.py --version v2026.10.30-offline-opt --out local-artifacts/release
 ```
 
 静态检查覆盖语法、JSON、链接和指纹，不证明原厂编译。打包器先验证清单，再输出单技能根目录 ZIP 和 SHA256 文件。格式与写入器改动仍须附对应回环、差异和原厂证据。

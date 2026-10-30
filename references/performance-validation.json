@@ -1,0 +1,124 @@
+{
+  "date": "2026-10-30",
+  "passed": true,
+  "baseline_commit": "487f523fd4bf83199fe70787add18424a441d553",
+  "software_version_gate": false,
+  "environment": {
+    "platform": "Windows",
+    "powershell": "7.6.6",
+    "process_bits": 64,
+    "ace": "Microsoft.ACE.OLEDB.16.0",
+    "python": "3.12.14",
+    "renderer": "Pillow; existing Node.js/sharp via MCGS_NODE/MCGS_SHARP"
+  },
+  "measurements": {
+    "baseline": {
+      "comparison": "snapshot + inspect + fingerprints versus baseline",
+      "aggregate_median": {
+        "before_seconds": 2.6811,
+        "after_seconds": 1.2556,
+        "reduction_percent": 53.2,
+        "repeats_per_variant": 9
+      },
+      "cases": [
+        {
+          "case": "P01",
+          "before_seconds": 2.4132,
+          "after_seconds": 1.0429,
+          "reduction_percent": 56.8,
+          "repeats_per_variant": 3
+        },
+        {
+          "case": "P06",
+          "before_seconds": 2.8596,
+          "after_seconds": 1.4739,
+          "reduction_percent": 48.5,
+          "repeats_per_variant": 3
+        },
+        {
+          "case": "StuLatest",
+          "before_seconds": 2.6811,
+          "after_seconds": 1.2556,
+          "reduction_percent": 53.2,
+          "repeats_per_variant": 3
+        }
+      ]
+    },
+    "mixed_edit": {
+      "comparison": "six sequential prepare/apply/inspect rounds versus batch-edit + apply -ExportAfter",
+      "cases": [
+        {
+          "family": "Pro",
+          "steps": 6,
+          "before_seconds": 16.1531,
+          "after_seconds": 1.853,
+          "reduction_percent": 88.5,
+          "repeats_per_variant": 1,
+          "before_cli_invocations": 18,
+          "after_cli_invocations": 2
+        },
+        {
+          "family": "Stu",
+          "steps": 6,
+          "before_seconds": 20.7198,
+          "after_seconds": 2.3883,
+          "reduction_percent": 88.5,
+          "repeats_per_variant": 1,
+          "before_cli_invocations": 18,
+          "after_cli_invocations": 2
+        }
+      ]
+    },
+    "controls": {
+      "control_count": 100,
+      "before_seconds": 0.5833,
+      "after_seconds": 0.5064,
+      "reduction_percent": 13.2,
+      "repeats_per_variant": 3,
+      "final_blob_hashes_exact": true
+    },
+    "selected_preview": {
+      "selected_window_count": 1,
+      "parsed_windows_before": 39,
+      "parsed_windows_after": 2,
+      "before_seconds": 0.9728,
+      "after_seconds": 0.5611,
+      "reduction_percent": 42.3,
+      "repeats_per_variant": 3,
+      "svg_assets_decoded_successfully": true,
+      "selected_pixels_exact": true,
+      "all_project_pages_pixel_compared": 39,
+      "all_page_pixels_exact": true
+    }
+  },
+  "checks": {
+    "total": 211,
+    "offline_regression": 188,
+    "additional_guards": 6,
+    "existing_ui_tool_integration": 13,
+    "preview_equivalence": 3,
+    "svg_partial_failure": 1,
+    "golden_control_projects": {
+      "Pro": 6,
+      "Stu": 1
+    },
+    "fresh_commit_export_matches_independent_read": true,
+    "mixed_edits_match_sequential_all_field_fingerprints": true,
+    "source_projects_unchanged": true,
+    "wrong_sha_preimage_blob_path_whitelist_duplicates_and_locks_rejected": true,
+    "in_place_backup_exact": true,
+    "runtime_recipe_snapshot_exact": true,
+    "language_export_matches_fingerprint": true
+  },
+  "native_vendor_open_rerun": false,
+  "native_vendor_compile_rerun": false,
+  "native_vendor_runtime_rerun": false,
+  "physical_device_tested": false,
+  "limitations": [
+    "Wall-clock samples are local observations, not a latency guarantee.",
+    "Mixed-edit timings are one six-step run per family; baseline and control/preview samples are repeated.",
+    "Renderer image comparisons are old/new offline output, not vendor screenshots.",
+    "All image assets still decode; lazy image loading and persistent workers are not implemented.",
+    "No customer project, vendor binary, raw script, recipe value or private path is included in this summary."
+  ]
+}

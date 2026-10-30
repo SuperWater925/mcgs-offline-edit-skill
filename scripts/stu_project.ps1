@@ -1,7 +1,7 @@
 param(
- [Parameter(Mandatory,Position=0)][ValidateSet('doctor','inspect','snapshot','fingerprints','compare','apply')][string]$Command,
+ [Parameter(Mandatory,Position=0)][ValidateSet('doctor','inspect','snapshot','baseline','fingerprints','compare','apply')][string]$Command,
  [string]$Project, [string]$Out, [string]$Left, [string]$Right, [string]$Manifest,
- [string]$RecipeRoot, [string]$Report, [string]$Backup,
+ [string]$RecipeRoot, [string]$Report, [string]$Backup, [string]$ExportAfter,
  [ValidateSet('auto','Microsoft.ACE.OLEDB.16.0','Microsoft.ACE.OLEDB.12.0')][string]$Provider='auto',
  [switch]$Commit, [switch]$InPlace
 )
@@ -29,7 +29,7 @@ function ValueFingerprint($Value){
 function SensitiveTable([string]$Table){return $Table -notin $script:RawTables}
 function SafeSystemRow([string]$Key){
  # Account, connection and access-control objects remain fingerprint-only.
- return $Key -match '^(ObjData|ObjPointerRule|StgyAndTrigger|MCGS_RECIPE_.+|MCGSVER|MCGSTPCSize|ProWndBGColor|MCGS_PICTURE_.+|VARCOLLECTTABLE|VARCOLLECTTABLEWND)$'
+ return $Key -match '^(ObjData|ObjPointerRule|StgyAndTrigger|MCGS_RECIPE_.+|MCGSVER|MCGSTPCSize|ProWndBGColor|MCGS_PICTURE_.+|MCGSLINGUIST|VARCOLLECTTABLE|VARCOLLECTTABLEWND)$'
 }
 function SafeKey([string]$Table,[string]$Key){
  if(SensitiveTable $Table){return 'rowkey_sha256:'+(Sha ([Text.Encoding]::UTF8.GetBytes($Key)))}
@@ -69,7 +69,7 @@ function ReadDatabase($Conn,$Transaction=$null,[string]$ExportDirectory=''){
       elseif($v -is [byte[]]){
        $file=$table+'_'+(Sha ([Text.Encoding]::UTF8.GetBytes($rawKey))).Substring(0,16)+'_'+$name+'.bin'
        [IO.File]::WriteAllBytes((Join-Path $ExportDirectory $file),$v)
-       $export[$name]=[ordered]@{file=$file;bytes=$v.Length;sha256=(Sha $v)}
+       $export[$name]=[ordered]@{file=$file;bytes=$v.Length;sha256=($fp[$name] -split ':',3)[2]}
       }else{$export[$name]=$v}
      }
     }
@@ -83,6 +83,7 @@ function ReadDatabase($Conn,$Transaction=$null,[string]$ExportDirectory=''){
  return [ordered]@{tables=@($schemas.ToArray());fingerprints=$tables;rows=@($exports.ToArray())}
 }
 function Capture([string]$Path,[string]$ExportDirectory=''){
+ $clock=[Diagnostics.Stopwatch]::StartNew()
  $before=SharedHash $Path;$conn=Connection $Path
  try{
   $data=ReadDatabase $conn $null $ExportDirectory
@@ -98,7 +99,14 @@ function Capture([string]$Path,[string]$ExportDirectory=''){
  $data['source_unchanged']=$true;$data['provider']=$script:SelectedProvider;$data['mode']='ACE Mode=Read'
  $data['all_field_values_fingerprinted']=$true;$data['account_values_withheld']=$true
  $data['native_compile_verified']=$false;$data['native_runtime_verified']=$false;$data['physically_tested']=$false
+ $data['capture_ms']=[math]::Round($clock.Elapsed.TotalMilliseconds,3)
  return $data
+}
+function WriteCapture([string]$Directory,$Data){
+ $index=[ordered]@{};foreach($key in $Data.Keys){if($key -ne 'fingerprints'){$index[$key]=$Data[$key]}}
+ WriteJson (Join-Path $Directory 'index.json') $index
+ $fp=[ordered]@{};foreach($key in $Data.Keys){if($key -ne 'rows'){$fp[$key]=$Data[$key]}}
+ WriteJson (Join-Path $Directory 'fingerprints.json') $fp
 }
 function StableCopy([string]$Source,[string]$Destination){
  if(Test-Path -LiteralPath $Destination){throw "Destination already exists: $Destination"}
@@ -142,8 +150,10 @@ function CheckChanges($Before,$After,$Allowed,$Expected){
 }
 
 try{
+ $clock=[Diagnostics.Stopwatch]::StartNew();$timings=[ordered]@{}
  if($Project -and $Command -ne 'compare' -and [IO.Path]::GetExtension($Project) -notin @('.MCS','.MCP')){throw 'Only native McgsStu .MCS and McgsPro .MCP projects are accepted.'}
  if($Report -and (Test-Path -LiteralPath (FullPath $Report))){throw 'Report path already exists; choose a new report before starting.'}
+ if($ExportAfter -and ($Command -ne 'apply' -or -not $Commit)){throw '-ExportAfter requires apply -Commit.'}
  $result=$null
  switch($Command){
   'doctor'{
@@ -175,8 +185,26 @@ try{
    Need $Project 'Project';$directory=''
    if($Out){$directory=FullPath $Out;if(Test-Path -LiteralPath $directory){throw 'Inspect output directory must be new.'};[void][IO.Directory]::CreateDirectory($directory)}
    $data=Capture (FullPath $Project) $directory
-   if($directory){$index=[ordered]@{};foreach($key in $data.Keys){if($key -ne 'fingerprints'){$index[$key]=$data[$key]}};WriteJson (Join-Path $directory 'index.json') $index;$fp=[ordered]@{};foreach($key in $data.Keys){if($key -ne 'rows'){$fp[$key]=$data[$key]}};WriteJson (Join-Path $directory 'fingerprints.json') $fp}
+   if($directory){WriteCapture $directory $data}
    $result=[ordered]@{input=$data.input;sha256=$data.sha256;project_family=$data.project_family;project_version=$data.project_version;tables=@($data.tables|ForEach-Object {@{table=$_.table;rows=$_.rows}});table_count=$data.table_count;safe_export_rows=$data.rows.Count;export_directory=$directory;source_unchanged=$true;account_values_withheld=$true;native_compile_verified=$false}
+   $timings['capture']=$data.capture_ms
+  }
+  'baseline'{
+   Need $Project 'Project';Need $Out 'Out';$src=FullPath $Project;$directory=FullPath $Out
+   if(Test-Path -LiteralPath $directory){throw 'Baseline output directory must be new.'}
+   [void][IO.Directory]::CreateDirectory($directory)
+   $snapshot=Join-Path $directory ('project'+[IO.Path]::GetExtension($src))
+   $snapshotArgs=@{Command='snapshot';Project=$src;Out=$snapshot;Provider=$Provider}
+   if($RecipeRoot){$snapshotArgs['RecipeRoot']=$RecipeRoot}
+   $snapshotResult=(& $PSCommandPath @snapshotArgs | Out-String | ConvertFrom-Json -AsHashtable)
+   if(-not $? -or -not $snapshotResult -or -not $snapshotResult.Contains('project')){throw 'Baseline snapshot failed.'}
+   $timings['snapshot']=[math]::Round($clock.Elapsed.TotalMilliseconds,3)
+   $exportDirectory=Join-Path $directory 'export';[void][IO.Directory]::CreateDirectory($exportDirectory)
+   $data=Capture $snapshot $exportDirectory
+   if($data.sha256 -ne $snapshotResult.project.sha256 -or (SharedHash $src) -ne $data.sha256){throw 'Project changed while preparing baseline; discard it and rebase.'}
+   WriteCapture $exportDirectory $data
+   $timings['capture']=$data.capture_ms
+   $result=[ordered]@{input=$src;sha256=$data.sha256;snapshot=$snapshot;export_directory=$exportDirectory;fingerprints=(Join-Path $exportDirectory 'fingerprints.json');project_family=$data.project_family;project_version=$data.project_version;table_count=$data.table_count;runtime_recipes=$snapshotResult.runtime_recipes;source_unchanged=$true;native_compile_verified=$false}
   }
   'fingerprints'{
    Need $Project 'Project';$data=Capture (FullPath $Project);$data.Remove('rows')
@@ -191,6 +219,7 @@ try{
    $m=Get-Content -LiteralPath $manifestPath -Raw -Encoding utf8|ConvertFrom-Json -AsHashtable
    if(-not $m.Contains('input_sha256') -or $m.input_sha256 -notmatch '^[0-9a-fA-F]{64}$'){throw 'Manifest requires input_sha256.'}
    $base=Capture $src
+   $timings['preflight_capture']=$base.capture_ms
    $isPro=$base.project_family -eq 'Pro'
    if($base.sha256 -ne $m.input_sha256.ToLowerInvariant()){throw 'Input SHA256 differs from the manifest baseline. Rebase; do not weaken the guard.'}
    if(-not $m.Contains('operations') -or $m.operations.Count -eq 0){throw 'Empty operation list.'}
@@ -218,13 +247,18 @@ try{
    else{Need $Out 'Out';$target=FullPath $Out;if($target -ieq $src -or (Test-Path -LiteralPath $target)){throw 'Copy output must be a new path. For authorized in-place work use -InPlace -Backup.'}}
    $result=[ordered]@{input=$src;input_sha256=$base.sha256;target=$target;manifest_sha256=(SharedHash $manifestPath);fields=$prepared.Count;preflight_passed=$true;committed=$false;in_place=[bool]$InPlace;source_written=$false;native_compile_verified=$false;native_runtime_verified=$false;physically_tested=$false}
    if($Commit){
+    $afterDirectory=''
+    if($ExportAfter){$afterDirectory=FullPath $ExportAfter;if(Test-Path -LiteralPath $afterDirectory){throw 'Post-commit export directory must be new.'};[void][IO.Directory]::CreateDirectory($afterDirectory)}
+    $phase=[Diagnostics.Stopwatch]::StartNew()
     if($InPlace){$saved=StableCopy $src $backupPath;$result['backup']=$saved;if($saved.sha256 -ne $base.sha256){throw 'Backup is not the approved baseline.'}}
     else{$saved=StableCopy $src $target;if($saved.sha256 -ne $base.sha256){throw 'Copied baseline changed.'}}
     if((SharedHash $src) -ne $base.sha256){throw 'Input changed after preflight.'}
+    $timings['stable_copy']=[math]::Round($phase.Elapsed.TotalMilliseconds,3);$phase.Restart()
     $conn=Connection $target 'Share Exclusive';$tx=$null
     try{
      $locked=ReadDatabase $conn
      if((CompareMaps $base.fingerprints $locked.fingerprints).Count -ne 0){throw 'Database changed before exclusive transaction.'}
+     $timings['exclusive_baseline']=[math]::Round($phase.Elapsed.TotalMilliseconds,3);$phase.Restart()
      $tx=$conn.BeginTransaction()
      foreach($p in $prepared){
       $cmd=$conn.CreateCommand();$cmd.Transaction=$tx;$cmd.CommandText='UPDATE ['+$p.table+'] SET ['+$p.field+']=? WHERE ['+$p.key_column+']=?'
@@ -235,15 +269,27 @@ try{
       }finally{$cmd.Dispose()}
      }
      $inside=ReadDatabase $conn $tx;$delta=CheckChanges $base.fingerprints $inside.fingerprints $allowed $expected
+     $timings['transaction_write_verify']=[math]::Round($phase.Elapsed.TotalMilliseconds,3);$phase.Restart()
      $tx.Commit();$tx.Dispose();$tx=$null
-     $after=ReadDatabase $conn;$delta=CheckChanges $base.fingerprints $after.fingerprints $allowed $expected
     }catch{if($tx){try{$tx.Rollback()}catch{}};throw}finally{if($tx){$tx.Dispose()};$conn.Dispose()}
+    # Reopen after commit: verify the persisted project, and optionally export the
+    # same complete read. Capture hashes before/after; no file lock is bypassed.
+    $after=Capture $target $afterDirectory;$delta=CheckChanges $base.fingerprints $after.fingerprints $allowed $expected
+    $timings['commit_reread']=[math]::Round($phase.Elapsed.TotalMilliseconds,3)
     if(-not $InPlace -and (SharedHash $src) -ne $base.sha256){throw 'Original source changed during copy build.'}
-    $result['committed']=$true;$result['source_written']=[bool]$InPlace;$result['output_sha256']=SharedHash $target;$result['changes']=$delta
+    $outputHash=SharedHash $target
+    if($outputHash -ne $after.sha256){throw 'Output changed after post-commit verification.'}
+    if($afterDirectory){
+     WriteCapture $afterDirectory $after
+     if((SharedHash $target) -ne $outputHash){throw 'Output changed while publishing post-commit export; discard this export.'}
+     $result['export_directory']=$afterDirectory;$result['export_reused_commit_reread']=$true
+    }
+    $result['committed']=$true;$result['source_written']=[bool]$InPlace;$result['output_sha256']=$outputHash;$result['changes']=$delta
     $result['all_unlisted_fields_unchanged']=$true;$result['all_original_rows_preserved']=$true;$result['all_written_values_reread_equal']=$true
    }
   }
  }
+ $timings['total']=[math]::Round($clock.Elapsed.TotalMilliseconds,3);$result['timings_ms']=$timings
  if($Report){WriteJson $Report $result}
  $result|ConvertTo-Json -Depth 45
 }catch{

@@ -1,5 +1,5 @@
 $ErrorActionPreference = 'Stop'
-if($args.Count -gt 0 -and $args[0] -in @('audit','controls','strategy-source','recipe-cell','normalize-inputs')){
+if($args.Count -gt 0 -and $args[0] -in @('audit','controls','strategy-source','recipe-cell','normalize-inputs','batch-edit')){
  $python=if($env:MCGS_PYTHON){$env:MCGS_PYTHON}else{(Get-Command python -ErrorAction Stop).Source}
  & $python -B -X utf8 (Join-Path $PSScriptRoot 'scripts/native_tool.py') @args
  exit $LASTEXITCODE
