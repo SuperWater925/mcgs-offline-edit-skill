@@ -60,8 +60,6 @@ def _common_array(record):
         raise FormatError(f"Control {record.type_id:#x} common prefix is not proven for this factory")
     r = Reader(record.payload)
     version = r.unpack("<f")
-    if (record.type_id in (0x5004, 0x503d) and version != 1.0) or (record.type_id in (0x5008, 0x5025) and not 250 <= version <= 400):
-        raise FormatError("Unsupported native control version")
     flags, flags2 = r.u32(), r.u32()
     if flags & 0x100:
         r.take(8)

@@ -2,7 +2,7 @@
 
 ## 结构
 
-McgsStu MCS是原生Access/Jet数据库，以ACE只读/排他连接处理。已验证工程为12表：`Alarm`、`Data`、`DDEConnection`、`DDEConnectionPoint`、`SecurityGroup`、`SecurityUser`、`Stgy`、`System`、`Trigger`、`WndControl`、`WndDevice`、`WndUser`。其他项目应枚举实际表；未知表保持不动，仍纳入字段指纹。
+McgsStu MCS与McgsPro MCP使用原生Access/Jet数据库，以ACE只读/排他连接处理。已验证工程为12表：`Alarm`、`Data`、`DDEConnection`、`DDEConnectionPoint`、`SecurityGroup`、`SecurityUser`、`Stgy`、`System`、`Trigger`、`WndControl`、`WndDevice`、`WndUser`。其他项目应枚举实际表；未知表保持不动，仍纳入字段指纹。
 
 `System`行键是`strName`，`Stgy`是`iStgyID`，`Trigger/WndUser/WndControl`是`iID`。只读全表指纹对所有字段使用类型+值哈希，二进制为`binary:长度:sha256`；账户表行键也哈希，不输出账号或口令值。
 
@@ -24,7 +24,7 @@ pwsh -NoProfile -File .\run.ps1 compare -Left 'D:\验收\before.json' -Right 'D:
 
 ### 现成策略源码补丁
 
-从最新安全导出生成两个候选BLOB。策略名必须精确命中一个已有单脚本策略；源文件是UTF-8，保留其实际换行。此工具不是MCGS编译器。
+从最新安全导出生成两个候选BLOB。策略名必须精确命中已有策略；多动作时用明确的 `--action-path '0,0,0'` 指定已有程序动作，详见[有界修改](bounded-edits.md)。源文件是UTF-8，保留其实际换行。此工具不是MCGS编译器。
 
 ```powershell
 & 'C:\本机Python\python.exe' -X utf8 .\scripts\native_tool.py strategy-source --export 'D:\验收\基线' --strategy-name '<已有单脚本策略名>' --source 'D:\修改\源码.txt' --out 'D:\验收\候选'
@@ -55,7 +55,7 @@ pwsh -NoProfile -File .\run.ps1 apply -Project 'D:\工程\当前.MCS' -Manifest 
 
 新建窗口要新增WndUser行，本入口不支持，用`tools/新增窗口事务.ps1`：只多允许新增清单列出的WndUser行（六列`iID/strName/strNote/lbObjects/iDeleteFlag=0/iCompileFlag=0`），其余照本入口的白名单更新与全表比对，见[界面工具](ui-tools.md#tools新增窗口事务ps1)。
 - 该脚本按函数名从`scripts/stu_project.ps1`抽取`FullPath/Sha/SharedHash/ValueFingerprint/SensitiveTable/SafeSystemRow/SafeKey/Connection/ReadDatabase/Capture/StableCopy/CompareMaps/ManifestBlob`。
-- 改这些函数的名称或参数会让它失效；要改时同步修改，或先把insert正式并入本入口并补隔离测试。
+- 新窗口工具也加载共用 `scripts/ace-runtime.ps1`；改这些函数的名称或参数会让它失效；要改时同步修改，或先把insert正式并入本入口并补隔离测试。
 
 JSON清单格式：
 
@@ -80,3 +80,7 @@ BLOB路径必须相对清单目录且不越界；每个字段有前指纹；重�
 - `Stgy`行0保存策略数组；`System/StgyAndTrigger`还保存策略/触发注册。两份必须同步，不可只改其一。
 - 改某策略源码时只清该`CStgyFuncProg.compiled`；窗口打开/循环/退出事件分别保留未变缓存。不能把全工程缓存全部清空当修复。
 - `iCompileFlag`沿原厂值不等于编译通过证据；缓存非空也不证明最近修改经过了原厂检查。
+
+## Stu / Pro 共享更新
+
+两种家族都从主入口使用相同的既有行BLOB白名单、源SHA、字段前指纹、事务、备份与全表复读。策略源码只清变化程序的缓存并同步双容器；配方只改已有行列，见[有界修改](bounded-edits.md)。共用 ACE 连接层，不再有 Pro 独立 Jet 宿主。

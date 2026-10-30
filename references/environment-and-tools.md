@@ -1,12 +1,12 @@
 # 环境、安装与工具接口
 
-## Stu前提
+## Stu / Pro 共用前提
 
 Windows、PowerShell7，以及与进程位数相同的Microsoft ACE OLEDB 16.0或12.0。入口优先16.0，失败才试12.0；这两个是数据库提供程序版本，不表示工程有16张/12张表。项目实际为12张业务表，必须动态枚举，不能据此只比较某几张表。
 
-Python3.11+用于纯字节归档解码、候选准备和Pro CLI；Stu数据库命令本身只依赖PowerShell/.NET和ACE。优先显式传入本机已有Python路径；找不到时可在Codex中调用`mcp__codex_app__load_workspace_dependencies`定位已捆绑运行时。不要把某台机器的Python绝对路径写成迁移前提。核心脚本无pip依赖；`tools/`的离线预览和文字宽度计算需要Pillow，SVG图片另需Node.js和sharp（可选），见[界面工具](ui-tools.md#前提)。
+Python3.11+用于纯字节归档解码、候选准备和Pro CLI；Stu/Pro数据库命令本身只依赖PowerShell/.NET和ACE。优先显式传入本机已有Python路径；找不到时可在Codex中调用`mcp__codex_app__load_workspace_dependencies`定位已捆绑运行时。不要把某台机器的Python绝对路径写成迁移前提。核心脚本无pip依赖；`tools/`的离线预览和文字宽度计算需要Pillow，SVG图片另需Node.js和sharp（可选），见[界面工具](ui-tools.md#前提)。
 
-原厂McgsStu及相匹配的控件、驱动、字体用于最终检查与模拟，由接收者安装；本技能不分发它们。不要下载未知DLL补齐依赖。
+原厂McgsStu / McgsPro及相匹配的控件、驱动、字体用于最终检查与模拟，由接收者安装；本技能不分发它们。不要下载未知DLL补齐依赖。
 
 将整个`mcgs-offline-edit`文件夹放到目标电脑的`%USERPROFILE%\.codex\skills\`（Codex，调用`$mcgs-offline-edit`）或`%USERPROFILE%\.claude\skills\`（Claude Code），也可用PowerShell7直接运行该文件夹内的`run.ps1`。保留`assets/`、`scripts/`、`references/`的相对结构。若同名技能已有本地改动，先比较再合并，不盲目覆盖。
 
@@ -36,15 +36,25 @@ pwsh -NoProfile -File .\run.ps1 doctor -Project 'D:\工程\当前.MCS'
 
 表中是实际用过的接口，不是声称目标电脑必然具有这些工具。每次会话应发现实际可用工具。MCP是工具调用协议；`mcp__...`工具名只是某些能力由MCP公开。项目文件`.mcp`与此协议没有关系；本包没有新建MCP服务、监听端口或伪造厂商MCP API，也不要求Codex专用联网服务才能离线处理。
 
-## Pro路线
+## 统一入口与格式适配
 
-`assets/pro-3.5-cli`保留McgsPro 3.5.1.6963原包CLI、通用空白模板和基础控件资源。其原始说明见该子目录`SKILL.md`与`references/runtime.md`。空白模板中的权限/用户表属于通用新建模板，密码字段已经布尔核验为全空；未复制当前Stu项目账号。
+两种工程使用 PowerShell 7 / ACE。`scripts/ace-runtime.ps1` 是共享连接层，优先 ACE16，再试 ACE12；不另启 32 位 Windows PowerShell 或 Jet OLEDB 宿主。
 
-Pro CLI使用Python3.11+、Windows32位PowerShell5.1、ADOX及Jet4.0；Python本身可为64位。Stu的ACE入口与它分开。调用可用显式解释器，无需依赖PATH：
+Pro 新建另需同位数 ADOX.Catalog 创建 Jet 4 兼容数据库格式，这不等于使用 Jet OLEDB 提供程序。原始通用模板来自 McgsPro 3.5.1.6963、800×480，描述来源，不限制现有工程版本；目标屏或分辨率变更仍须真实模板依据。
+
+`MCGS_PYTHON` 可指定现有 Python，`MCGS_PWSH` 可指定 PowerShell 7。旧入口 `assets/pro-3.5-cli/run.cmd` 同样使用共用连接层；历史目录名不表示另一个环境，不再注册子技能。
 
 ```powershell
-& 'C:\本机Python\python.exe' -X utf8 .\assets\pro-3.5-cli\scripts\mcgs_file.py doctor
-& 'C:\本机Python\python.exe' -X utf8 .\assets\pro-3.5-cli\scripts\mcgs_file.py inspect 'D:\工程\原生.mcp'
+pwsh -NoProfile -File .\run.ps1 inspect -Project 'D:\工程\当前.MCP' -Out 'D:\验收\导出'
+pwsh -NoProfile -File .\run.ps1 audit --export 'D:\验收\导出'
+pwsh -NoProfile -File .\run.ps1 create --spec 'D:\规格\create.json' --output 'D:\工程\新建.MCP'
+pwsh -NoProfile -File .\run.ps1 edit --source 'D:\工程\当前.MCP' --spec 'D:\规格\edit.json' --output 'D:\工程\修改.MCP'
 ```
 
-原包具有create/edit等有限能力，但本新技能没有重新验证其全部创建/修改能力。请求Pro任务时先读原包版本与支持范围，另做实际验收；不要把Stu验收证据当成Pro通过证据。
+`doctor` 默认只读；Pro 兼容 CLI 的 `doctor --workdir <目录>` 可单独验证临时数据库创建与二进制复读。原厂软件、控件、驱动和字体由使用者安装，缺失时见[驱动依赖](driver-dependencies.md)。
+
+软件大小版本只记录，实际结构、长度和完整回环决定能力。已测范围见[统一验证](unified-validation.md)，有限字段见[有界修改](bounded-edits.md)。
+
+## 打包
+
+`python scripts/build_release.py --version v2026.10.30 --out local-artifacts/release` 先验证清单，再输出 `mcgs-offline-edit/` 为唯一顶层目录的 ZIP 及独立 `SHA256SUMS.txt`。发布号与 MCGS 软件版本无关。输出必须是新目录。

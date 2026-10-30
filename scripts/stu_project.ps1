@@ -7,8 +7,7 @@ param(
 )
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
-if($PSVersionTable.PSVersion.Major -lt 7){throw 'PowerShell 7 or newer is required; Windows PowerShell 5.1 is the separate Pro CLI route.'}
-if(-not $IsWindows){throw 'The McgsStu ACE database route requires Windows.'}
+. (Join-Path $PSScriptRoot 'ace-runtime.ps1')
 $script:SelectedProvider=$null
 $script:RawTables=@('Alarm','Data','DDEConnection','DDEConnectionPoint','Stgy','System','Trigger','WndControl','WndDevice','WndUser')
 $script:KeyColumns=@{System='strName';Stgy='iStgyID';Trigger='iID';WndUser='iID';WndControl='iID'}
@@ -30,8 +29,7 @@ function ValueFingerprint($Value){
 function SensitiveTable([string]$Table){return $Table -notin $script:RawTables}
 function SafeSystemRow([string]$Key){
  # Account, connection and access-control objects remain fingerprint-only.
- # MCGSLINGUIST is the UI multi-language string table; the offline preview needs it to resolve caption tokens.
- return $Key -match '^(ObjData|ObjPointerRule|StgyAndTrigger|MCGS_RECIPE_.+|MCGSVER|MCGSTPCSize|ProWndBGColor|MCGS_PICTURE_.+|VARCOLLECTTABLE|VARCOLLECTTABLEWND|MCGSLINGUIST)$'
+ return $Key -match '^(ObjData|ObjPointerRule|StgyAndTrigger|MCGS_RECIPE_.+|MCGSVER|MCGSTPCSize|ProWndBGColor|MCGS_PICTURE_.+|VARCOLLECTTABLE|VARCOLLECTTABLEWND)$'
 }
 function SafeKey([string]$Table,[string]$Key){
  if(SensitiveTable $Table){return 'rowkey_sha256:'+(Sha ([Text.Encoding]::UTF8.GetBytes($Key)))}
@@ -45,13 +43,10 @@ function WriteJson([string]$Path,$Data){
  [IO.File]::WriteAllText($p,($Data|ConvertTo-Json -Depth 45),[Text.UTF8Encoding]::new($false))
 }
 function Connection([string]$Path,[string]$Mode='Read'){
- $providers=if($script:SelectedProvider){@($script:SelectedProvider)}elseif($Provider -eq 'auto'){@('Microsoft.ACE.OLEDB.16.0','Microsoft.ACE.OLEDB.12.0')}else{@($Provider)}
- foreach($p in $providers){
-  $b=[Data.OleDb.OleDbConnectionStringBuilder]::new();$b['Provider']=$p;$b['Data Source']=$Path;$b['Mode']=$Mode;$b['Persist Security Info']=$false
-  $c=[Data.OleDb.OleDbConnection]::new($b.ConnectionString)
-  try{$c.Open();$script:SelectedProvider=$p;return ,$c}catch{$c.Dispose()}
- }
- throw 'ACE could not open this project in the requested mode. Check provider/process bitness, database format, file locks and path; no editor process was closed.'
+ $requested=if($script:SelectedProvider){$script:SelectedProvider}else{$Provider}
+ $c=Open-McgsAceConnection $Path $Mode $requested
+ $script:SelectedProvider=$c.Provider
+ return ,$c
 }
 function ReadDatabase($Conn,$Transaction=$null,[string]$ExportDirectory=''){
  $tables=[ordered]@{};$schemas=[Collections.Generic.List[object]]::new();$exports=[Collections.Generic.List[object]]::new()
@@ -89,7 +84,15 @@ function ReadDatabase($Conn,$Transaction=$null,[string]$ExportDirectory=''){
 }
 function Capture([string]$Path,[string]$ExportDirectory=''){
  $before=SharedHash $Path;$conn=Connection $Path
- try{$data=ReadDatabase $conn $null $ExportDirectory}finally{$conn.Dispose()}
+ try{
+  $data=ReadDatabase $conn $null $ExportDirectory
+  $versionCommand=$conn.CreateCommand();$versionCommand.CommandText="SELECT [lbContext] FROM [System] WHERE [strName]='MCGSVER'"
+  try{$versionValue=$versionCommand.ExecuteScalar();$version=if($versionValue -is [byte[]]){[Text.Encoding]::Unicode.GetString($versionValue).TrimEnd([char]0)}else{''}}finally{$versionCommand.Dispose()}
+  $data['project_version']=$version
+  $data['project_family']=if($version -like 'McgsPro *'){'Pro'}elseif($version -like 'McgsStu *'){'Stu'}else{'unrecognized'}
+  if([IO.Path]::GetExtension($Path) -ieq '.MCP' -and $data.project_family -ne 'Pro'){throw 'MCP extension does not match a verified McgsPro version record.'}
+  if([IO.Path]::GetExtension($Path) -ieq '.MCS' -and $data.project_family -eq 'Pro'){throw 'MCS extension contains a Pro project; preserve its native family instead of renaming it.'}
+ }finally{$conn.Dispose()}
  if((SharedHash $Path) -ne $before){throw 'Project changed while reading. Re-snapshot and rebase instead of using this result.'}
  $data['input']=$Path;$data['sha256']=$before;$data['table_count']=$data.tables.Count
  $data['source_unchanged']=$true;$data['provider']=$script:SelectedProvider;$data['mode']='ACE Mode=Read'
@@ -139,7 +142,7 @@ function CheckChanges($Before,$After,$Allowed,$Expected){
 }
 
 try{
- if($Project -and $Command -ne 'compare' -and [IO.Path]::GetExtension($Project) -ine '.MCS'){throw 'This entry point handles McgsStu .MCS. Route McgsPro .mcp to assets/pro-3.5-cli with the matching version.'}
+ if($Project -and $Command -ne 'compare' -and [IO.Path]::GetExtension($Project) -notin @('.MCS','.MCP')){throw 'Only native McgsStu .MCS and McgsPro .MCP projects are accepted.'}
  if($Report -and (Test-Path -LiteralPath (FullPath $Report))){throw 'Report path already exists; choose a new report before starting.'}
  $result=$null
  switch($Command){
@@ -173,7 +176,7 @@ try{
    if($Out){$directory=FullPath $Out;if(Test-Path -LiteralPath $directory){throw 'Inspect output directory must be new.'};[void][IO.Directory]::CreateDirectory($directory)}
    $data=Capture (FullPath $Project) $directory
    if($directory){$index=[ordered]@{};foreach($key in $data.Keys){if($key -ne 'fingerprints'){$index[$key]=$data[$key]}};WriteJson (Join-Path $directory 'index.json') $index;$fp=[ordered]@{};foreach($key in $data.Keys){if($key -ne 'rows'){$fp[$key]=$data[$key]}};WriteJson (Join-Path $directory 'fingerprints.json') $fp}
-   $result=[ordered]@{input=$data.input;sha256=$data.sha256;tables=@($data.tables|ForEach-Object {@{table=$_.table;rows=$_.rows}});table_count=$data.table_count;safe_export_rows=$data.rows.Count;export_directory=$directory;source_unchanged=$true;account_values_withheld=$true;native_compile_verified=$false}
+   $result=[ordered]@{input=$data.input;sha256=$data.sha256;project_family=$data.project_family;project_version=$data.project_version;tables=@($data.tables|ForEach-Object {@{table=$_.table;rows=$_.rows}});table_count=$data.table_count;safe_export_rows=$data.rows.Count;export_directory=$directory;source_unchanged=$true;account_values_withheld=$true;native_compile_verified=$false}
   }
   'fingerprints'{
    Need $Project 'Project';$data=Capture (FullPath $Project);$data.Remove('rows')
@@ -185,10 +188,10 @@ try{
   }
   'apply'{
    Need $Project 'Project';Need $Manifest 'Manifest';$src=FullPath $Project;$manifestPath=FullPath $Manifest;$manifestDirectory=[IO.Path]::GetDirectoryName($manifestPath)
-   if([IO.Path]::GetExtension($src) -ine '.MCS'){throw 'This updater accepts McgsStu .MCS only. Route Pro .mcp to pro-cli.'}
    $m=Get-Content -LiteralPath $manifestPath -Raw -Encoding utf8|ConvertFrom-Json -AsHashtable
    if(-not $m.Contains('input_sha256') -or $m.input_sha256 -notmatch '^[0-9a-fA-F]{64}$'){throw 'Manifest requires input_sha256.'}
    $base=Capture $src
+   $isPro=$base.project_family -eq 'Pro'
    if($base.sha256 -ne $m.input_sha256.ToLowerInvariant()){throw 'Input SHA256 differs from the manifest baseline. Rebase; do not weaken the guard.'}
    if(-not $m.Contains('operations') -or $m.operations.Count -eq 0){throw 'Empty operation list.'}
    $allowed=@{};$expected=@{};$prepared=[Collections.Generic.List[object]]::new()

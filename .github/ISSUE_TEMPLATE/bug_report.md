@@ -10,7 +10,7 @@ title: "[问题] "
 - 软件完整版本与构建号：
 - 工程格式及目标分辨率：
 - 本仓库提交号或版本：
-- Python、PowerShell、ACE / Jet 版本和位数：
+- Python、PowerShell、ACE / ADOX 版本和位数：
 
 ## 问题与复现
 

@@ -55,19 +55,21 @@
       "file": "scripts/native/可见动画归档.py",
       "source": "<原项目>/离线改写工具/窗口与控件/可见动画归档.py",
       "source_sha256": "faba79753968b50dbb4e804e33483053e81e98303c9455a7568dbd68f53f7a03",
-      "packaged_sha256": "fbc3b09cd99d8110be7a85f8966fd13d897a7158b173cf55a1f4019b479108e0",
+      "packaged_sha256": "9da472a08330f9318a38fc1f24572b592b5280d64db747dbea345b90ee674f54",
       "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
       "removed_functions": [
         "audit"
-      ]
+      ],
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "scripts/native/mcgs_recipe_strategy.py",
       "source": "<原项目>/离线改写工具/配方与策略/mcgs_recipe_strategy.py",
       "source_sha256": "76006a31160fd287833397915339f2028effdafedaed8292dfd809ed3b2fc2ba",
-      "packaged_sha256": "76006a31160fd287833397915339f2028effdafedaed8292dfd809ed3b2fc2ba",
+      "packaged_sha256": "886f9683ef0c9b31b6cb77eb0217d1f5ea2d8d9945797604b6b9d74bfacbef2b",
       "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
-      "removed_functions": []
+      "removed_functions": [],
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "scripts/native/mcgs_native_zip.py",
@@ -81,44 +83,48 @@
       "file": "scripts/native/mcs_button_control.py",
       "source": "<原项目>/离线改写工具/配方与策略/mcs_button_control.py",
       "source_sha256": "ef94f663d530f018f808eff340dc970b69665ba7f238936781a1c4d062bb5f92",
-      "packaged_sha256": "dd256aa5e965e2e17ecbce33fd9aee327a692cb838b971dad831757e97a1b844",
+      "packaged_sha256": "2d408d21ecaf30b43b368d60b1dcd1647f68022e5994275af913a7fe2b1cb888",
       "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
       "removed_functions": [
         "_template",
         "create_button",
         "audit_native_buttons"
-      ]
+      ],
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "scripts/native/mcs_input_text.py",
       "source": "<原项目>/离线改写工具/数据对象/mcs_input_text.py",
       "source_sha256": "11749e53bd5e44a04b10ecdd2fbfbcd375f28e2c9b8eb3d1d127edbb52804a7f",
-      "packaged_sha256": "760a8d68b1ec5d71e98acab8d75fe42c996cf073f7ca105cff9f5b79c90a4cf9",
+      "packaged_sha256": "115529ad56fdc3460efd780e112c8f405e36c0a27035a91b45f24160eadd4a02",
       "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
       "removed_functions": [
         "original_control",
         "schema_info",
         "create_input",
         "create_label"
-      ]
+      ],
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "scripts/native/对象归档.py",
       "source": "<原项目>/离线改写工具/数据对象/对象归档.py",
       "source_sha256": "c327c64f06b841fbbec27c53b2f10221514775e3216855e75f53492298d77e87",
-      "packaged_sha256": "c327c64f06b841fbbec27c53b2f10221514775e3216855e75f53492298d77e87",
+      "packaged_sha256": "f610b3ed799d281bb11ed657be281236457439b5f6d16bef4dc5eb092e7ffa92",
       "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
-      "removed_functions": []
+      "removed_functions": [],
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "scripts/native/原生界面样式.py",
       "source": "<原项目>/20261021_全工程界面优化/原生界面样式.py",
       "source_sha256": "6b919d6fb3858964b6642b0dd24e6e70994e566ae1f127709432c076ada773ef",
-      "packaged_sha256": "d529c7d1ee7dec4d01ec16042adab9a5b79b2a8adaeee3846c1708f47c536f77",
+      "packaged_sha256": "4aa61299fef9af12355fce3e64699ec06c2cfd294f70d3c3c7a0f071178bda8b",
       "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
       "removed_functions": [
         "audit"
-      ]
+      ],
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "scripts/native/原生趋势样式.py",
@@ -132,17 +138,19 @@
       "file": "scripts/native/报警表原生样式.py",
       "source": "<原项目>/20261021_全工程界面优化/报警表原生样式.py",
       "source_sha256": "25919f6cf5b84eb67968fa4f8f90a183e025667389ba0f36c4b0eeb708227ed6",
-      "packaged_sha256": "70da34ab996aed2cebe12edfb842797fcf49bdd9192190aea1d9f26ab09e434d",
+      "packaged_sha256": "533bfa0573343d31e68a58fc8f4cce0ed0d48fc8f2fef9a44545371e83c2b32f",
       "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
-      "removed_functions": []
+      "removed_functions": [],
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "scripts/native/旧下拉框与历史表样式.py",
       "source": "<原项目>/20261021_全工程界面优化/独立审查/旧下拉框与历史表样式.py",
       "source_sha256": "cd137ffe57660c4e4f9b98b7e87b92ff209f5899a4b31e1e46240cdec1bb2386",
-      "packaged_sha256": "bd6bbea4f818abec3840d5d00151d9d7cf00cb64f61149ac94b8c94bcf81f047",
+      "packaged_sha256": "3493a144f9b66afc33b0559cc99f0bba03836d8d6b0f9777ec33a3a330db17c5",
       "adaptation": "Flat relative imports; removed project-specific audit/factory entry points requiring private sample files. Codec classes remain.",
-      "removed_functions": []
+      "removed_functions": [],
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "scripts/native/当前存盘浏览样式.py",
@@ -168,15 +176,18 @@
       "file": "assets/pro-3.5-cli/agents/openai.yaml",
       "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/agents/openai.yaml",
       "source_sha256": "34b97b940fd1de5ab1c30550459a9e73a32c8ceb5c6e0bb39cd7965226cefbdb",
-      "packaged_sha256": "34b97b940fd1de5ab1c30550459a9e73a32c8ceb5c6e0bb39cd7965226cefbdb",
-      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction.",
+      "packaged": false,
+      "removed_on": "2026-10-30",
+      "removal_reason": "Unified main skill replaces the nested Pro registration"
     },
     {
       "file": "assets/pro-3.5-cli/assets/blank-project.json",
       "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/assets/blank-project.json",
       "source_sha256": "edac9a5489eefc952ce9720ae593b083b1e03482dff5556b441a65fd54fd8ffa",
-      "packaged_sha256": "edac9a5489eefc952ce9720ae593b083b1e03482dff5556b441a65fd54fd8ffa",
-      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+      "packaged_sha256": "a7bbcddecb23b71bd81ced1fb0e71237d2a89230dd9c1b11a563828bfd1da209",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction.",
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "assets/pro-3.5-cli/assets/primitives.json",
@@ -196,29 +207,33 @@
       "file": "assets/pro-3.5-cli/references/acceptance.md",
       "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/references/acceptance.md",
       "source_sha256": "083b534583e66d343c3fc40d0def08af4b1f6d21833dd5f1e2761f4f6b471dcf",
-      "packaged_sha256": "083b534583e66d343c3fc40d0def08af4b1f6d21833dd5f1e2761f4f6b471dcf",
-      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+      "packaged_sha256": "312c92a3bc66007909c5fe120066197bb173b020615e7ccef8b4e5de2dffd5a7",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction.",
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "assets/pro-3.5-cli/references/editing.md",
       "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/references/editing.md",
       "source_sha256": "4cd09a36f9b64a0503208d738589bd03570ba87d63f4dc01968d146191d8ac22",
-      "packaged_sha256": "4cd09a36f9b64a0503208d738589bd03570ba87d63f4dc01968d146191d8ac22",
-      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+      "packaged_sha256": "62bf543f71781d4705c07b07a28e63915432270d31f30af7713c8b549f3a26b2",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction.",
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "assets/pro-3.5-cli/references/runtime.md",
       "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/references/runtime.md",
       "source_sha256": "3b11f9f7281db087dab407cd33ddc18d55ff6534b7959fc3002c93aa98f6d3eb",
-      "packaged_sha256": "3b11f9f7281db087dab407cd33ddc18d55ff6534b7959fc3002c93aa98f6d3eb",
-      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+      "packaged_sha256": "bf0e39ef18244328b5636b90f0a0efcf0f61b466ef49e6e3b457f62955936efd",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction.",
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "assets/pro-3.5-cli/requirements.txt",
       "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/requirements.txt",
       "source_sha256": "150f1e36840234437268717295eefa1bcacc90b8f48d85d8de25f2f9236de9f2",
-      "packaged_sha256": "150f1e36840234437268717295eefa1bcacc90b8f48d85d8de25f2f9236de9f2",
-      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+      "packaged_sha256": "229456722524e788b2b16624d4cae8d86863eece41a5a143ef6bc822ba477010",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction.",
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "assets/pro-3.5-cli/run.cmd",
@@ -231,22 +246,25 @@
       "file": "assets/pro-3.5-cli/scripts/database.ps1",
       "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/scripts/database.ps1",
       "source_sha256": "5f491c34d5210206dfd0736fdb0f09ca1e9546f1ebc928f611317a99b0108e4b",
-      "packaged_sha256": "5f491c34d5210206dfd0736fdb0f09ca1e9546f1ebc928f611317a99b0108e4b",
-      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+      "packaged_sha256": "a915e709f9fc29982074fe1ef6bf346f495e29d8abbde8e6a461d3ad7d47716f",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction.",
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "assets/pro-3.5-cli/scripts/mcgs_file.py",
       "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/scripts/mcgs_file.py",
       "source_sha256": "7c3190b204bd0b8a446373beccf709620e4d176f8002e5c9ca1b8d4ffa5f2622",
-      "packaged_sha256": "7c3190b204bd0b8a446373beccf709620e4d176f8002e5c9ca1b8d4ffa5f2622",
-      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+      "packaged_sha256": "403b699c58bcb3de9211b7bfb58e10b54dbe8ee618eacc674075a42b9165c86a",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction.",
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "assets/pro-3.5-cli/scripts/native_format.py",
       "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/scripts/native_format.py",
       "source_sha256": "23172d903ca677dab1c0d4301d089597ae6f4434d5eebb134571fd3e7e2abb18",
-      "packaged_sha256": "23172d903ca677dab1c0d4301d089597ae6f4434d5eebb134571fd3e7e2abb18",
-      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+      "packaged_sha256": "4143cfe0895fcbc220d9eae2079bfa396fb9c5311410b7ca24b28844c8544a2e",
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction.",
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "assets/pro-3.5-cli/setup.ps1",
@@ -259,8 +277,10 @@
       "file": "assets/pro-3.5-cli/SKILL.md",
       "source": "mcgs-offline-engineering-skill/mcgs-offline-engineering-McgsPro-3.5.1.6963/mcgs-offline-engineering/SKILL.md",
       "source_sha256": "d6db94059f6e7233bb4d18a70ec4a3f88a72ab777697079697fac0b4e998784e",
-      "packaged_sha256": "d6db94059f6e7233bb4d18a70ec4a3f88a72ab777697079697fac0b4e998784e",
-      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction."
+      "adaptation": "Original Pro3.5 CLI preserved, vendor blank template password fields verified all empty; contains no current MCS extraction.",
+      "packaged": false,
+      "removed_on": "2026-10-30",
+      "removal_reason": "Unified main skill replaces the nested Pro registration"
     },
     {
       "file": "assets/pro-3.5-cli/THIRD_PARTY_LICENSE.txt",
@@ -290,7 +310,8 @@
         }
       ],
       "adaptation": "取通用部分：色板与样式种类、控件编辑函数、业务字节不变检查、Page 页面构建类、set_decimals、显示框绑定；去掉具体工程的窗口规格和对齐表；新增 Export/Templates/new_window/Candidate。导航边线与设备页两张卡片的生成结果与原脚本逐字节相同。",
-      "packaged_sha256": "16ce31de22f1b77c947a80a084a806d007458d9a9bb0edc6ec3f5e0a72575b61"
+      "packaged_sha256": "3d7374962fe22e765657c56330f95afe836d2f76d9e4ccbe566e3b273308f817",
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "tools/样式规格应用.py",
@@ -338,7 +359,8 @@
         }
       ],
       "adaptation": "技能脚本改为相对路径；更新白名单改为与 run.ps1 apply 相同的规则；新增行限 WndUser、窗口号和窗口名不重复；输出不限目录但必须是新文件；加 -Commit 预检模式。",
-      "packaged_sha256": "522d335439a3e213b6646335ef36316c1e4bc7b7d59d77b46a22f9609d576b07"
+      "packaged_sha256": "d183351147e170c389ac1fea723ec76de095ae88a6df26be1fc152b044bd3ef2",
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     },
     {
       "file": "scripts/stu_project.ps1",
@@ -349,8 +371,25 @@
         }
       ],
       "adaptation": "SafeSystemRow 白名单加 MCGSLINGUIST（界面多语言字符表），供离线预览解析文字 token；其余未改。",
-      "packaged_sha256": "456e07007d214a7d3662bd2a3abfb1b4f5b680f32a2b6f596db348fa2cc1588f"
+      "packaged_sha256": "353781188892d0da8b66f34c6ac6d3e70b0d2dcd9084c274aa651356c9f60844",
+      "adaptation_20261030": "Shared ACE runtime, structure-based Stu/Pro adaptation and bounded edits; see unified-validation.md."
     }
   ],
-  "project_specific_content_included": false
+  "project_specific_content_included": false,
+  "public_release_20261030": {
+    "single_skill": true,
+    "software_release_gates": false,
+    "shared_runtime": "PowerShell 7 / ACE16 or ACE12 / Python3.11+",
+    "new_references": [
+      "pro-adapter.md",
+      "bounded-edits.md",
+      "driver-dependencies.md",
+      "unified-validation.md"
+    ],
+    "vendor_binaries_bundled": false,
+    "customer_inputs_bundled": false,
+    "existing_stu_tools_preserved": true,
+    "new_window_connection_import_verified_by_commit_and_readback": true,
+    "runtime_logic_matches_locally_validated_revision": true
+  }
 }

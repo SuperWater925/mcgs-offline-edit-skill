@@ -28,3 +28,5 @@ jobs:
       - name: PowerShell 语法
         shell: pwsh
         run: ./scripts/check_powershell.ps1
+      - name: 技能包与压缩内容校验
+        run: python scripts/build_release.py --version v0.0.0-check --out local-artifacts/ci-release

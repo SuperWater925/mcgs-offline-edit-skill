@@ -4,302 +4,414 @@
       {
         "size": 4,
         "name": "iAlarmID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 4,
         "name": "iDataObjID",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 536870910,
         "name": "strNote",
-        "type": 203
+        "type": 203,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iPriority",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iRepeateNum",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 2,
         "name": "bAlarmSave",
-        "type": 11
+        "type": 11,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iRelatePointID",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iAlmBit",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "fLL",
-        "type": 4
+        "type": 4,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "fL",
-        "type": 4
+        "type": 4,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "fH",
-        "type": 4
+        "type": 4,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "fHH",
-        "type": 4
+        "type": 4,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "fValue",
-        "type": 4
+        "type": 4,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "fVH",
-        "type": 4
+        "type": 4,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "fVL",
-        "type": 4
+        "type": 4,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "fVV",
-        "type": 4
+        "type": 4,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iSavePre",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iSaveLast",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iDeleteFlag",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       }
     ],
-    "rows": []
+    "rows": [],
+    "indexes": [
+      {
+        "columns": [
+          "iAlarmID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      }
+    ]
   },
   "Data": {
     "fields": [
       {
         "size": 4,
         "name": "iDataID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 32,
         "name": "strName",
-        "type": 202
+        "type": 202,
+        "auto_increment": false
       },
       {
         "size": 536870910,
         "name": "strNote",
-        "type": 203
+        "type": 203,
+        "auto_increment": false
       },
       {
         "size": 536870910,
         "name": "strUnit",
-        "type": 203
+        "type": 203,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iDataType",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "bAutoSave",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "SaveSpan",
-        "type": 4
+        "type": 4,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iSaveSpanTime",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "AlarmObjID",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "ArgvObjID",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 536870910,
         "name": "strInitValue",
-        "type": 203
+        "type": 203,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "fMaxValue",
-        "type": 4
+        "type": 4,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "fMinValue",
-        "type": 4
+        "type": 4,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iPoint",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 1073741823,
         "name": "IDs",
-        "type": 205
+        "type": 205,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iPosition",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iUserNum",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iDeleteFlag",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       }
     ],
-    "rows": []
+    "rows": [],
+    "indexes": [
+      {
+        "columns": [
+          "strName"
+        ],
+        "name": "DataName",
+        "primary": false,
+        "unique": true
+      },
+      {
+        "columns": [
+          "iDataID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      },
+      {
+        "columns": [
+          "iPosition"
+        ],
+        "name": "POSITION",
+        "primary": false,
+        "unique": true
+      }
+    ]
   },
   "DDEConnection": {
     "fields": [
       {
         "size": 4,
         "name": "iID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 4,
         "name": "iDataID",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iDDEOut",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iDDEIn",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iDDEConnectionPoint",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 64,
         "name": "strDDEItem",
-        "type": 202
+        "type": 202,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iTemp1",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iTemp2",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       }
     ],
-    "rows": []
+    "rows": [],
+    "indexes": [
+      {
+        "columns": [
+          "iID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      }
+    ]
   },
   "DDEConnectionPoint": {
     "fields": [
       {
         "size": 4,
         "name": "iID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 32,
         "name": "strName",
-        "type": 202
+        "type": 202,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "lType",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 1073741823,
         "name": "lbContext",
-        "type": 205
+        "type": 205,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iTemp1",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iTemp2",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       }
     ],
-    "rows": []
+    "rows": [],
+    "indexes": [
+      {
+        "columns": [
+          "iID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      }
+    ]
   },
   "SecurityGroup": {
     "fields": [
       {
         "size": 4,
         "name": "iID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 32,
         "name": "strName",
-        "type": 202
+        "type": 202,
+        "auto_increment": false
       },
       {
         "size": 536870910,
         "name": "strNote",
-        "type": 203
+        "type": 203,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iTemp1",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iTemp2",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       }
     ],
     "rows": [
@@ -513,6 +625,16 @@
         "iTemp1": 0,
         "iTemp2": 0
       }
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "iID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      }
     ]
   },
   "SecurityUser": {
@@ -520,37 +642,44 @@
       {
         "size": 4,
         "name": "iID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 32,
         "name": "strName",
-        "type": 202
+        "type": 202,
+        "auto_increment": false
       },
       {
         "size": 32,
         "name": "strPassword",
-        "type": 202
+        "type": 202,
+        "auto_increment": false
       },
       {
         "size": 536870910,
         "name": "strNote",
-        "type": 203
+        "type": 203,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iTemp1",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iTemp2",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iAccessRight",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       }
     ],
     "rows": [
@@ -563,6 +692,16 @@
         "iTemp2": 0,
         "iAccessRight": 1
       }
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "iID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      }
     ]
   },
   "Stgy": {
@@ -570,32 +709,38 @@
       {
         "size": 4,
         "name": "iStgyID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 32,
         "name": "strStgyName",
-        "type": 202
+        "type": 202,
+        "auto_increment": false
       },
       {
         "size": 536870910,
         "name": "strStgyComment",
-        "type": 203
+        "type": 203,
+        "auto_increment": false
       },
       {
         "size": 1073741823,
         "name": "lbObjects",
-        "type": 205
+        "type": 205,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iDeleteFlag",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iCompileFlag",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       }
     ],
     "rows": [
@@ -609,6 +754,16 @@
         "iDeleteFlag": null,
         "iCompileFlag": 1
       }
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "iStgyID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      }
     ]
   },
   "System": {
@@ -616,17 +771,20 @@
       {
         "size": 4,
         "name": "iID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 32,
         "name": "strName",
-        "type": 202
+        "type": 202,
+        "auto_increment": false
       },
       {
         "size": 1073741823,
         "name": "lbContext",
-        "type": 205
+        "type": 205,
+        "auto_increment": false
       }
     ],
     "rows": [
@@ -700,6 +858,24 @@
           "binary": "AAAAAP/+/wkxADIANwAuADAALgAwAC4AMQArmQAAAQAAACkCAAAAAAAAAQAAAP/+/xZFAG0AdQBsAGEAdABvAHIAXABCAFoATQBjAGcAcwA0ADgAMAAuAGkAbgBpAP/+/wwHaMZRIAA4ADAAMAAgACoAIAA0ADgAMAABAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA="
         }
       }
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "iID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      },
+      {
+        "columns": [
+          "strName"
+        ],
+        "name": "SystemName",
+        "primary": false,
+        "unique": true
+      }
     ]
   },
   "Trigger": {
@@ -707,37 +883,44 @@
       {
         "size": 4,
         "name": "iID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 4,
         "name": "lStgyID",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "lType",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 1073741823,
         "name": "lbContext",
-        "type": 205
+        "type": 205,
+        "auto_increment": false
       },
       {
         "size": 536870910,
         "name": "strNote",
-        "type": 203
+        "type": 203,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iTemp1",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iTemp2",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       }
     ],
     "rows": [
@@ -774,6 +957,16 @@
         "iTemp1": null,
         "iTemp2": null
       }
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "iID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      }
     ]
   },
   "WndControl": {
@@ -781,32 +974,38 @@
       {
         "size": 4,
         "name": "iID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 32,
         "name": "strName",
-        "type": 202
+        "type": 202,
+        "auto_increment": false
       },
       {
         "size": 536870910,
         "name": "strNote",
-        "type": 203
+        "type": 203,
+        "auto_increment": false
       },
       {
         "size": 1073741823,
         "name": "lbObjects",
-        "type": 205
+        "type": 205,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iDeleteFlag",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iCompileFlag",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       }
     ],
     "rows": [
@@ -820,6 +1019,24 @@
         "iDeleteFlag": null,
         "iCompileFlag": 1
       }
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "iID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      },
+      {
+        "columns": [
+          "strName"
+        ],
+        "name": "WndControlName",
+        "primary": false,
+        "unique": true
+      }
     ]
   },
   "WndDevice": {
@@ -827,32 +1044,38 @@
       {
         "size": 4,
         "name": "iWndDevID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 32,
         "name": "strWndDevName",
-        "type": 202
+        "type": 202,
+        "auto_increment": false
       },
       {
         "size": 536870910,
         "name": "strWndDevComment",
-        "type": 203
+        "type": 203,
+        "auto_increment": false
       },
       {
         "size": 1073741823,
         "name": "lbObjects",
-        "type": 205
+        "type": 205,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iDeleteFlag",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iCompileFlag",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       }
     ],
     "rows": [
@@ -866,6 +1089,24 @@
         "iDeleteFlag": null,
         "iCompileFlag": 1
       }
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "iWndDevID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      },
+      {
+        "columns": [
+          "strWndDevName"
+        ],
+        "name": "WndDevName",
+        "primary": false,
+        "unique": true
+      }
     ]
   },
   "WndUser": {
@@ -873,32 +1114,38 @@
       {
         "size": 4,
         "name": "iID",
-        "type": 3
+        "type": 3,
+        "auto_increment": true
       },
       {
         "size": 32,
         "name": "strName",
-        "type": 202
+        "type": 202,
+        "auto_increment": false
       },
       {
         "size": 536870910,
         "name": "strNote",
-        "type": 203
+        "type": 203,
+        "auto_increment": false
       },
       {
         "size": 1073741823,
         "name": "lbObjects",
-        "type": 205
+        "type": 205,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iDeleteFlag",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       },
       {
         "size": 4,
         "name": "iCompileFlag",
-        "type": 3
+        "type": 3,
+        "auto_increment": false
       }
     ],
     "rows": [
@@ -911,6 +1158,24 @@
         },
         "iDeleteFlag": 0,
         "iCompileFlag": 1
+      }
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "iID"
+        ],
+        "name": "IDINDEX",
+        "primary": true,
+        "unique": true
+      },
+      {
+        "columns": [
+          "strName"
+        ],
+        "name": "WndUserName",
+        "primary": false,
+        "unique": true
       }
     ]
   }

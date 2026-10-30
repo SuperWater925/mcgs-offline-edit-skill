@@ -1,144 +1,550 @@
 {
-  "schema": 1,
+  "schema": 2,
   "skill": "mcgs-offline-edit",
-  "edition": "分享版",
-  "date": "2026-10-24",
-  "base_package_validation": {
-    "date": "2026-10-22",
-    "powershell_tested": "7.6.6 x64",
-    "ace_tested": "Microsoft.ACE.OLEDB.16.0; 12.0 also enumerated",
-    "python_tested": "3.12.14",
-    "isolated_behavior_checks": [
+  "historical_public_validation": {
+    "schema": 1,
+    "skill": "mcgs-offline-edit",
+    "edition": "分享版",
+    "date": "2026-10-24",
+    "base_package_validation": {
+      "date": "2026-10-22",
+      "powershell_tested": "7.6.6 x64",
+      "ace_tested": "Microsoft.ACE.OLEDB.16.0; 12.0 also enumerated",
+      "python_tested": "3.12.14",
+      "isolated_behavior_checks": [
+        {
+          "name": "default_apply_is_read_only",
+          "passed": true,
+          "expected_success": true
+        },
+        {
+          "name": "wrong_input_sha256",
+          "passed": true,
+          "expected_success": false
+        },
+        {
+          "name": "wrong_field_before_fingerprint",
+          "passed": true,
+          "expected_success": false
+        },
+        {
+          "name": "wrong_blob_sha256",
+          "passed": true,
+          "expected_success": false
+        },
+        {
+          "name": "account_table_write_rejected",
+          "passed": true,
+          "expected_success": false
+        },
+        {
+          "name": "single_strategy_container_rejected",
+          "passed": true,
+          "expected_success": false
+        },
+        {
+          "name": "blob_path_escape_rejected",
+          "passed": true,
+          "expected_success": false
+        },
+        {
+          "name": "copy_commit_two_blob_transaction",
+          "passed": true,
+          "expected_success": true
+        },
+        {
+          "name": "after_fingerprints",
+          "passed": true,
+          "expected_success": true
+        },
+        {
+          "name": "compare_reports_exactly_two_changed_fields",
+          "passed": true,
+          "expected_success": true
+        },
+        {
+          "name": "in_place_backs_up_before_transaction",
+          "passed": true,
+          "expected_success": true
+        },
+        {
+          "name": "stable_snapshot_with_recipe_files",
+          "passed": true,
+          "expected_success": true
+        },
+        {
+          "name": "existing_report_refused_before_mutation",
+          "passed": true,
+          "expected_success": false
+        },
+        {
+          "name": "mcp_extension_rejected_with_Pro_route",
+          "passed": true,
+          "expected_success": false
+        }
+      ],
+      "codec_checks": {
+        "unsupported": [],
+        "all_attempted_roundtrips_pass": true
+      },
+      "pro_original_cli_doctor_passed": true,
+      "pro_create_edit_inspect_reverification": false,
+      "note": "原包在一个实际 McgsStu 3.5.3 工程上做的隔离验证；该工程不随包提供"
+    },
+    "share_edition_checks": [
       {
-        "name": "default_apply_is_read_only",
+        "name": "preview_path_port_pixel_identical",
         "passed": true,
-        "expected_success": true
+        "scope": "39 个窗口与缩略总览，与原工具逐像素相同"
       },
       {
-        "name": "wrong_input_sha256",
-        "passed": true,
-        "expected_success": false
+        "name": "preview_final_differs_only_in_5028_pen_and_footer",
+        "passed": true
       },
       {
-        "name": "wrong_field_before_fingerprint",
-        "passed": true,
-        "expected_success": false
+        "name": "text_fit_port_output_identical",
+        "passed": true
       },
       {
-        "name": "wrong_blob_sha256",
-        "passed": true,
-        "expected_success": false
+        "name": "style_spec_tool_reproduces_original_18_window_blobs",
+        "passed": true
       },
       {
-        "name": "account_table_write_rejected",
+        "name": "ui_library_reproduces_original_blobs",
         "passed": true,
-        "expected_success": false
+        "scope": "导航边线窗口；设备页两张卡片 133 个控件"
       },
       {
-        "name": "single_strategy_container_rejected",
-        "passed": true,
-        "expected_success": false
+        "name": "inspect_exports_MCGSLINGUIST",
+        "passed": true
       },
       {
-        "name": "blob_path_escape_rejected",
+        "name": "new_window_transaction_commit_on_copy",
         "passed": true,
-        "expected_success": false
+        "scope": "新增 1 个窗口并改 1 个窗口；复读一致；native audit 通过；输入快照未变"
       },
       {
-        "name": "copy_commit_two_blob_transaction",
+        "name": "new_window_transaction_rejects",
         "passed": true,
-        "expected_success": true
+        "scope": "清单哈希不符、底稿 SHA 不符、输出已存在、前指纹不符、BLOB 哈希不符、BLOB 路径越界、System 行越界、策略容器不成对、插入已有窗口号/重名/非 WndUser/缺列/flag 非 0；均未生成输出"
       },
       {
-        "name": "after_fingerprints",
-        "passed": true,
-        "expected_success": true
+        "name": "examples_run",
+        "passed": true
       },
       {
-        "name": "compare_reports_exactly_two_changed_fields",
+        "name": "relocated_package_smoke",
         "passed": true,
-        "expected_success": true
-      },
-      {
-        "name": "in_place_backs_up_before_transaction",
-        "passed": true,
-        "expected_success": true
-      },
-      {
-        "name": "stable_snapshot_with_recipe_files",
-        "passed": true,
-        "expected_success": true
-      },
-      {
-        "name": "existing_report_refused_before_mutation",
-        "passed": true,
-        "expected_success": false
-      },
-      {
-        "name": "mcp_extension_rejected_with_Pro_route",
-        "passed": true,
-        "expected_success": false
+        "scope": "复制到新目录、在其他工作目录下运行：doctor、snapshot、inspect、native audit、离线预览（含 --active-map）、文字检查、两个示例、新增窗口事务 -Commit、run.ps1 apply -Commit；底稿快照未变"
       }
     ],
-    "codec_checks": {
-      "unsupported": [],
-      "all_attempted_roundtrips_pass": true
-    },
-    "pro_original_cli_doctor_passed": true,
-    "pro_create_edit_inspect_reverification": false,
-    "note": "原包在一个实际 McgsStu 3.5.3 工程上做的隔离验证；该工程不随包提供"
+    "native_compile_verified": false,
+    "native_runtime_verified": false,
+    "physically_tested": false,
+    "test_inputs_or_project_data_bundled": false,
+    "vendor_binaries_bundled": false,
+    "former_name": "mcgs-stu-offline-edit"
   },
-  "share_edition_checks": [
-    {
-      "name": "preview_path_port_pixel_identical",
-      "passed": true,
-      "scope": "39 个窗口与缩略总览，与原工具逐像素相同"
+  "current_validation": {
+    "date": "2026-10-30",
+    "software_release_gates": false,
+    "common_numeric_header_gates": false,
+    "one_registered_skill": true,
+    "one_run_ps1_entrypoint": true,
+    "shared_runtime": "PowerShell 7.6.6 x64 / ACE16.0; ACE12.0 read also verified / Python3.14.7",
+    "pro_32bit_powershell_or_jet_provider_required": false,
+    "user_pro_inputs": 6,
+    "vendor_inputs": 38,
+    "stu_latest_and_historical_inputs": 2,
+    "distinct_functional_projects": 46,
+    "complete_archive_audits": 45,
+    "user_pro_windows": 82,
+    "user_pro_controls_including_group_children": 4503,
+    "user_pro_objects": 9065,
+    "functional_counts": {
+      "recipe passed": 165,
+      "window_events passed": 463,
+      "common passed": 16617,
+      "label passed": 6864,
+      "plugin passed": 266,
+      "group passed": 638,
+      "button passed": 1942,
+      "multi passed": 1729,
+      "input passed": 524,
+      "history_curve passed": 47,
+      "save_data passed": 24,
+      "combo passed": 61
     },
-    {
-      "name": "preview_final_differs_only_in_5028_pen_and_footer",
-      "passed": true
+    "checks": [
+      {
+        "name": "共享入口与事务",
+        "evidence": "run3/runtime-tests.json",
+        "count": 131,
+        "passed": true
+      },
+      {
+        "name": "控件实际提交与边界",
+        "evidence": "control-commits-v3/results.json",
+        "count": 95,
+        "passed": true
+      },
+      {
+        "name": "策略配方事务及稀疏ID",
+        "evidence": "transactions-v3/results.json",
+        "count": 28,
+        "passed": true
+      },
+      {
+        "name": "JSON编辑与搬移",
+        "evidence": "json-edits-v6/results.json",
+        "count": 32,
+        "passed": true
+      },
+      {
+        "name": "输入框嵌套长度",
+        "evidence": "metadata-regression.json",
+        "count": 930,
+        "passed": true
+      },
+      {
+        "name": "数据库原生自增及索引",
+        "evidence": "schema-regression.json",
+        "count": 15,
+        "passed": true
+      },
+      {
+        "name": "绑定名称ID类型缓存",
+        "evidence": "binding-regression-v3/results.json",
+        "count": 6621,
+        "passed": true
+      },
+      {
+        "name": "主入口有界命令",
+        "evidence": "shared-cli-regression/results.json",
+        "count": 19,
+        "passed": true
+      },
+      {
+        "name": "版本无门禁与最终语法",
+        "evidence": "final-v7/results.json",
+        "count": 17,
+        "passed": true
+      }
+    ],
+    "native_pro_inputs_opened": 6,
+    "native_pro_checks": [
+      {
+        "id": "P01",
+        "errors": 0,
+        "warnings": 6,
+        "baseline_equal": true,
+        "previous_dependency_error": "H5U_MODBUSTCP",
+        "dependencies_completed": true
+      },
+      {
+        "id": "P02",
+        "errors": 0,
+        "warnings": 19
+      },
+      {
+        "id": "P03",
+        "errors": 0,
+        "warnings": 6,
+        "previous_dependency_error": "H5U_MODBUSTCP",
+        "dependencies_completed": true,
+        "baseline_equal": true
+      },
+      {
+        "id": "P04",
+        "errors": 0,
+        "warnings": 2
+      },
+      {
+        "id": "P05",
+        "errors": 0,
+        "warnings": 2,
+        "baseline_equal": true,
+        "saved_and_reopened": true
+      },
+      {
+        "id": "P06",
+        "errors": 0,
+        "warnings": 19,
+        "combined_strategy_same_diagnostics": true,
+        "previous_dependency_error": "McgsIoT",
+        "dependencies_completed": true,
+        "baseline_equal": true
+      }
+    ],
+    "native_composites": {
+      "Pro_existing_controls_strategy_recipe": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "Stu_existing_controls_strategy_recipe": {
+        "errors": 0,
+        "warnings": 3
+      },
+      "Stu_metadata_repair": {
+        "errors": 0,
+        "warnings": 3,
+        "saved_and_reopened": true
+      },
+      "Pro_create_edit": {
+        "errors": 0,
+        "warnings": 0,
+        "actual_runtime_page_observed": true
+      }
     },
-    {
-      "name": "text_fit_port_output_identical",
-      "passed": true
+    "native_compile_verified": true,
+    "native_runtime_verified": true,
+    "runtime_scope": {
+      "Pro": "No-device generated demo rendered; numeric 35 -> 50, reopen 50; over-max 101 leaves 50",
+      "Stu": "No-device official template edited title rendered; dynamic gauge and switch observed",
+      "installed_runtime_data_unchanged": true,
+      "physical_hardware_tested": false
     },
-    {
-      "name": "style_spec_tool_reproduces_original_18_window_blobs",
-      "passed": true
-    },
-    {
-      "name": "ui_library_reproduces_original_blobs",
-      "passed": true,
-      "scope": "导航边线窗口；设备页两张卡片 133 个控件"
-    },
-    {
-      "name": "inspect_exports_MCGSLINGUIST",
-      "passed": true
-    },
-    {
-      "name": "new_window_transaction_commit_on_copy",
-      "passed": true,
-      "scope": "新增 1 个窗口并改 1 个窗口；复读一致；native audit 通过；输入快照未变"
-    },
-    {
-      "name": "new_window_transaction_rejects",
-      "passed": true,
-      "scope": "清单哈希不符、底稿 SHA 不符、输出已存在、前指纹不符、BLOB 哈希不符、BLOB 路径越界、System 行越界、策略容器不成对、插入已有窗口号/重名/非 WndUser/缺列/flag 非 0；均未生成输出"
-    },
-    {
-      "name": "examples_run",
-      "passed": true
-    },
-    {
-      "name": "relocated_package_smoke",
-      "passed": true,
-      "scope": "复制到新目录、在其他工作目录下运行：doctor、snapshot、inspect、native audit、离线预览（含 --active-map）、文字检查、两个示例、新增窗口事务 -Commit、run.ps1 apply -Commit；底稿快照未变"
+    "fixed_defects": [
+      "Input unit/image writes now update both nested MFC ByteArray counts",
+      "Pro database creation preserves all 12 COUNTER identities and native primary/unique indexes; fixes runtime -95",
+      "Existing input bindings synchronize name/id/type and clear only changed binding cache",
+      "Window properties preserve actual password extent and opaque trailer",
+      "Sparse variable IDs and actual group/alarm record structures preserved"
+    ],
+    "coverage_limits": [
+      "No empty Stu factory, arbitrary control creation, generic table insert/delete or device protocol generation",
+      "Unknown animation/image/class layouts preserved or rejected explicitly; no claim of all future structures",
+      "FileBrowser has historical codec evidence, no current native integration fixture",
+      "No physical HMI/PLC download, communication or production recipe execution",
+      "Native warnings remain: P01/P03 six each, P06 nineteen; dependency completion does not imply physical communication validation"
+    ],
+    "all_original_inputs_unchanged": true,
+    "python_runtime_pip_dependencies": [],
+    "current_project_accounts_bundled": false,
+    "test_inputs_bundled": false,
+    "vendor_binaries_bundled": false,
+    "driver_completion_20261030": {
+      "date": "2026-10-30",
+      "source": "Existing local project driver folders and exact referenced S7Plus G2 cache",
+      "downloaded_files": false,
+      "original_inputs_written": false,
+      "physical_hardware_tested": false,
+      "installed_driver_files_added": 22,
+      "existing_driver_files_unchanged": true,
+      "native_checks": [
+        {
+          "id": "P01-original",
+          "errors": 0,
+          "warnings": 6,
+          "opened": true,
+          "native_checked": true
+        },
+        {
+          "id": "P01-modified",
+          "errors": 0,
+          "warnings": 6,
+          "opened": true,
+          "native_checked": true
+        },
+        {
+          "id": "P03-original",
+          "errors": 0,
+          "warnings": 6,
+          "opened": true,
+          "native_checked": true
+        },
+        {
+          "id": "P03-original",
+          "errors": 0,
+          "warnings": 6,
+          "opened": true,
+          "native_checked": true
+        },
+        {
+          "id": "P03-modified",
+          "errors": 0,
+          "warnings": 6,
+          "opened": true,
+          "native_checked": true
+        },
+        {
+          "id": "P03-modified",
+          "errors": 0,
+          "warnings": 6,
+          "opened": true,
+          "native_checked": true
+        },
+        {
+          "id": "P06-original",
+          "errors": 0,
+          "warnings": 19,
+          "opened": true,
+          "native_checked": true
+        },
+        {
+          "id": "P06-original",
+          "errors": 0,
+          "warnings": 19,
+          "opened": true,
+          "native_checked": true
+        },
+        {
+          "id": "P06-modified",
+          "errors": 0,
+          "warnings": 19,
+          "opened": true,
+          "native_checked": true
+        },
+        {
+          "id": "P06-controls-strategy",
+          "tag": "P06-controls-strategy",
+          "errors": 0,
+          "warnings": 19,
+          "opened": true,
+          "native_checked": true
+        },
+        {
+          "id": "P06-controls-strategy",
+          "tag": "P06-controls-strategy-reopen",
+          "errors": 0,
+          "warnings": 19,
+          "opened": true,
+          "native_checked": true
+        }
+      ],
+      "drivers": [
+        {
+          "driver": "H5U_MODBUSTCP",
+          "file_count": 5,
+          "sha256": {
+            "H5U_MODBUSTCP.chm": "658eaec70eab2abe4ebaed052e75f5ae22dc572717383ad733fa1a8c7585ca0d",
+            "H5U_MODBUSTCP.dll": "ad8af9f54136c71a2c9619c19e6f8a37c5967e083c303a69ab16f367f7a83625",
+            "H5U_MODBUSTCP.ui": "b61665a50f428d1bc7d7fa1a7aa98b7c86a5795bee5d2d77db57f00f52fe1c8f",
+            "libH5U_MODBUSTCP_armv5.so": "c438ea6792098c5b8ba9f4a09d1822689c3a49fa68bce4d8a999093d995d93e8",
+            "libH5U_MODBUSTCP_armv7.so": "b9ca1d22517adb3658e4e3355c6401eda80b7bb431b0a139c3e465c35ef266a1"
+          }
+        },
+        {
+          "driver": "McgsIoT",
+          "file_count": 5,
+          "sha256": {
+            "libMcgsIoT_armv5.so": "59c53b062e8d7a6ebe77b3f57192017d24bc936f63d87c2d9d7ab82543617c46",
+            "libMcgsIoT_armv7.so": "ff95cc1f323bc5951d8659138338faebea6dee1d6a62bcd6e928954cb47675da",
+            "McgsIoT.chm": "11fcb3b93500b868135aaa35dc9e91aa191ac16b9cfe50bd2f518266576ce771",
+            "McgsIoT.dll": "9bf6b6bcefb8f58a6d833c316a5424646586f45a4a7154d53203873e77e5da39",
+            "McgsIoT.ui": "b13f70ca606e3a6cc34d9d65f018a26a81888d3fd86fd035960a5ae3c521285a"
+          }
+        },
+        {
+          "driver": "Siemens_S7Plus_G2",
+          "file_count": 12,
+          "sha256": {
+            "AGLink40.dll": "9cb1baeea8f19410e0349969634ee8e0c710257ccc047249312f30fa6463c569",
+            "libAGLink40.so": "a6b24cab3758d3cca0f699cc3d3006dad518fbc1c98534f95df46245cb51b392",
+            "libcrypto-3.dll": "70225afe81bca783451d97fa2067aa2bffcf61555be68b6bba5c0c60237b4e95",
+            "libcrypto.so.3": "10d1409b4a4e555cfe3392752cc400405732bfe68b1e604ccecd8060232c2788",
+            "libsiemens_s7plus_1200_1500_tag_armv5.so": "8627040427c5ef392bc90e1d22080de13609687eadea0ce114e87a8fc66a3d4c",
+            "libsiemens_s7plus_1200_1500_tag_armv7.so": "8e8efd16bdcd6597831f830c8b509ef1616ba46b281fb72e1387162c5d2bc523",
+            "libssl-3.dll": "007cd7714068529e3b890dba7950460bb8d985a4a427ee72ddb0d77f9b3403eb",
+            "libssl.so.3": "09eb89163aed50b108b1d22efe00f41767b45bd25b4a59c589d0cd47a68f0874",
+            "Siemens_S7plus_1200_1500_Tag_Lang.dll": "535fcc9debf83cc4a045d7a58a75022615999579d9310b025bf31dfc921fc27e",
+            "siemens_s7plus_1200_1500_tag.chm": "b027a18a37229ec4563fc6d39a3b49d8363a2fc93508cb1ff454cc60c2c18a52",
+            "siemens_s7plus_1200_1500_tag.dll": "b24db2961fd034d0c1f871e7aa3a2f05d58ac02b3724eb606f48afa66399a394",
+            "Siemens_S7plus_1200_1500_Tag.ui": "3dd2a66a7c3fac73ad6789fd5b2486574adc78d23c21050ce179240b7489bea0"
+          }
+        }
+      ],
+      "additional_dependency": "After McgsIoT was resolved, P06 exposed its separate Siemens S7Plus G2 dependency; copied exact referenced driver and libraries",
+      "warning_details_compared": {
+        "P03": {
+          "warning_details_equal": true,
+          "original_fields": 30,
+          "modified_fields": 30
+        },
+        "P06": {
+          "warning_details_equal": true,
+          "original_fields": 95,
+          "modified_fields": 95
+        }
+      },
+      "scope": "Native editor full-project checks on original/modified copies. No production project simulation or physical PLC communication.",
+      "strategy_composite_saved_and_reopened": true,
+      "native_file_audit_checks": 6
     }
-  ],
-  "native_compile_verified": false,
-  "native_runtime_verified": false,
-  "physically_tested": false,
-  "test_inputs_or_project_data_bundled": false,
-  "vendor_binaries_bundled": false,
-  "former_name": "mcgs-stu-offline-edit"
+  },
+  "repository_integration_20261030": {
+    "checks": [
+      {
+        "name": "doctor",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "name": "pro-demo",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "name": "stu-inspect",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "name": "stu-audit",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "name": "overlay-example",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "name": "new-page-example",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "name": "insert-preflight",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "name": "insert-wrong-manifest-sha",
+        "passed": true,
+        "exit_code": 1
+      },
+      {
+        "name": "insert-commit",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "name": "insert-reread",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "name": "insert-audit",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "name": "newpage-preview",
+        "passed": true,
+        "exit_code": 0
+      },
+      {
+        "name": "newpage-text-check",
+        "passed": true,
+        "exit_code": 0
+      }
+    ],
+    "count": 13,
+    "passed": true,
+    "source_unchanged": true,
+    "native_vendor_compile_for_new_page_tested": false,
+    "python_tested": "3.12.14",
+    "pillow_tested": "12.3.0"
+  }
 }

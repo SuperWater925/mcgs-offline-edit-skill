@@ -1,4 +1,4 @@
-"""Direct native MCP creation and editing, McgsPro 3.5.1.6963."""
+"""Native McgsPro editing; software releases are recorded, structural codecs decide support."""
 import argparse
 import copy
 import hashlib
@@ -11,6 +11,8 @@ import subprocess
 import sys
 
 import native_format as f
+from mcs_input_text import InputRecord
+from mcs_window_archive import ControlRecord
 
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
@@ -23,18 +25,16 @@ def sha(path):
         return hashlib.file_digest(stream, 'sha256').hexdigest()
 
 
-def ps32():
-    root = Path(os.environ.get('SystemRoot', 'C:/Windows'))
-    path = root / ('SysWOW64' if (root/'SysWOW64').is_dir() else 'System32') / 'WindowsPowerShell/v1.0/powershell.exe'
-    if not path.is_file():
-        raise ValueError('Windows PowerShell with 32-bit Jet provider required')
-    return path
+def pwsh():
+    configured = os.environ.get('MCGS_PWSH')
+    path = configured or shutil.which('pwsh')
+    if not path or not Path(path).is_file():
+        raise ValueError('PowerShell 7 required; set MCGS_PWSH to its executable path')
+    return Path(path)
 
 
 def db(request):
-    script = (HOME/'scripts/database.ps1').read_text(encoding='utf-8')
-    encoded = __import__('base64').b64encode(script.encode('utf-16le')).decode('ascii')
-    process = subprocess.run([str(ps32()), '-NoProfile', '-NonInteractive', '-EncodedCommand', encoded],
+    process = subprocess.run([str(pwsh()), '-NoProfile', '-NonInteractive', '-File', str(HOME/'scripts/database.ps1')],
                              input=json.dumps(request, ensure_ascii=True).encode('ascii'),
                              capture_output=True, timeout=120)
     if process.returncode:
@@ -55,7 +55,8 @@ def system(data, name):
 
 
 def canonical(data):
-    return {key: {'fields':[(v['name'],v['type']) for v in value['fields']],
+    return {key: {'fields':[(v['name'],v['type'],v.get('auto_increment',False)) for v in value['fields']],
+                  'indexes':sorted((x['name'],x['primary'],x['unique'],tuple(x['columns'])) for x in value.get('indexes',[])),
                   'rows':sorted(json.dumps(r,sort_keys=True,ensure_ascii=True) for r in value['rows'])}
             for key,value in data.items()}
 
@@ -69,6 +70,8 @@ def title(value):
 def set_variables(data, additions, updates):
     row=system(data,'ObjData'); rows=f.variables(f.binary(row['lbContext']))
     templates=json.loads((HOME/'assets/primitives.json').read_text(encoding='utf-8'))
+    validate_initial = {item['name'] for item in additions}
+    validate_initial.update(item['name'] for item in updates if 'initial' in item)
     for item in additions:
         if set(item)-{'name','type','initial','note','unit'}:
             raise ValueError('Unknown variable property')
@@ -76,7 +79,7 @@ def set_variables(data, additions, updates):
         if any(r['name']==name for r in rows) or kind not in templates['variables']:
             raise ValueError('Duplicate variable or unsupported type')
         template=templates['variables'][kind]
-        rows.append({'id':len(rows),'name':name,'kind':template['kind'],
+        rows.append({'id':max((r['id'] for r in rows),default=-1)+1,'name':name,'kind':template['kind'],
                      'note':item.get('note',''),'unit':item.get('unit',''),
                      'initial':str(item.get('initial','0')),
                      'prefix':bytes.fromhex(template['prefix']), 'extension':bytes.fromhex(template['extension'])})
@@ -89,7 +92,7 @@ def set_variables(data, additions, updates):
         for key in ('initial','note','unit'):
             if key in item:target[key]=str(item[key])
     for r in rows:
-        if r['kind'] in (1,2):
+        if r['name'] in validate_initial and r['kind'] in (1,2):
             try: value=float(r['initial'])
             except ValueError:raise ValueError('Numeric initial value required')
             if not __import__('math').isfinite(value) or (r['kind']==1 and value not in (0,1)):
@@ -110,8 +113,14 @@ def control(item, variables, primitives):
         if edits['binding'] not in variables:raise ValueError('Unknown variable binding')
         if variables[edits['binding']]['kind'] not in (1,2):raise ValueError('Numeric input requires numeric variable')
         edits['binding_id']=variables[edits['binding']]['id']
+        edits['binding_type']=variables[edits['binding']]['kind']
     elif item['type']=='numeric-input':raise ValueError('Numeric input binding required')
-    return preset['kind'],f.edit_control(preset['kind'],bytes.fromhex(preset['payload']),edits)
+    payload=bytes.fromhex(preset['payload'])
+    if item['type']=='numeric-input':
+        parsed=InputRecord.parse(ControlRecord(preset['kind'],payload,b'',0))
+        parsed.disable_images()
+        payload=parsed.to_bytes()
+    return preset['kind'],f.edit_control(preset['kind'],payload,edits)
 
 
 def root_startup(blob, prefix_size, page_name, page_id):
@@ -136,7 +145,7 @@ def create_data(spec):
         if set(item)-{'name','controls'}:raise ValueError('Unknown page property')
         name=title(item['name']);controls=[control(c,variables,presets) for c in item.get('controls',[])]
         if len({f.common(b)['name'] for _,b in controls})!=len(controls):raise ValueError('Duplicate control name')
-        row=copy.deepcopy(base);row.update(iID=ident,strName=name,iCompileFlag=1)
+        row=copy.deepcopy(base);row.update(iID=ident,strName=name,iCompileFlag=0)
         row['lbObjects']=f.wrap(f.pack_window(header,controls,f.page_properties(trailer,ident=ident,name=name)))
         pages.append(row)
     if not pages or len({r['strName'] for r in pages})!=len(pages):raise ValueError('Unique nonempty page list required')
@@ -188,6 +197,7 @@ def edit_data(data,spec):
                 target=variables.get(edits['binding'])
                 if target is None or target['kind'] not in (1,2):raise ValueError('Numeric binding not found')
                 edits['binding_id']=target['id']
+                edits['binding_type']=target['kind']
             records[index]=(kind,f.edit_control(kind,b,edits))
         records.extend(control(c,variables,primitives) for c in page.get('add_controls',[]))
         names=[]
@@ -195,7 +205,7 @@ def edit_data(data,spec):
             try:names.append(f.common(b)['name'])
             except (ValueError,UnicodeError,struct.error):pass
         if len(set(names))!=len(names):raise ValueError('Duplicate control name')
-        row['lbObjects']=f.wrap(f.pack_window(header,records,trailer));row['iCompileFlag']=1
+        row['lbObjects']=f.wrap(f.pack_window(header,records,trailer));row['iCompileFlag']=0
     return data
 
 
@@ -213,9 +223,9 @@ def ensure_output(path):
     return path
 
 
-def check_version(data):
+def check_family(data):
     version=f.binary(system(data,'MCGSVER')['lbContext']).decode('utf-16le').rstrip('\x00')
-    if version!='McgsPro 3.5.1.6963':raise ValueError('Expected McgsPro 3.5.1.6963 native project')
+    if not version.startswith('McgsPro '):raise ValueError('Expected a native McgsPro family project; software release is informational')
 
 
 def write_project(output,spec,source=None):
@@ -224,7 +234,7 @@ def write_project(output,spec,source=None):
         source=Path(source).resolve()
         before_sha=sha(source)
         if before_sha!=spec.get('source_sha256'):raise ValueError('Source SHA256 mismatch')
-        before=read(source);check_version(before)
+        before=read(source);check_family(before)
         after=edit_data(copy.deepcopy(before),spec)
         if sha(source)!=before_sha:raise ValueError('Source changed while planning')
         with source.open('rb') as src,output.open('xb') as dst:shutil.copyfileobj(src,dst)
@@ -271,11 +281,11 @@ def main():
             db({'action':'create','path':str(scratch),'seed':seed})
             observed=read(scratch)
             if canonical(observed)!=canonical(seed):raise ValueError('Provider BLOB roundtrip failed')
-            result['jet_create_and_blob_readback']=True
+            result['ace_create_and_blob_readback']=True
         finally:
             if scratch.is_file():scratch.unlink()
         result.update(python=sys.version,python_packages_required=[],mcp_server_required=False,
-                      target_version='McgsPro 3.5.1.6963')
+                      target_family='McgsPro', template_provenance='McgsPro 3.5.1.6963', software_version_gate=False)
     elif args.command=='demo':
         folder=Path(args.directory).absolute();folder.mkdir(exist_ok=False)
         initial=json.loads((HOME/'examples/create.json').read_text(encoding='utf-8'))

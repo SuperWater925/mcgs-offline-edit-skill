@@ -35,6 +35,34 @@ def animation(r):
         detail['thresholds']=[r.unpack('<f') for _ in range(n)]
         n=r.count();detail['colors']=[r.u32() for _ in range(n)]
     elif name=='CAniVisible':detail['mode']=r.u32()
+    elif name=='CAniBlink':
+        # Native Serialize 0x4883a0: members 0x40..0x50, five DWORDs.
+        detail['blink_words']=[r.u32() for _ in range(5)]
+    elif name=='CAniVMove':
+        # Native CAniVMove Serialize 0x48c2b0: two ints and two floats.
+        detail['movement_words']=[r.u32(),r.u32()]
+        detail['movement_float_bits']=r.take(8).hex()
+    elif name=='CAniSize':
+        # Native 0x48b060: DWORD,float,DWORD,float,DWORD,DWORD.
+        # All six source fields stay byte-exact; no scale semantics guessed.
+        detail['size_fields_raw']=r.take(24).hex()
+    elif name=='CAniInput':
+        # Native Serialize old/new bodies 0x48dc40/0x48dde0. CString
+        # members 0x34/0x3c/0x44; preserve all original animation bytes.
+        begin=r.pos
+        try:
+            flags=r.u32()
+            if flags&~7:raise FormatError('Unknown input-animation flags')
+            kind=r.u32();expressions=[r.cstring()[0] for _ in range(3)]
+            maximum=r.cstring()[0] if flags&4 else r.take(4).hex()
+            minimum=r.cstring()[0] if flags&2 else r.take(4).hex()
+            words=[r.u32() for _ in range(3)]
+            detail.update(encoding='input-flags',flags=flags,input_kind=kind,expressions=expressions,maximum=maximum,minimum=minimum,input_words=words)
+        except (ValueError,UnicodeError):
+            r.pos=begin
+            kind=r.u32();expressions=[r.cstring()[0] for _ in range(3)]
+            limits=r.take(8);words=[r.u32() for _ in range(4)]
+            detail.update(encoding='input-legacy',input_kind=kind,expressions=expressions,limit_bits=limits.hex(),input_words=words)
     elif name=='CAniClick':
         detail['action_texts']=[v.value for v in Array.parse(r,True).items]
         detail['action_flags']=Array.parse(r).items
@@ -76,7 +104,8 @@ class CommonEnvelope:
         return result
     def set_rect(self,rect):
         if len(rect)!=4 or not all(type(v)is int for v in rect):raise ValueError('Invalid rectangle')
-        if rect[0]>rect[2] or rect[1]>rect[3]:raise ValueError('Invalid rectangle direction')
+        # Native lines/polygons can retain reversed endpoints. Translation
+        # and exact undo must preserve their direction rather than normalize it.
         prefix=bytearray(self.prefix);struct.pack_into('<4i',prefix,self.rect_offset,*rect);self.prefix=bytes(prefix)
     def set_common_colors(self,fill=None,border=None):
         prefix=bytearray(self.prefix)
@@ -150,9 +179,9 @@ class MultiChild:
     font:bytes|None
     tail:bytes
     @classmethod
-    def parse(cls,r,kind):
+    def parse(cls,r,kind,image_tail=12):
         name=CString.parse(r);header=r.take(72)
-        if kind=='image':return cls(name,header,_picture(r),None,None,r.take(12))
+        if kind=='image':return cls(name,header,_picture(r),None,None,r.take(image_tail))
         if kind=='text':return cls(name,header,None,CString.parse(r),_font(r),r.take(28))
         raise FormatError('Unknown multi child kind')
     def to_bytes(self):
@@ -191,21 +220,37 @@ class MultiState:
     @classmethod
     def parse(cls,record):
         if record.type_id not in (0x5028,0x502a):raise FormatError('Not CDrawMulBtn/CDrawMulDis')
-        common=CommonEnvelope.parse(record);r=Reader(common.content)
-        n=r.u32()
-        if n>1000:raise FormatError('Invalid multi-state count')
-        levels=[r.unpack('<f') for _ in range(n)]
-        n=r.u32();fills=[[r.u32(),r.u32()] for _ in range(n)]
-        collections=[]
-        for kind in ('image','text'):
-            n=r.u32();groups=[]
-            if n>1000:raise FormatError('Invalid multi-state collection count')
-            for _ in range(n):
-                m=r.u32()
-                if m>1000:raise FormatError('Invalid multi-state child count')
-                groups.append([MultiChild.parse(r,kind) for _ in range(m)])
-            collections.append(groups)
-        return cls(common,levels,fills,*collections,common.content[r.pos:])
+        # Two measured native child layouts differ by eight trailing image
+        # bytes. Select a complete, unique structural parse, never a software
+        # release whitelist; retain each child's original tail verbatim.
+        candidates=[];failures=[]
+        for image_tail in (12,4):
+            try:
+                common=CommonEnvelope.parse(record);r=Reader(common.content)
+                n=r.u32()
+                if n>1000:raise FormatError('Invalid multi-state count')
+                levels=[r.unpack('<f') for _ in range(n)]
+                n=r.u32()
+                if n>1000:raise FormatError('Invalid multi-state fill count')
+                fills=[[r.u32(),r.u32()] for _ in range(n)]
+                collections=[]
+                for kind in ('image','text'):
+                    n=r.u32();groups=[]
+                    if n>1000:raise FormatError('Invalid multi-state collection count')
+                    for _ in range(n):
+                        m=r.u32()
+                        if m>1000:raise FormatError('Invalid multi-state child count')
+                        groups.append([MultiChild.parse(r,kind,image_tail) for _ in range(m)])
+                    collections.append(groups)
+                if any(len(groups)!=len(levels) for groups in collections):
+                    raise FormatError('Multi-state image/text state counts differ from thresholds')
+                candidate=cls(common,levels,fills,*collections,common.content[r.pos:])
+                if candidate.to_record().payload!=record.payload:raise FormatError('Multi-state byte roundtrip differs')
+                if not candidates or candidate!=candidates[0]:candidates.append(candidate)
+            except (ValueError,UnicodeError) as exc:failures.append(str(exc))
+        if len(candidates)!=1:
+            raise FormatError('Ambiguous multi-state child layout' if candidates else 'Unsupported multi-state child layout: '+'; '.join(failures))
+        return candidates[0]
     def to_record(self):
         out=struct.pack('<I',len(self.levels))+struct.pack('<'+'f'*len(self.levels),*self.levels)
         out+=struct.pack('<I',len(self.fills))+b''.join(struct.pack('<2I',*v) for v in self.fills)

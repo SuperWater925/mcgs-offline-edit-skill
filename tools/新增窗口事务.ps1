@@ -14,6 +14,7 @@ param(
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 if($PSVersionTable.PSVersion.Major -lt 7){throw '必须使用 PowerShell 7。'}
+. (Join-Path $PSScriptRoot '..\scripts\ace-runtime.ps1')
 $技能脚本=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\scripts\stu_project.ps1'))
 $Provider='auto';$script:SelectedProvider=$null
 $script:RawTables=@('Alarm','Data','DDEConnection','DDEConnectionPoint','Stgy','System','Trigger','WndControl','WndDevice','WndUser')

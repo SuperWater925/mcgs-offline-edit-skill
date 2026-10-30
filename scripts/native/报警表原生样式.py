@@ -16,11 +16,13 @@ def rgb(s):
 class AlarmStyle:
     def __init__(self,data):
         self.data=bytes(data);self.fields={};self.fonts=[]
-        if len(data)<490 or struct.unpack_from('<I',data,16)[0]!=0x55b36:
+        if len(data)<400 or data[8:16]!=struct.pack('<d',-1):
             raise ValueError('Unproven AlarmTableView core')
         p=28
         for _ in range(6):
-            n=struct.unpack_from('<I',data,p)[0];p+=4+n
+            n=struct.unpack_from('<I',data,p)[0]
+            if n>len(data)-p-4:raise ValueError('Alarm source string exceeds buffer')
+            p+=4+n
         # Six source/filter strings and six integer source IDs are not styles.
         p+=24+1
         def field(name,size=4):
@@ -32,7 +34,11 @@ class AlarmStyle:
                           ('title_background',4),('title_text',4),('focus_border',4),('ge8',4)]:field(name,size)
         for role in ('title_font','body_font'):
             n=struct.unpack_from('<I',data,p)[0];p+=4
-            if n!=69:raise ValueError('Unproven AlarmTableView font buffer')
+            if n<5 or n>4101 or p+n>len(data):raise ValueError('Invalid AlarmTableView font extent')
+            # Native font map has a flags byte, DWORD language count and
+            # 64-byte language+LOGFONTA records. One/two language maps occur
+            # in both families; preserve source header and opaque newer tail.
+            if set_plugin_font(data[p:p+n])!=data[p:p+n]:raise ValueError('Alarm font map roundtrip differs')
             self.fonts.append((role,p,n));p+=n
         for name in ('gbc','gc0','gc4','gc8','gd0','gd4','ge4','g28','gec','gf4','gf0',
                      'even_background','focus_background','focus_text','grid_color','gcc','gd8','gdc','ge0'):
@@ -47,6 +53,7 @@ class AlarmStyle:
         for _ in range(3):p+=4
         field('category_prior_background');field('g1d0');field('prior_text')
         self.opaque_tail=p
+        if p>len(data):raise ValueError('Alarm fields exceed core buffer')
     def to_bytes(self):return self.data
     def value(self,name):
         p,n=self.fields[name];return int.from_bytes(self.data[p:p+n],'little')

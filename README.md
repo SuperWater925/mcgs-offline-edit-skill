@@ -1,80 +1,93 @@
 # 昆仑通态 MCGS 离线工程编辑技能（Stu / Pro）
 
-给 Claude Code / Codex 用的技能包：离线读取、检查、修改昆仑通态触摸屏工程，分 McgsStu 和 McgsPro 两条路线。
+给 Claude Code / Codex 使用的技能，离线读取、检查和修改 McgsStu `.MCS`、McgsPro `.MCP` 工程。**两种软件共用一个技能、一个 `run.ps1` 主入口及同一套 PowerShell 7 / ACE / Python 环境。**
 
-**本仓库只维护触摸屏离线编辑的方法、脚本、工具和文档，不包含 PLC 程序开发、整机控制逻辑或客户生产工程。** 触摸屏工程中的设备变量、绑定和驱动配置可以在格式已验证的范围内处理。
+**不限定软件大版本或小版本。** 版本号只记录，按实际数据库、归档结构、引用、完整回环与有限修改边界判断能力。保留原版本字段和未知字节，未知结构明确报告。
 
-| 版本 | 工程 | 目前支持 |
+[下载技能包](https://github.com/SuperWater925/mcgs-offline-edit-skill/releases/latest) · [更新记录](CHANGELOG.md) · [验证范围](references/unified-validation.md) · [贡献指南](CONTRIBUTING.md)
+
+## 功能范围
+
+| 功能 | McgsStu | McgsPro |
 | --- | --- | --- |
-| McgsStu 3.5 | `.MCS` | 策略、配方、数据对象、界面控件的复读与修改；控件生成、样式批量修改、离线预览、文字检查、新建窗口 |
-| McgsPro 3.5.1.6963 | `.mcp` | 新建工程和页面；标签、线、矩形、数值输入和变量的生成与修改。其余功能陆续补充 |
+| 共享快照、安全导出、全表指纹、比较 | 共用主入口 | 共用主入口 |
+| 现有行的受限 BLOB 更新 | 源 SHA、字段前指纹、白名单、事务与提交复读 | 同左 |
+| 已有文字、输入框、标准按钮等控件修改 | `controls`，支持组内路径及控件前指纹 | 同左，按真实结构适配 |
+| 已有策略源码、配方单元格 | `strategy-source` / `recipe-cell` | 同左，保留双容器与封套 |
+| 已测历史输入框长度异常 | 显式 `normalize-inputs`，只读不自动修复 | 同左 |
+| 基础 JSON 工程、变量、控件创建与编辑 | 无空白工程工厂 | `create` / `edit` / `demo` |
+| 模板控件工厂、样式、预览、文字检查、受限新增窗口 | 保留既有 `tools/` 工具链 | 未将这组 Stu 工具扩展为通用 Pro 工厂 |
 
-文件读写阶段不启动厂商软件、不连设备。写入默认只预检；实际写入按授权输出新文件，或在独立备份后就地修改，并做全表比对。原厂软件用于后续验证。
+字段、命令和规格见[有界修改](references/bounded-edits.md)、[Pro 适配](references/pro-adapter.md)、[Stu 界面工具](references/ui-tools.md)。不提供任意新控件、通用表增删、设备协议生成或 PLC 程序开发。
 
-## 一起参与
-
-欢迎帮忙补控件、验证版本、复现问题、完善离线预览和使用说明。可以先做一个小任务，无须一次掌握整个工程格式。
-
-- [贡献指南](CONTRIBUTING.md)：环境、提交流程与验收要求。
-- [首批可认领任务](ROADMAP.md)：每项包含输入、工作范围和完成条件。
-- [报告问题或认领任务](https://github.com/SuperWater925/mcgs-offline-edit-skill/issues/new/choose)：请注明 Stu / Pro 和完整软件版本。
-
-基本流程：选一个任务 → 在 Issue 中认领 → Fork 并建立分支 → 修改与验证 → 提交 PR → 维护者审核合并。文档贡献不要求拥有厂商软件；涉及工程格式的改动请附脱敏样例和验证记录，未完成原厂验证时明确标为待验证。
+文件读写阶段不启动厂商软件、不连接设备。`apply` 默认只预检；提交输出新文件，或在独立备份后就地修改。原厂打开、全工程检查、编译和相关交互另行验收。
 
 ## 安装
 
-文件夹名要和技能名一致，即 `mcgs-offline-edit`：
+从 [Releases](https://github.com/SuperWater925/mcgs-offline-edit-skill/releases/latest) 下载 ZIP，按同页 `SHA256SUMS.txt` 核对 SHA256。解压后的顶层目录是 `mcgs-offline-edit`，放入其中一处：
 
-Claude Code，在 PowerShell 中执行：
+- Claude Code：`%USERPROFILE%\.claude\skills\mcgs-offline-edit`
+- Codex：`%USERPROFILE%\.codex\skills\mcgs-offline-edit`
+
+也可以克隆：
 
 ```powershell
+# Claude Code
 git clone https://github.com/SuperWater925/mcgs-offline-edit-skill.git "$env:USERPROFILE\.claude\skills\mcgs-offline-edit"
-```
-
-Codex，在 PowerShell 中执行：
-
-```powershell
+# Codex
 git clone https://github.com/SuperWater925/mcgs-offline-edit-skill.git "$env:USERPROFILE\.codex\skills\mcgs-offline-edit"
 ```
 
-目标文件夹已存在时先比较本地改动，不直接覆盖。装好后在 Claude Code 里描述要做的事即可，Codex 里用 `$mcgs-offline-edit` 调用；也可以在技能目录运行 `pwsh -File run.ps1 doctor` 检查环境。参与开发时建议另行克隆到开发目录，避免影响正在使用的技能。
+目标已存在时，先比较并保全本地修改。保留整个目录结构，不只复制 `SKILL.md`。Codex 中调用 `$mcgs-offline-edit`，Claude Code 中描述任务，或直接执行命令。
 
-## 需要
+## 共用环境
 
-- Windows，Python 3.11 以上。
-- Stu 路线：PowerShell 7，Microsoft ACE OLEDB 16.0 或 12.0（位数与 PowerShell 一致）；界面工具还要 Pillow（`pip install pillow`）。
-- Pro 路线：32 位 Windows PowerShell 5.1、ADOX 和 Jet 4.0，详见 `assets/pro-3.5-cli/references/runtime.md`。
-- 原厂 McgsStu / McgsPro，用于最终的组态检查、编译和运行，不随包提供。
+- Windows、PowerShell 7、Python 3.11+。
+- 与 PowerShell 位数匹配的 Microsoft ACE OLEDB 16.0 或 12.0；优先 16.0，再试 12.0。
+- Pro 新建数据库另需同位数 `ADOX.Catalog`，不再使用独立 32 位 PowerShell 5.1 / Jet OLEDB 环境。
+- 核心命令无 pip 依赖；Stu 预览和文字宽度工具另需 Pillow，SVG 预览可选 Node.js / sharp。
+- 原厂 McgsStu / McgsPro、驱动、控件和字体用于最终验证，由使用者安装。
 
-## 内容
+`assets/pro-3.5-cli/` 仅保留兼容路径及模板来源，不是版本门槛，也不再注册第二个技能。详见[环境说明](references/environment-and-tools.md)。
 
-| 位置 | 作用 |
-| --- | --- |
-| `SKILL.md` | 技能入口：路线选择、实施步骤、能力边界 |
-| `run.ps1`、`scripts/stu_project.ps1` | 共享快照、安全导出、全表指纹与比对、带校验的写入（默认只预检） |
-| `scripts/native/`、`scripts/native_tool.py` | 原生窗口、控件、策略、配方、数据对象的字节级解析与回环；结构检查与策略源码替换 |
-| `tools/` | 控件工厂、样式批量修改、离线预览、文字容纳检查、新建窗口写入，附示例 |
-| `references/` | 数据库与事务、原生界面实测规律、配方、统计导出、设备变量与绑定、已知坑、项目约定模板 |
-| `assets/pro-3.5-cli/` | Pro 路线：McgsPro 3.5 `.mcp` 工程的命令行工具（第三方，MIT 许可，见其中的许可文件） |
-| `CONTRIBUTING.md`、`ROADMAP.md` | 贡献方法与可认领任务 |
-| `.github/` | 问题与 PR 模板、仓库自动检查工作流 |
+## 快速使用
 
-## 提交前检查
+在技能目录执行，替换本次输入与新的输出路径；两种工程使用同样的已有内容处理命令：
+
+```powershell
+pwsh -NoProfile -File .\run.ps1 doctor
+pwsh -NoProfile -File .\run.ps1 inspect -Project 'D:\工程\当前.MCP' -Out 'D:\验收\导出'
+pwsh -NoProfile -File .\run.ps1 audit --export 'D:\验收\导出'
+pwsh -NoProfile -File .\run.ps1 controls --export 'D:\验收\导出' --spec 'D:\修改\控件.json' --out 'D:\验收\控件补丁'
+pwsh -NoProfile -File .\run.ps1 apply -Project 'D:\工程\当前.MCP' -Manifest 'D:\验收\控件补丁\manifest.json' -Out 'D:\验收\修改.MCP'
+```
+
+最后一条只预检。已有写入授权并确认本次清单后，加 `-Commit` 才提交；就地写入另需 `-InPlace -Backup <新备份路径>`。`doctor` 通过仅表示环境可用。
+
+## 本轮验证
+
+2026-10-30 本地验证覆盖 6 份 Pro、38 份厂商样例/模板和新旧 Stu，共 46 个不同工程，完成 7,888 项专项检查及适用记录功能回归。测试工程、业务数据、截图和厂商程序不公开；见[验证摘要](references/unified-validation.md)与[机器统计](references/validation.json)。
+
+- 六份 Pro 修改副本均原厂打开；补齐 H5U_MODBUSTCP、McgsIoT 和另发现的 S7Plus G2 依赖后，全部为零错误，警告按实际结果保留。
+- Pro 控件/策略/非空配方综合副本为 0 错误、0 警告；Stu 综合副本为 0 错误、3 条已有警告。
+- 两种软件均观察到本机模拟页面和指定交互；P06 策略综合副本保存重开后为 0 错误、19 条警告。
+- 未执行实体 HMI/PLC 下载、通信或现场配方运行。历史验收不代表其他新工程自动通过。
+
+原厂可能只先报告第一项缺失驱动，补齐后须重做全工程检查，见[驱动依赖](references/driver-dependencies.md)。
+
+## 仓库与发布检查
 
 ```powershell
 python scripts/check_repository.py --update-manifest
 python scripts/check_repository.py
 pwsh -NoProfile -File scripts/check_powershell.ps1
+python scripts/build_release.py --version v2026.10.30 --out local-artifacts/release
 ```
 
-仓库检查覆盖 Python 语法、JSON、文档本地链接、技能入口及文件指纹；PowerShell 检查只解析语法。它们不打开客户工程、不调用厂商程序，也不证明 MCGS 编译或运行通过。格式与写入器改动还需按[贡献指南](CONTRIBUTING.md#验证要求)完成对应测试。
+静态检查覆盖语法、JSON、链接和指纹，不证明原厂编译。打包器先验证清单，再输出单技能根目录 ZIP 和 SHA256 文件。格式与写入器改动仍须附对应回环、差异和原厂证据。
 
-## 说明
-
-- 这不是昆仑通态官方工具。格式结论来自实际工程的逆向验证；只改已验证的结构，未知内容原样保留。
-- 离线检查通过不等于原厂编译或运行通过。写入后请用对应的 McgsStu 或 McgsPro 打开、组态检查、编译，再做运行验证。
-- 包里不含厂商程序、任何具体工程或账号。
+欢迎通过 [Issues](https://github.com/SuperWater925/mcgs-offline-edit-skill/issues/new/choose) 和 PR 参与；任务见 [ROADMAP](ROADMAP.md)。只提交有权公开的最小脱敏资料。
 
 ## 许可
 
-MIT，见 [LICENSE](LICENSE)。`assets/pro-3.5-cli/` 是第三方代码，按其自带的 MIT 许可文件发布。
+本项目不是昆仑通态官方工具。代码按 [MIT](LICENSE) 发布；Pro 适配器原始第三方许可见 [THIRD_PARTY_LICENSE.txt](assets/pro-3.5-cli/THIRD_PARTY_LICENSE.txt)。包中不含厂商二进制、客户工程或账号。

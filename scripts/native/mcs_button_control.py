@@ -3,7 +3,7 @@
 Sources: native original window 39, vendor demo windows, and static
 CDrawButton serializers (88bf20/88c740), ButtonProperties (890240).
 No vendor executable code is imported or invoked. Changed expressions and
-scripts are source only; native compile/runtime verification remains pending.
+scripts are source only; each edited output requires native compile/runtime verification.
 
 ``click_script`` is installed as the button's native *release script* so the
 native enable/safety condition applies. It is not a generic Click event:
@@ -111,6 +111,12 @@ def _picture(r):
     mode = r.u32()
     if mode == 0x80:
         r.cstring()
+    elif mode == 2:
+        # Native embedded image: width, height, bounded serialized payload.
+        # The payload may be SVG/bitmap/metafile; do not rewrite its internals.
+        width,height,size=r.u32(),r.u32(),r.u32()
+        if size>64*1024*1024:raise FormatError('Embedded picture exceeds bounds')
+        r.take(size)
     elif mode == 3:
         # Legacy zero-size image payload, NOT an image-disable marker.
         # Native loading may normalize this to mode0x80 plus an empty name.
@@ -245,7 +251,10 @@ class ButtonMetadata:
         events = data[start:r.pos]
         words = r.take(8)
         extension = ByteArray.parse(r)
-        tail = r.take(4)
+        remaining = len(r.data) - r.pos
+        if remaining not in (0, 4):
+            raise FormatError('Button metadata tail structure not proven')
+        tail = r.take(remaining)
         if r.pos != len(data):
             raise FormatError("Unexpected button metadata tail")
         e = Reader(extension.value)
@@ -296,8 +305,6 @@ class ButtonArchive:
             raise FormatError("Expected native standard button type 0x5027")
         r = Reader(record.payload)
         version = r.unpack("<f")
-        if abs(version - 317.2) > .01:
-            raise FormatError(f"Button archive version not proven: {version}")
         style = [r.u32(), r.u32()]
         if style[0] & 0x100:
             r.take(8)
@@ -325,10 +332,13 @@ class ButtonArchive:
         safety, hold, confirm, appearance = r.u8(), r.u16(), r.u16(), r.u8()
         if r.pos != len(record.payload):
             raise FormatError(f"Button trailing bytes at {r.pos}/{len(record.payload)}")
-        return cls(copy.deepcopy(record), prefix, rect_offset, rect, name,
+        result=cls(copy.deepcopy(record), prefix, rect_offset, rect, name,
                    metadata_array, metadata, enable_compiled, text, ids, modes,
                    caption_words, caption, align, picture, font, action_words,
                    enabled, invert, script, compiled, safety, hold, confirm, appearance)
+        if result.to_bytes()!=record.payload:
+            raise FormatError('Button actual structure does not round-trip exactly')
+        return result
 
     def to_bytes(self):
         prefix = bytearray(self.prefix)

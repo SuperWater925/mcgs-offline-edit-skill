@@ -189,10 +189,12 @@ def read_node_fields(reader: Reader, name: str) -> dict:
         fields = dict(state_word=reader.u32(), label=reader.string(), compiled=reader.byte_array())
         fields["expression" if name == "CStgyConnIF" else "source"] = reader.string()
         return fields
-    if name in ("CTriggerStart", "CTriggerEnd", "CTriggerUser", "CTriggerLoop"):
+    if name in ("CTriggerStart", "CTriggerEnd", "CTriggerUser", "CTriggerLoop", "CTriggerEvent"):
         fields = dict(trigger_id=reader.u32(), strategy_id=reader.u32(), trigger_type=reader.u32(), note=reader.string(), common_tail=[reader.u32() for _ in range(3)])
         if name == "CTriggerLoop":
             fields["loop_tail"] = [reader.u32() for _ in range(8)]
+        if name == "CTriggerEvent":
+            fields.update(event_cache=reader.byte_array(),event_expression=reader.string(),event_words=[reader.u32(),reader.u32()])
         return fields
     raise FormatError(f"Unsupported MFC runtime class {name!r} at {reader.pos:#x}")
 
@@ -221,7 +223,7 @@ def write_node_fields(writer: Writer, node: Node):
         writer.string(fields["label"])
         writer.byte_array(fields["compiled"])
         writer.string(fields["expression" if name == "CStgyConnIF" else "source"])
-    elif name in ("CTriggerStart", "CTriggerEnd", "CTriggerUser", "CTriggerLoop"):
+    elif name in ("CTriggerStart", "CTriggerEnd", "CTriggerUser", "CTriggerLoop", "CTriggerEvent"):
         for field_name in ("trigger_id", "strategy_id", "trigger_type"):
             writer.u32(fields[field_name])
         writer.string(fields["note"])
@@ -230,6 +232,10 @@ def write_node_fields(writer: Writer, node: Node):
         if name == "CTriggerLoop":
             for word in fields["loop_tail"]:
                 writer.u32(word)
+        if name == "CTriggerEvent":
+            writer.byte_array(fields["event_cache"])
+            writer.string(fields["event_expression"])
+            for word in fields["event_words"]:writer.u32(word)
     else:
         raise FormatError(f"Unsupported MFC runtime class {name!r}")
 
@@ -283,7 +289,7 @@ class RecipeGroup:
     name: str
     fields: list[RecipeField]
     records: list[list[str]]
-    log_tail: tuple[int, int, int]
+    log_tail: tuple[int, ...]
 
     @classmethod
     def parse(cls, data: bytes):
@@ -291,7 +297,9 @@ class RecipeGroup:
         marker, name, field_count = reader.u32(), reader.string(), reader.u32()
         fields = [RecipeField(reader.string(), reader.string(), reader.u32()) for _ in range(field_count)]
         records = [[reader.string() for _ in range(reader.count())] for _ in range(reader.u32())]
-        tail = tuple(reader.u32() for _ in range(3))
+        remaining=len(data)-reader.pos
+        if remaining not in (0,12):raise FormatError('Unknown recipe trailing field layout')
+        tail = tuple(reader.u32() for _ in range(remaining//4))
         reader.finish()
         if any(len(record) != field_count for record in records):
             raise FormatError("Recipe record width mismatch")

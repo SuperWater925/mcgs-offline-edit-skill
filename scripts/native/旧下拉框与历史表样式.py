@@ -140,9 +140,11 @@ def parse_save_data(data):
     result._add('m204',post+100,4,'dimension')
     # Ensure the entire fixed tail and final empty array/data binding are valid.
     r.take(136)
-    if r.u32()!=0:raise FormatError('Unproven SaveData trailing row array')
-    result.metadata['trailing_object_id']=r.u32()
-    result.metadata['trailing_object_name']=r.cstring()[0]
+    result.metadata['trailing_binding_present']=r.pos<len(data)
+    if r.pos<len(data):
+        if r.u32()!=0:raise FormatError('Unproven SaveData trailing row array')
+        result.metadata['trailing_object_id']=r.u32()
+        result.metadata['trailing_object_name']=r.cstring()[0]
     if r.pos!=len(data):raise FormatError('SaveData tail not fully parsed')
     result.metadata['post_font_offset']=post
     if result.to_bytes()!=data:raise FormatError('SaveData roundtrip failed')

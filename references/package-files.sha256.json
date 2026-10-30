@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "self_excluded": true,
-  "file_count": 71,
-  "descriptor_sha256": "6efabb5a1e72b0c0b3266ca6524cf0bb1d1b2150c50c9117753427a705256e04",
+  "file_count": 77,
+  "descriptor_sha256": "b100e76269ae6eaf88545caf1cf58df47184d7112ef5e1775935d39b71423f70",
   "files": [
     {
       "file": ".gitattributes",
@@ -16,8 +16,8 @@
     },
     {
       "file": ".github/ISSUE_TEMPLATE/bug_report.md",
-      "bytes": 985,
-      "sha256": "3c28b033c28766db23eabad4ee32b8faaf869def654610d3de7d1b80915f91cb"
+      "bytes": 986,
+      "sha256": "43cebccaa9c7ffa8d84d1e52abdc2c496b6fc9c8878c9ff6ef0a6d035a4a3af4"
     },
     {
       "file": ".github/ISSUE_TEMPLATE/task_or_feature.md",
@@ -36,8 +36,8 @@
     },
     {
       "file": ".github/workflows/offline-checks.yml",
-      "bytes": 654,
-      "sha256": "4c35a9c98c409fc90b760e008b68f58ba347d844098356397f25925ff3d8ba0b"
+      "bytes": 800,
+      "sha256": "48e435e959a7cb69e4ce17f460624f0578e9c825e3e0b9dd015b3db135f94291"
     },
     {
       "file": ".gitignore",
@@ -46,8 +46,8 @@
     },
     {
       "file": "AGENTS.md",
-      "bytes": 1327,
-      "sha256": "726f4a2419c89fbe9d3ca34aa123dfab00fbaaa985cfa65102631390affd0da5"
+      "bytes": 1441,
+      "sha256": "8806c13bc06bf63b95800fab1ecaeef1ceb944ab11e1e068bc21ace0f0b758f8"
     },
     {
       "file": "agents/openai.yaml",
@@ -55,14 +55,9 @@
       "sha256": "5245f4118f5e185c392c3372e9b72538a09f6523871e6bd685b52081674d2e94"
     },
     {
-      "file": "assets/pro-3.5-cli/agents/openai.yaml",
-      "bytes": 335,
-      "sha256": "34b97b940fd1de5ab1c30550459a9e73a32c8ceb5c6e0bb39cd7965226cefbdb"
-    },
-    {
       "file": "assets/pro-3.5-cli/assets/blank-project.json",
-      "bytes": 22103,
-      "sha256": "edac9a5489eefc952ce9720ae593b083b1e03482dff5556b441a65fd54fd8ffa"
+      "bytes": 28431,
+      "sha256": "a7bbcddecb23b71bd81ced1fb0e71237d2a89230dd9c1b11a563828bfd1da209"
     },
     {
       "file": "assets/pro-3.5-cli/assets/primitives.json",
@@ -76,23 +71,23 @@
     },
     {
       "file": "assets/pro-3.5-cli/references/acceptance.md",
-      "bytes": 2201,
-      "sha256": "083b534583e66d343c3fc40d0def08af4b1f6d21833dd5f1e2761f4f6b471dcf"
+      "bytes": 2473,
+      "sha256": "312c92a3bc66007909c5fe120066197bb173b020615e7ccef8b4e5de2dffd5a7"
     },
     {
       "file": "assets/pro-3.5-cli/references/editing.md",
-      "bytes": 2779,
-      "sha256": "4cd09a36f9b64a0503208d738589bd03570ba87d63f4dc01968d146191d8ac22"
+      "bytes": 2829,
+      "sha256": "62bf543f71781d4705c07b07a28e63915432270d31f30af7713c8b549f3a26b2"
     },
     {
       "file": "assets/pro-3.5-cli/references/runtime.md",
-      "bytes": 3478,
-      "sha256": "3b11f9f7281db087dab407cd33ddc18d55ff6534b7959fc3002c93aa98f6d3eb"
+      "bytes": 840,
+      "sha256": "bf0e39ef18244328b5636b90f0a0efcf0f61b466ef49e6e3b457f62955936efd"
     },
     {
       "file": "assets/pro-3.5-cli/requirements.txt",
-      "bytes": 240,
-      "sha256": "150f1e36840234437268717295eefa1bcacc90b8f48d85d8de25f2f9236de9f2"
+      "bytes": 243,
+      "sha256": "229456722524e788b2b16624d4cae8d86863eece41a5a143ef6bc822ba477010"
     },
     {
       "file": "assets/pro-3.5-cli/run.cmd",
@@ -101,18 +96,18 @@
     },
     {
       "file": "assets/pro-3.5-cli/scripts/database.ps1",
-      "bytes": 6531,
-      "sha256": "5f491c34d5210206dfd0736fdb0f09ca1e9546f1ebc928f611317a99b0108e4b"
+      "bytes": 8312,
+      "sha256": "a915e709f9fc29982074fe1ef6bf346f495e29d8abbde8e6a461d3ad7d47716f"
     },
     {
       "file": "assets/pro-3.5-cli/scripts/mcgs_file.py",
-      "bytes": 15444,
-      "sha256": "7c3190b204bd0b8a446373beccf709620e4d176f8002e5c9ca1b8d4ffa5f2622"
+      "bytes": 16139,
+      "sha256": "403b699c58bcb3de9211b7bfb58e10b54dbe8ee618eacc674075a42b9165c86a"
     },
     {
       "file": "assets/pro-3.5-cli/scripts/native_format.py",
-      "bytes": 9307,
-      "sha256": "23172d903ca677dab1c0d4301d089597ae6f4434d5eebb134571fd3e7e2abb18"
+      "bytes": 11245,
+      "sha256": "4143cfe0895fcbc220d9eae2079bfa396fb9c5311410b7ca24b28844c8544a2e"
     },
     {
       "file": "assets/pro-3.5-cli/setup.ps1",
@@ -120,19 +115,19 @@
       "sha256": "04227848553e5d03f6bb5a4ce82724c44195782cf013c92755bb7f8fe851d15a"
     },
     {
-      "file": "assets/pro-3.5-cli/SKILL.md",
-      "bytes": 2962,
-      "sha256": "d6db94059f6e7233bb4d18a70ec4a3f88a72ab777697079697fac0b4e998784e"
-    },
-    {
       "file": "assets/pro-3.5-cli/THIRD_PARTY_LICENSE.txt",
       "bytes": 1085,
       "sha256": "7bfe03fb9b14e598b46acf609996e5d04411af1ff6a2d62270e080dcb4f812a6"
     },
     {
+      "file": "CHANGELOG.md",
+      "bytes": 1097,
+      "sha256": "8cf62650c0b6e41186cb865dfc2d7a9ec5120ad284c5ec290022982e06bcb7b3"
+    },
+    {
       "file": "CONTRIBUTING.md",
-      "bytes": 5243,
-      "sha256": "555c3fc07a249de70271b7f0069e6960ed8269ffd2c4eb35314bf8f330e678e3"
+      "bytes": 5270,
+      "sha256": "71f0900d7bc0b7a848e78b06a0fd7955095017d5db5a21198075e5ca821e5757"
     },
     {
       "file": "LICENSE",
@@ -141,13 +136,18 @@
     },
     {
       "file": "README.md",
-      "bytes": 5004,
-      "sha256": "36a8e4be885167e2eb12186feb8bae4486cf7028c48f45ee95766c39e71dc602"
+      "bytes": 6411,
+      "sha256": "c02f09a2d7cf69ae9435ec077119d574ec6844e03d9536351d0c4a18d363a9e5"
+    },
+    {
+      "file": "references/bounded-edits.md",
+      "bytes": 3505,
+      "sha256": "ec18e07f621614359b8d5b6f099821dc0846c2bc494cc798eda26de6f899b407"
     },
     {
       "file": "references/database-and-transactions.md",
-      "bytes": 6304,
-      "sha256": "2d6ea939da6ceb02abb351b23410a355949e83fe0665079c547821f7a2cd9d30"
+      "bytes": 6820,
+      "sha256": "50f1b2a5d48c90f7b172c13f4dda7ec97b98aaefe9280c50ee10401bf7b1c8f6"
     },
     {
       "file": "references/device-variables.md",
@@ -155,19 +155,29 @@
       "sha256": "826acc6b21162f8f11457f932f581d1ccf48d5f4199264d225ae48d60866cfe6"
     },
     {
+      "file": "references/driver-dependencies.md",
+      "bytes": 2692,
+      "sha256": "44e2aaec1924639292b08951fc1f3e5f02186476f3ab24998af2a15ee4c7c2b3"
+    },
+    {
       "file": "references/environment-and-tools.md",
-      "bytes": 4906,
-      "sha256": "afb6bb2d6aa93151a832c773894e4dd7f6a1c27d40e619490ee1142a7289e404"
+      "bytes": 5804,
+      "sha256": "2dd6ba9d218fa4e16ae76e796fa55bbaf88e9f93d110d25784e8a56119c92b80"
     },
     {
       "file": "references/native-ui.md",
-      "bytes": 8729,
-      "sha256": "68b3bd4311b366d51648cba76ec77fadac793da1af4d65711c4a3c14c754687f"
+      "bytes": 9257,
+      "sha256": "259aed572b5de44de78dcb1b3525e3a1660bc73f13e61e76de8f051c5aca8610"
     },
     {
       "file": "references/pitfalls-and-validation.md",
-      "bytes": 4384,
-      "sha256": "669c9d4f5b6383a3236b3fab8bf6809a049975c4c76b7cdbe028e7359853deeb"
+      "bytes": 4392,
+      "sha256": "a99d57ea89cac0d61b7a363c2760b4ad2c0438c000f72cf43b56555abffb935b"
+    },
+    {
+      "file": "references/pro-adapter.md",
+      "bytes": 3405,
+      "sha256": "16b26f4e6ec1174d88aa9eec0dbb459cafac1a465173c6c4ed1c7f97b6998109"
     },
     {
       "file": "references/project-profile.md",
@@ -176,13 +186,13 @@
     },
     {
       "file": "references/recipes-and-preview.md",
-      "bytes": 3703,
-      "sha256": "af034bfea128f880845a15b0a197da1684827826a8e4510192b267e300065886"
+      "bytes": 3905,
+      "sha256": "f1a603e3c43ff7d2c92f26b45c4a323242c28c8a9743ba3d0cf041b66231448b"
     },
     {
       "file": "references/source-provenance.json",
-      "bytes": 21929,
-      "sha256": "e3653457a0e335a84f0e5efc517664f920555ea7cd81eb66f830e1b27cb1bd39"
+      "bytes": 25118,
+      "sha256": "87b0b0ef36ce4cf006c7b795c6977ff3970be3add040a9a8ba6e3203359d5bcc"
     },
     {
       "file": "references/statistics-and-export.md",
@@ -195,19 +205,34 @@
       "sha256": "762eb8839ef63d70cea6f4d30f6906b074749af9246f2ee33f640ffdb6a0d901"
     },
     {
+      "file": "references/unified-validation.md",
+      "bytes": 6216,
+      "sha256": "7061186212c3af320993011f6887d47f0799e2e75adfeef2185c82dff3f20e2a"
+    },
+    {
       "file": "references/validation.json",
-      "bytes": 4410,
-      "sha256": "e1bfe5cbb65b3e0deacb71e1641b3fb2e1732cb0f4377ee6848d6ec132de5dfb"
+      "bytes": 18026,
+      "sha256": "87ed8d6fac89ab3aecbda8048d06ac15fdfd556d5b569b0aee1a15e2c2c5a60e"
     },
     {
       "file": "ROADMAP.md",
-      "bytes": 3173,
-      "sha256": "2438d07ef62f764efdf89852d9ac7274cc5d0d847de03a797023c5ed0f01fa9c"
+      "bytes": 3186,
+      "sha256": "b495045ee8c98b3b43881d93dd35a0cb29ce244292ca5349661c9df01ff7e77f"
     },
     {
       "file": "run.ps1",
-      "bytes": 119,
-      "sha256": "ee62361336fe8d836baba0dde5adb7cbabd2819b37b012754f22fd34ef4c2c7f"
+      "bytes": 761,
+      "sha256": "ca11967c70df6e623d12aadd54ab369baaafd2af501758650b841d9e9011e28e"
+    },
+    {
+      "file": "scripts/ace-runtime.ps1",
+      "bytes": 1550,
+      "sha256": "c536a678a4fbd4c4a2d809d85eb67b00529185563f54fe226218c386845800f0"
+    },
+    {
+      "file": "scripts/build_release.py",
+      "bytes": 3832,
+      "sha256": "55f6141eac285212e7f207562b3560f9b18ead48f8b9ce1536ab5a6e0caafdb6"
     },
     {
       "file": "scripts/check_powershell.ps1",
@@ -220,19 +245,24 @@
       "sha256": "c5587f36e8ac32f52291bc5723a82ff8e529d410e77f585286cba9d0d6dd6599"
     },
     {
+      "file": "scripts/native/control_patch.py",
+      "bytes": 6750,
+      "sha256": "a81a4910f38438084aa47ce44af0e7117d6e19774ed311f83d4b653c0b2f1ff7"
+    },
+    {
       "file": "scripts/native/mcgs_native_zip.py",
       "bytes": 1221,
       "sha256": "eee3a4c5cce9deed8a5f00f783fabcf7598c1dad7f398d58dba555af87ce3b73"
     },
     {
       "file": "scripts/native/mcgs_recipe_strategy.py",
-      "bytes": 15850,
-      "sha256": "76006a31160fd287833397915339f2028effdafedaed8292dfd809ed3b2fc2ba"
+      "bytes": 16396,
+      "sha256": "886f9683ef0c9b31b6cb77eb0217d1f5ea2d8d9945797604b6b9d74bfacbef2b"
     },
     {
       "file": "scripts/native/mcs_button_control.py",
-      "bytes": 13894,
-      "sha256": "dd256aa5e965e2e17ecbce33fd9aee327a692cb838b971dad831757e97a1b844"
+      "bytes": 14429,
+      "sha256": "2d408d21ecaf30b43b368d60b1dcd1647f68022e5994275af913a7fe2b1cb888"
     },
     {
       "file": "scripts/native/mcs_file_browser.py",
@@ -241,8 +271,8 @@
     },
     {
       "file": "scripts/native/mcs_input_text.py",
-      "bytes": 8657,
-      "sha256": "760a8d68b1ec5d71e98acab8d75fe42c996cf073f7ca105cff9f5b79c90a4cf9"
+      "bytes": 13963,
+      "sha256": "115529ad56fdc3460efd780e112c8f405e36c0a27035a91b45f24160eadd4a02"
     },
     {
       "file": "scripts/native/mcs_plugin_controls.py",
@@ -261,8 +291,8 @@
     },
     {
       "file": "scripts/native/原生界面样式.py",
-      "bytes": 14056,
-      "sha256": "d529c7d1ee7dec4d01ec16042adab9a5b79b2a8adaeee3846c1708f47c536f77"
+      "bytes": 16975,
+      "sha256": "4aa61299fef9af12355fce3e64699ec06c2cfd294f70d3c3c7a0f071178bda8b"
     },
     {
       "file": "scripts/native/原生趋势样式.py",
@@ -271,13 +301,13 @@
     },
     {
       "file": "scripts/native/可见动画归档.py",
-      "bytes": 7334,
-      "sha256": "fbc3b09cd99d8110be7a85f8966fd13d897a7158b173cf55a1f4019b479108e0"
+      "bytes": 7136,
+      "sha256": "9da472a08330f9318a38fc1f24572b592b5280d64db747dbea345b90ee674f54"
     },
     {
       "file": "scripts/native/对象归档.py",
-      "bytes": 6214,
-      "sha256": "c327c64f06b841fbbec27c53b2f10221514775e3216855e75f53492298d77e87"
+      "bytes": 6657,
+      "sha256": "f610b3ed799d281bb11ed657be281236457439b5f6d16bef4dc5eb092e7ffa92"
     },
     {
       "file": "scripts/native/当前存盘浏览样式.py",
@@ -286,13 +316,13 @@
     },
     {
       "file": "scripts/native/报警表原生样式.py",
-      "bytes": 5410,
-      "sha256": "70da34ab996aed2cebe12edfb842797fcf49bdd9192190aea1d9f26ab09e434d"
+      "bytes": 5933,
+      "sha256": "533bfa0573343d31e68a58fc8f4cce0ed0d48fc8f2fef9a44545371e83c2b32f"
     },
     {
       "file": "scripts/native/旧下拉框与历史表样式.py",
-      "bytes": 7845,
-      "sha256": "bd6bbea4f818abec3840d5d00151d9d7cf00cb64f61149ac94b8c94bcf81f047"
+      "bytes": 7945,
+      "sha256": "3493a144f9b66afc33b0559cc99f0bba03836d8d6b0f9777ec33a3a330db17c5"
     },
     {
       "file": "scripts/native/窗口事件归档.py",
@@ -301,18 +331,18 @@
     },
     {
       "file": "scripts/native_tool.py",
-      "bytes": 9416,
-      "sha256": "2b598cdce6ce6daa398f633a4727ee3bf36b879ed2c6c08b8c205500910a1c46"
+      "bytes": 26891,
+      "sha256": "da5d01ce5555301275248f251d677539a4dc1610358686e4f2b34f3e890bf911"
     },
     {
       "file": "scripts/stu_project.ps1",
-      "bytes": 19491,
-      "sha256": "456e07007d214a7d3662bd2a3abfb1b4f5b680f32a2b6f596db348fa2cc1588f"
+      "bytes": 19524,
+      "sha256": "353781188892d0da8b66f34c6ac6d3e70b0d2dcd9084c274aa651356c9f60844"
     },
     {
       "file": "SKILL.md",
-      "bytes": 5717,
-      "sha256": "70516f912c600ce30e5b2d37af1ae9336b68997bacd297293008ea3d8a002339"
+      "bytes": 5342,
+      "sha256": "7cc57e60e1484731129d76808ab7d8c10333a2bcc5a4823de961ce00b2cdc6a7"
     },
     {
       "file": "tools/mcgs_ui.py",
@@ -326,8 +356,8 @@
     },
     {
       "file": "tools/新增窗口事务.ps1",
-      "bytes": 10665,
-      "sha256": "522d335439a3e213b6646335ef36316c1e4bc7b7d59d77b46a22f9609d576b07"
+      "bytes": 10722,
+      "sha256": "d183351147e170c389ac1fea723ec76de095ae88a6df26be1fc152b044bd3ef2"
     },
     {
       "file": "tools/样式规格应用.py",

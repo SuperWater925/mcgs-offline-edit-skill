@@ -82,6 +82,7 @@ class 对象:
     extra_after_init: 字串
     tail: list
     end: int
+    alarm_extension: bytes | None = None
 
     @property
     def kind(self):
@@ -93,7 +94,8 @@ class 对象:
 
     def encode(self):
         pack = lambda xs: struct.pack("<" + "I"*len(xs), *xs)
-        return b"".join([self.name.encode(), self.comment.encode(), self.unit.encode(), pack(self.prefix), self.extra_before_init.encode(), pack(self.middle), self.initial.encode(), pack(self.suffix[:7]), b"".join(x.encode() for x in self.members), pack(self.suffix[7:]), self.extra_after_init.encode(), pack(self.tail)])
+        extension=pack(self.suffix[7:]) if self.alarm_extension is None else self.alarm_extension
+        return b"".join([self.name.encode(), self.comment.encode(), self.unit.encode(), pack(self.prefix), self.extra_before_init.encode(), pack(self.middle), self.initial.encode(), pack(self.suffix[:7]), b"".join(x.encode() for x in self.members), extension, self.extra_after_init.encode(), pack(self.tail)])
 
 
 def parse_scalar(reader):
@@ -109,23 +111,30 @@ def parse_scalar(reader):
     if suffix[6] > 10000:
         raise 结构未支持("组成员数量超出研究边界")
     members = [reader.string() for _ in range(suffix[6])]
-    suffix += [reader.u32() for _ in range(2)]
-    if suffix[7:] != [0, 0]:
-        raise 结构未支持(f"未实现的报警/附加扩展：offset={start}, object_id={suffix[3]}")
+    extension_start=reader.pos
+    enabled=reader.u32()
+    if enabled not in (0,1):raise 结构未支持('对象报警开关不是0/1')
+    if enabled:
+        alarms=reader.u32()
+        if alarms>len(reader.data)//56:raise 结构未支持('对象报警数量越界')
+        for _ in range(alarms):reader.read(52);reader.string();reader.read(4)
+    groups=reader.u32()
+    if groups>len(reader.data)//4:raise 结构未支持('对象反向组索引数量越界')
+    reader.read(groups*4)
+    suffix += [enabled,groups]
+    extension=reader.data[extension_start:reader.pos]
     if prefix[0] != 0xffffffff and members:
         raise 结构未支持(f"标量出现组成员：offset={start}")
     after = reader.string()
     tail = [reader.u32() for _ in range(3)]
     if tail != [0, 2, 0]:
         raise 结构未支持(f"未验证记录尾：offset={start}")
-    return 对象(start, name, comment, unit, prefix, before, middle, initial, suffix, members, after, tail, reader.pos)
+    return 对象(start, name, comment, unit, prefix, before, middle, initial, suffix, members, after, tail, reader.pos,extension if enabled or groups else None)
 
 
 def parse(data):
     reader = 游标(data)
     version = reader.read(4)
-    if version != struct.pack("<f",16.0):
-        raise 结构未支持("仅验证16.0格式；拒绝未知版本。")
     length, count = reader.u32(), reader.u32()
     if length != len(data)-8:
         raise 结构未支持("归档长度字段与实际块长度不符。")
